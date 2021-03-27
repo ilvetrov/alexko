@@ -1,0 +1,9 @@
+{
+  "full_name": "Русский",
+  "short_name": "ru",
+  "cod_name": "ru",
+  "aliases": ["uk", "ua", "be"],
+  "dictionary" : {
+    "main_first_screen_title_first_part": "Только ваша идея"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    "source/**",
+    "public/**",
+    "gulpfile.js"
+  ]
+}
