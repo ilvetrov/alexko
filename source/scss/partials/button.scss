@@ -1,0 +1,14 @@
+.accent-button {
+  background: none;
+  border: 1px solid $accent-color;
+  border-radius: 2px;
+  font-size: .88rem;
+  font-weight: 900;
+  letter-spacing: .015em;
+  padding: 1em 2.63em;
+  transition: color .2s;
+
+  &:hover, &:focus {
+    color: $accent-color;
+  }
+}

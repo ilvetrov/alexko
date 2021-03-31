@@ -4,6 +4,13 @@
   "cod_name": "ru",
   "aliases": ["uk", "ua", "be"],
   "dictionary" : {
-    "main_first_screen_title_first_part": "Только ваша идея"
+    "site_focus": "Разработка сайтов, приложений",
+    "site_tagline_first_line": "Только ваша идея",
+    "site_tagline_second_line": "Готовый проект",
+    "cta_button": "Связаться с нами",
+    "portfolio": "Портфолио",
+    "how_we_are_working": "Как мы работаем",
+    "change_language": "Сменить язык",
+    "login_to_cabinet": "Войти в Кабинет"
   }
 }

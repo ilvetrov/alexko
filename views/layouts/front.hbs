@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru-RU">
+<html lang="{{ currentLang.cod_name }}">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{title}}</title>
     <link rel='stylesheet' href='/css/front.css'>
+    <link rel="preload" href="/fonts/Raleway-Regular.ttf" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/Raleway-Bold.ttf" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/Raleway-Black.ttf" as="font" crossorigin="anonymous">
+    <style class="js-async-backgrounds"></style>
   </head>
   <body>
     {{> header}}

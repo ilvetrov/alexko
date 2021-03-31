@@ -1,7 +1,7 @@
 const fs = require('fs');
-const languages = getAllLanguages();
+const languages = getAllLanguagesFromFiles();
 
-function getAllLanguages() {
+function getAllLanguagesFromFiles() {
   const languageFiles = fs.readdirSync('languages');
   
   let tempLanguages = {};
@@ -12,6 +12,25 @@ function getAllLanguages() {
   }
   
   return tempLanguages;
+}
+
+function getLanguagesList(req = undefined) {
+  if (!req) return languages;
+
+  const userLanguage = getUserLanguage(req);
+
+  let languageList = [];
+  for (const key in languages) {
+    if (Object.hasOwnProperty.call(languages, key)) {
+      const language = languages[key];
+      if (language.cod_name !== userLanguage.cod_name) {
+        languageList.push(language);
+      }
+    }
+  }
+  languageList.unshift(userLanguage);
+
+  return languageList;
 }
 
 function getLanguage(name) {
@@ -29,28 +48,27 @@ function getLanguage(name) {
 
 function setUserLanguage(req, res) {
   if (!req.cookies || !req.cookies.lang) {
-    const userLanguage = getUserLanguageName(req);
+    const userLanguage = getUserLanguage(req);
     req.userLang = userLanguage;
-    res.cookie('lang', userLanguage, {maxAge: 1000 * 60 * 60 * 24 * 365});
+    res.cookie('lang', userLanguage.cod_name, {maxAge: 1000 * 60 * 60 * 24 * 365});
     return userLanguage;
   }
 }
 
-function getUserLanguageName(req) {
+function getUserLanguage(req) {
   if (req.cookies && req.cookies.lang) {
-    return req.cookies.lang;
+    return getLanguage(req.cookies.lang);
   } else if (req.userLang) {
     return req.userLang;
   } else {
     const userLocale = require('get-user-locale');
-    const userLanguage = userLocale.getUserLocale().split('-')[0];
+    const userLanguage = getLanguage(userLocale.getUserLocale().split('-')[0]);
     return userLanguage;
   }
 }
 
 function langConstructor(req) {
-  const userLanguageName = getUserLanguageName(req);
-  const language = getLanguage(userLanguageName);
+  const language = getUserLanguage(req);
 
   return (text) => {
     return language.dictionary[text] || 'undefined';
@@ -59,6 +77,7 @@ function langConstructor(req) {
 
 module.exports = {
   setUserLanguage,
-  getUserLanguageName,
-  langConstructor
+  langConstructor,
+  getLanguagesList,
+  getUserLanguage
 }

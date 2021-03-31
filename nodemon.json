@@ -2,6 +2,8 @@
   "ignore": [
     "source/**",
     "public/**",
-    "gulpfile.js"
-  ]
+    "gulpfile.js",
+    ".git"
+  ],
+  "ext": "js,json,hbs,html"
 }

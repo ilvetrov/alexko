@@ -1,3 +1,18 @@
 @import './partials/reset.scss';
+@import './partials/_variables';
+@import './partials/fonts.scss';
+@import './partials/global.scss';
 @import './partials/container-size.scss';
+@import './partials/screen.scss';
+
+@import './partials/titles.scss';
+@import './partials/button.scss';
+@import './partials/logo.scss';
+@import './partials/hover-link.scss';
+@import './partials/cabinet-link.scss';
+@import './partials/click-extender.scss';
+
 @import './partials/header.scss';
+@import './partials/lang-switcher.scss';
+@import './partials/hello-section.scss';
+@import './partials/page-menu.scss';

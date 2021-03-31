@@ -1,0 +1,32 @@
+$hoverColor: $accent-color;
+
+.hover-link {
+  transition: color .2s;
+  cursor: pointer;
+
+  &__rotate-right {
+    transform: rotate(0deg);
+    transition: transform .2s;
+  }
+  &__stroke {
+    transition: stroke .2s;
+  }
+  &__fill {
+    transition: fill .2s;
+  }
+
+  &:hover, &:focus {
+    color: $hoverColor;
+  }
+  &:hover &, &:focus & {
+    &__rotate-right {
+      transform: rotate(-90deg);
+    }
+    &__stroke {
+      stroke: $hoverColor;
+    }
+    &__fill {
+      fill: $hoverColor;
+    }
+  }
+}

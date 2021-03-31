@@ -3,7 +3,6 @@ const browserify = require('browserify');
 const sass = require('gulp-sass');
 const cleanCSS = require('gulp-clean-css');
 const uglify = require('gulp-uglify-es').default;
-const concat = require('gulp-concat');
 const autoprefixer = require('gulp-autoprefixer');
 const plumber = require('gulp-plumber');
 const babel = require('gulp-babel');
@@ -11,8 +10,6 @@ const fs = require('fs');
 const chmod = require('gulp-chmod');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
-const rename = require('gulp-rename');
-const clean = require('gulp-clean');
 const imagemin = require('gulp-imagemin');
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 const pngquant = require('imagemin-pngquant');
@@ -53,25 +50,21 @@ gulp.task('js-dev', function() {
 	}
 });
 
-gulp.task('js-prod', function() {
-	const entries = glob.sync('source/js/*.js');
-	for (let i = 0; i < entries.length; i++) {
-		const entryPath = entries[i];
-		
-		return browserify({
-			entries: entryPath
-		})
-		.bundle()
-		.pipe(source(getFileName(entryPath)))
-		.pipe(buffer())
-		.pipe(plumber())
-		.pipe(babel({
-			presets: ['@babel/env']
-		}))
-		.pipe(uglify())
-		.pipe(chmod(0664))
-		.pipe(gulp.dest('public/js/'));
-	}
+gulp.task('minify-js', function() {
+	return gulp.src('public/js/*.js')
+	.pipe(plumber())
+	.pipe(babel({
+		presets: ['@babel/env']
+	}))
+	.pipe(uglify())
+	.pipe(chmod(0664))
+	.pipe(gulp.dest('public/js/'));
+});
+
+gulp.task('js-prod', function(done) {
+	return gulp.series('js-dev', 'minify-js')(() => {
+		done();
+	});
 });
 
 gulp.task('sync-images', function(done) {

@@ -1,0 +1,15 @@
+.logo {
+  display: inline-block;
+  height: .81rem;
+  outline: none !important;
+  text-decoration: none;
+  font-weight: 900;
+  position: relative;
+  bottom: 1px;
+  
+  &__img {
+    height: .81rem;
+    width: auto;
+    user-select: none;
+  }
+}

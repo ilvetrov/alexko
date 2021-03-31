@@ -1,0 +1,11 @@
+.lang-switcher {
+  display: inline-block;
+  font-size: .88rem;
+  line-height: 1.23;
+  letter-spacing: .02em;
+  user-select: none;
+
+  &__arrow {
+    vertical-align: middle;
+  }
+}
