@@ -22,13 +22,15 @@
       </div>
       <!-- /.hello-section__content -->
       <div class="page-menu bottom-screen-offset">
-        <a href="/#portfolio" class="page-menu__item">
-          {{ lang 'portfolio' }}
+        {{#if advantages.length}}
+        <a href="/#why-us" class="page-menu__item">
+          {{ lang 'why_us' }}
         </a>
         <!-- /.page-menu__item -->
-        <a href="/#how-we-are-working" class="page-menu__item">
-          {{ lang 'how_we_are_working' }}
-        </div>
+        {{/if}}
+        <a href="/#portfolio" class="page-menu__item" data-scroll-offset="60">
+          {{ lang 'portfolio' }}
+        </a>
         <!-- /.page-menu__item -->
       </div>
       <!-- /.page-menu -->
@@ -39,7 +41,7 @@
 </section>
 <!-- /.hello-section -->
 {{#if advantages.length}}
-  <section class="advantages-section js-advantages-section">
+  <section id="why-us" class="advantages-section js-advantages-section">
     <div class="containers-size">
       <div class="advantages-section__wrap">
         {{#each advantages as |advantage|}}
@@ -77,7 +79,7 @@
   </section>
   <!-- /.advantages-section -->
 {{/if}}
-<section class="portfolio-section js-portfolio-section">
+<section id="portfolio" class="portfolio-section js-portfolio-section">
   <div>Тут будет портфолио</div>
 </section>
 <!-- /.portfolio-section -->

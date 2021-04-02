@@ -1,5 +1,5 @@
-const { checkThatElementIsNear } = require("./checkScroll");
-const removeWhitespaces = require("./removeWhitespaces");
+const { checkThatElementIsNear } = require("./check-scroll");
+const removeWhitespaces = require("./remove-whitespaces");
 
 const imagesElements = document.querySelectorAll('[data-async-images]');
 const srcComplexStorage = [];

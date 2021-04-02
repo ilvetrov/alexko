@@ -3,7 +3,7 @@ const { ScrollTrigger } = require('./../libs/gsap-scroll-trigger.min');
 
 const timeline = gsap.timeline({
   repeat: -1,
-  delay: 3,
+  delay: 2,
   repeatDelay: 5
 });
 
