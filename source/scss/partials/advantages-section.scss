@@ -1,0 +1,20 @@
+@import './advantage.scss';
+
+.advantages-section {
+  text-align: center;
+
+  &__wrap {
+    padding-top: 100px;
+  }
+  &__item-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 50vh;
+    
+    &:last-child {
+      margin-bottom: 25vh;
+    }
+  }
+}

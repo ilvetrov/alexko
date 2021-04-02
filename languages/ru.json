@@ -2,7 +2,7 @@
   "full_name": "Русский",
   "short_name": "ru",
   "cod_name": "ru",
-  "aliases": ["uk", "ua", "be"],
+  "aliases": ["uk", "ua", "be", "kz", "kk"],
   "dictionary" : {
     "site_focus": "Разработка сайтов, приложений",
     "site_tagline_first_line": "Только ваша идея",
@@ -11,6 +11,37 @@
     "portfolio": "Портфолио",
     "how_we_are_working": "Как мы работаем",
     "change_language": "Сменить язык",
-    "login_to_cabinet": "Войти в Кабинет"
+    "login_to_cabinet": "Войти в Кабинет",
+    "advantages": [
+      {
+        "title": [
+          "Техническое задание",
+          "напишем сами"
+        ],
+        "subtitle": [
+          "Вы платите — остальное делаем мы"
+        ],
+        "accent": true
+      },
+      {
+        "title": [
+          "Оповещаем",
+          "о ходе разработки"
+        ],
+        "subtitle": [
+          "Можете контролировать, всё ли по плану"
+        ]
+      },
+      {
+        "title": [
+          "Бесплатные правки"
+        ],
+        "subtitle": [
+          "Первый раунд правок в рамках",
+          "Технического задания"
+        ],
+        "accent": true
+      }
+    ]
   }
 }

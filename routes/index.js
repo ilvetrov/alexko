@@ -1,10 +1,13 @@
 var express = require('express');
+const { langConstructor } = require('../helpers/user-language');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {  
+router.get('/', function(req, res, next) {
+  const lang = langConstructor(req);
+   
   res.renderMin('pages/index', {
-    title: 'AlexKo'
+    advantages: lang('advantages')
   });
 });
 

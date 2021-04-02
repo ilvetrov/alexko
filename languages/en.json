@@ -11,6 +11,38 @@
     "portfolio": "Portfolio",
     "how_we_are_working": "How we are working",
     "change_language": "Change language",
-    "login_to_cabinet": "Login to Cabinet"
+    "login_to_cabinet": "Login to Cabinet",
+    "advantages": [
+      {
+        "title": [
+          "We write technical task",
+          "ourselves"
+        ],
+        "subtitle": [
+          "You pay — we will do the rest"
+        ],
+        "accent": true
+      },
+      {
+        "title": [
+          "We inform",
+          "about progress"
+        ],
+        "subtitle": [
+          "You can control",
+          "if all goes according to plan"
+        ]
+      },
+      {
+        "title": [
+          "Free edits"
+        ],
+        "subtitle": [
+          "The first round of edits",
+          "inside the Technical task"
+        ],
+        "accent": true
+      }
+    ]
   }
 }

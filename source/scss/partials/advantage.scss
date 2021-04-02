@@ -1,0 +1,14 @@
+.advantage {
+  &__title {
+    font-size: 1.88rem;
+    letter-spacing: 1.135;
+    font-weight: 900;
+    margin-bottom: .87em;
+  }
+
+  &_accent & {
+    &__title {
+      color: $accent-color;
+    }
+  }
+}
