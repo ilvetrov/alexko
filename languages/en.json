@@ -12,6 +12,10 @@
     "portfolio": "Portfolio",
     "change_language": "Change language",
     "login_to_cabinet": "Login to Cabinet",
+    "admin_panel": "Admin-panel",
+    "name": "Name",
+    "password": "Password",
+    "login_to": "Login",
     "advantages": [
       {
         "title": [

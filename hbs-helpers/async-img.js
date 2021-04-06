@@ -1,5 +1,5 @@
 const hbs = require('hbs');
-const { asyncImg } = require('../helpers/async-img-loader');
+const { asyncImg } = require('../libs/async-img-loader');
 
 hbs.registerHelper('asyncImg', (images, scroll = true, isBackground = false) => {
   if (typeof scroll == 'object') {

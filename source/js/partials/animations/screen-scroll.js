@@ -29,7 +29,7 @@ for (let i = 0; i < advantageItemWraps.length; i++) {
     scrollTrigger: {
       trigger: advantageItemWrap,
       start: 'center center',
-      end: 'bottom 20%',
+      end: 'bottom 10%',
       pin: true,
       pinType: 'transform',
       scrub: true

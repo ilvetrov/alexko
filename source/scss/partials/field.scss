@@ -1,0 +1,47 @@
+.field {
+  position: relative;
+
+  &__label, &__input {
+    font-size: 1rem;
+    line-height: 1.135em;
+  }
+  &__label {
+    position: absolute;
+    left: -1.5em;
+    transform: translateX(-100%);
+    color: #000;
+    cursor: pointer;
+    transition: color .15s;
+    user-select: none;
+  }
+  &__input {
+    width: 240px;
+    padding: 0;
+    padding-bottom: .9em;
+    padding-top: .5em;
+    margin-top: -.5em;
+    border: none;
+    border-bottom: 2px rgba(0, 0, 0, .25) solid;
+    font-family: 'Lato', sans-serif;
+    transition: color .15s, border-color .15s;
+  }
+
+  &.focus & {
+    &__label {
+      color: $accent-color;
+    }
+    &__input {
+      color: $accent-color;
+      border-bottom-color: $accent-color;
+    }
+  }
+
+  &_password & {
+    &__input {
+      font-family: 'Raleway', sans-serif;
+      padding-bottom: .69em;
+      padding-top: .5em;
+      margin-top: -.5em;
+    }
+  }
+}

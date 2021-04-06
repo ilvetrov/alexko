@@ -1,0 +1,23 @@
+.look-at-me {
+  animation: lookAtMeAnimation .5s 1;
+}
+@keyframes lookAtMeAnimation {
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(-1rem);
+  }
+  40% {
+    transform: translateX(.73rem);
+  }
+  60% {
+    transform: translateX(-.5rem);
+  }
+  80% {
+    transform: translateX(.3rem);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}

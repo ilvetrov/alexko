@@ -1,0 +1,43 @@
+<main class="login-page js-login-page js-admin-login-page">
+  <div class="container-size">
+    <div class="login-page__wrap">
+      <div class="login-page__content">
+
+        <form action="/login-admin" method="POST" class="login-form login-page__form js-login-form">
+          <div class="login-form__logo">
+            <a href="/" class="logo click-extender">
+              <img src="/img/alexko-line-logo.svg" alt="alexko" class="logo__img">
+            </a>
+            <!-- /.logo -->
+          </div>
+          <!-- /.login-form__logo -->
+          <h1 class="login-form__title">{{ lang 'admin_panel' }}</h1>
+          <!-- /.login-form__title -->
+          <div class="field login-form__field js-field" data-field-require>
+            <label class="field__label" for="login-name">{{ lang 'name' }}</label>
+            <input type="text" name="name" placeholder="name" class="field__input" id="login-name">
+          </div>
+          <!-- /.field -->
+          <div class="field field_password login-form__field js-field" data-field-require>
+            <label class="field__label" for="login-password">{{ lang 'password' }}</label>
+            <input type="password" name="password" placeholder="•••" class="field__input" id="login-password">
+          </div>
+          <!-- /.field -->
+          <div class="login-form__button">
+            <button type="submit" class="accent-button accent-button_wide">
+              {{ lang 'login_to' }}
+            </button>
+            <!-- /.accent-button -->
+          </div>
+          <!-- /.login-form__button -->
+        </form>
+        <!-- /.login-form -->
+
+      </div>
+      <!-- /.login-page__content -->
+    </div>
+    <!-- /.login-page__wrap -->
+  </div>
+  <!-- /.container-size -->
+</main>
+<!-- /.login-page -->

@@ -11,4 +11,8 @@
   &:hover, &:focus {
     color: $accent-color;
   }
+
+  &_wide {
+    min-width: 14.35em;
+  }
 }

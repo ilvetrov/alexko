@@ -1,7 +1,10 @@
-.page-title {
-  font-size: 2.44rem;
+.title-style {
   line-height: 1.135;
   font-weight: 900;
+}
+.page-title {
+  @extend .title-style;
+  font-size: 2.44rem;
   text-transform: uppercase;
 
   &__line {

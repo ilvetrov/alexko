@@ -1,0 +1,45 @@
+.login-page {
+  &__wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.login-form {
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__title {
+    @extend .title-style;
+    font-size: 1.75rem;
+    margin-top: 1.29em;
+    margin-bottom: 1.71em;
+    text-align: center;
+  }
+  &__field {
+    margin-bottom: 1.63rem;
+  }
+  &__button {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-height: 500px) {
+  .login-page {
+    &__wrap {
+      justify-content: flex-start;
+    }
+    &__form {
+      margin-top: 90px;
+      margin-bottom: 20px;
+    }
+  }
+}
