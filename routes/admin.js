@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
   const lang = langConstructor(req);
    
   res.renderMin('pages/index', {
+    title: lang('admin_panel'),
     advantages: lang('advantages')
   });
 });

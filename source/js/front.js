@@ -15,7 +15,7 @@ if (checkPage('home')) {
 if (checkPage('login')) {
   const { initRequestForm } = require('./partials/form');
   const loginForm = document.getElementsByClassName('js-login-form')[0];
-  const redirectLink = (new URLSearchParams(window.location.search)).get('to') || '/admin/panel';
+  const redirectLink = (new URLSearchParams(window.location.search)).get('to') || '/admin';
   initRequestForm(loginForm, (result) => {
     if (result.success) {
       window.location.href = redirectLink;

@@ -1,48 +1,176 @@
 const db = require("../db");
-const { createSession } = require("./sessions");
+const { getRandomHash } = require("./random");
 
 class LoginSystem {
-  constructor (loginType, query) {
-    this.loginType = loginType;
-    this.query = query;
+  constructor(databaseName, codName, cookieName) {
+    this.databaseName = databaseName;
+    this.codName = codName;
+    this.cookieName = cookieName;
   }
-  
+
   login(req, res, name, password) {
     if (name && name.trim() !== '' && password && password.trim() !== '') {
       return new Promise((resolve, reject) => {
 
-        this.getUser(name, password)
-        .then((result) => {
-          if (result.length > 0) {
+        this.getUserViaCredentials(name, password)
+        .then((user) => {
+          if (user) {
             
-            createSession(req, res, result[0].id, this.loginType);
-            resolve(true);
+            this.createSession(res, user.id)
+            .then((result) => {
+              const session = result[0];
+              req[`logged_${this.codName}`] = user;
+              req[`session_of_logged_${this.codName}`] = session;
+              resolve();
+            })
+            .catch(() => {
+              if (err) throw err;
+              reject();
+            });
 
           } else {
-            resolve(false);
+            reject();
           }
         });
         
       });
     } else {
       return new Promise((resolve, reject) => {
-        resolve(false);
+        reject();
       });
     }
   }
 
-  getUser(name, password) {
-    return this.query(name, password);
+  logout(req, res) {
+    return new Promise((resolve, reject) => {
+      this.getCurrentSession(req)
+      .finally(() => {
+        delete req[`logged_${this.codName}`];
+        this.removeSessionCookie(res);
+      })
+      .then((session) => {
+        this.removeSession(session.hash)
+        .then(() => {
+          resolve();
+        });
+      })
+      .catch(() => {
+        reject();
+      });
+    });
   }
+
+  getUserViaCredentials(name, password) {
+    return db.oneOrNone(`SELECT * FROM ${this.databaseName} WHERE name=$(name) AND password=$(password) LIMIT 1`, {
+      name: name,
+      password: password
+    });
+  }
+
+  #getUserViaId(id) {
+    return db.oneOrNone(`SELECT * FROM ${this.databaseName} WHERE id=$(id) LIMIT 1`, {
+      id: id
+    });
+  }
+
+  createSession(res, userId) {
+    const hash = getRandomHash();
+
+    this.createSessionCookie(res, hash);
+    return db.query('INSERT INTO sessions ("user_id", "hash", "type") VALUES ($(user_id), $(hash), $(type)); SELECT * FROM sessions WHERE hash=$(hash)', {
+      user_id: userId,
+      hash: hash,
+      type: this.codName
+    });
+  }
+
+  createSessionCookie(res, hash) {
+    res.cookie(this.cookieName, hash, {maxAge: 1000 * 60 * 60 * 24 * 365});
+  }
+
+  removeSessionCookie(res) {
+    res.cookie(this.cookieName, '', {maxAge: -1});
+  }
+
+  getLoggedUser(req) {
+    return new Promise((resolve, reject) => {
+      if (req[`logged_${this.codName}`]) {
+        resolve(req[`logged_${this.codName}`]);
+      } else if (req.cookies && req.cookies[this.cookieName]) {
+        const hash = req.cookies[this.cookieName];
+  
+        this.getSession(hash)
+        .then((session) => {
+          if (!session) {
+            reject();
+          } else {
+  
+            this.#getUserViaId(session.user_id)
+            .then((user) => {
+              if (!user) {
+                reject();
+              } else {
+                delete user.password;
+                req[`logged_${this.codName}`] = user;
+                req[`session_of_logged_${this.codName}`] = session;
+                resolve(user);
+              }
+            });
+  
+          }
+        });
+      } else {
+        reject();
+      }
+    });
+  }
+
+  getCurrentSession(req) {
+    return new Promise((resolve, reject) => {
+      if (req[`session_of_logged_${this.codName}`]) {
+        resolve(req[`session_of_logged_${this.codName}`]);
+      } else if (req.cookies && req.cookies[this.cookieName]) {
+        this.getSession(req.cookies[this.cookieName])
+        .then((session) => {
+          req[`session_of_logged_${this.codName}`] = session;
+          resolve(session);
+        });
+      } else {
+        reject();
+      }
+    });
+  }
+
+  getSession(hash) {
+    return db.oneOrNone('SELECT * FROM sessions WHERE hash=$1 LIMIT 1', [hash]);
+  }
+
+  removeSession(hash) {
+    return db.query('DELETE FROM sessions WHERE hash=$1', [hash]);
+  }
+
 }
 
-const admin = new LoginSystem('ahsh', (name, password) => {
-  return db.query('SELECT * FROM admins WHERE name=$(name) AND password=$(password)', {
-    name: name,
-    password: password
+function removeOldSessions() {
+  return db.query('DELETE FROM sessions WHERE "created_at"<$1', [getTimeForPrevMonthInISO()]);
+}
+
+function getTimeForPrevMonthInISO() {
+  return (new Date(
+    (new Date()).getTime() - 1000 * 60 * 60 * 24 * 365
+  )).toISOString();
+}
+
+removeOldSessions();
+setInterval(() => {
+
+  removeOldSessions()
+  .then((result) => {
+    console.log('Cleaning of old sessions completed.');
   });
-});
+
+}, 1000 * 60 * 60 * 24);
 
 module.exports = {
-  admin
+  admin: new LoginSystem('admins', 'admin', 'ahsh')
 }
