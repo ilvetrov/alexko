@@ -9,6 +9,9 @@
 }
 
 .login-form {
+  opacity: 1;
+  transition: opacity .2s;
+
   &__logo {
     display: flex;
     justify-content: center;
@@ -29,6 +32,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  &.process {
+    opacity: .5;
+    pointer-events: none;
   }
 }
 

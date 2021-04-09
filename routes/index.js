@@ -17,8 +17,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/admin-login', function(req, res, next) {
   auth.admin.getLoggedUser(req)
-  .then((user) => {
-    console.log(user);
+  .then(() => {
     redirectTo(res, req.query.to, '/admin');
   })
   .catch(() => {
@@ -51,12 +50,12 @@ router.post('/login-admin', function(req, res, next) {
     res.header('Content-Type', 'application/json');
   })
   .then(() => {
-    res.end(JSON.stringify({
+    res.send(JSON.stringify({
       success: true
     }));
   })
   .catch(() => {
-    res.end(JSON.stringify({
+    res.send(JSON.stringify({
       success: false
     }));
   });

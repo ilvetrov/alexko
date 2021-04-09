@@ -58,7 +58,7 @@ function setSrcForBackground(images, imageElement, className) {
     html = html + removeWhitespaces(`
     @media (min-width: ${image.minWindowWidth}px) {
       .${className} {
-        background-image: url(${image.src});
+        background-image: url(${image.webSrc});
       }
     }
     `);
@@ -94,8 +94,8 @@ function setSrcForImg(images, imageElement) {
           return image.minWindowWidth === minSize;
         })[0];
   
-        if (imageElement.src != neededImage.src) {
-          imageElement.src = neededImage.src;
+        if (imageElement.src != neededImage.webSrc) {
+          imageElement.src = neededImage.webSrc;
         }
   
         break;

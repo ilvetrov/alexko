@@ -26,6 +26,13 @@
     transition: color .15s, border-color .15s;
   }
 
+  &__input:-webkit-autofill {
+    box-shadow: 0 0 0 30px #fff inset!important;
+    -webkit-text-fill-color: $default-color;
+    border-bottom-color: rgba(20, 65, 255, .25);
+    transition: color .15s, -webkit-text-fill-color .15s, border-color .15s;
+  }
+
   &.focus & {
     &__label {
       color: $accent-color;
@@ -33,6 +40,9 @@
     &__input {
       color: $accent-color;
       border-bottom-color: $accent-color;
+    }
+    &__input:-webkit-autofill {
+      -webkit-text-fill-color: $accent-color;
     }
   }
 

@@ -18,7 +18,6 @@
               {{ lang 'cta_button' }}
             </button>
             <!-- /.accent-button -->
-            {{ admin.name }}
           </div>
           <!-- /.page-title-block -->
         </div>
@@ -49,14 +48,14 @@
           {{#each advantages as |advantage|}}
             <div class="advantages-section__item-wrap js-advantage-item-wrap">
               <div class="advantage advantages-section__item js-advantage-item {{#if advantage.accent }} advantage_accent {{/if}}">
-                <div class="advantage__title">
+                <h2 class="advantage__title">
                   {{#each advantage.title as |titleLine|}}
                     <div class="advantage__line-of-title">
                       {{ titleLine }}
                     </div>
                     <!-- /.advantage__line-of-title -->
                   {{/each}}
-                </div>
+                </h2>
                 <!-- /.advantage__title -->
                 {{#if advantage.subtitle.length}}
                   <div class="advantage__subtitle subtitle">

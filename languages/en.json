@@ -16,6 +16,7 @@
     "name": "Name",
     "password": "Password",
     "login_to": "Login",
+    "published": "Published",
     "advantages": [
       {
         "title": [

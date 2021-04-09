@@ -16,6 +16,7 @@
     "name": "Имя",
     "password": "Пароль",
     "login_to": "Войти",
+    "published": "Опубликовано",
     "advantages": [
       {
         "title": [

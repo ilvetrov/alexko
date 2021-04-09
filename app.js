@@ -7,6 +7,8 @@ const logger = require('morgan');
 const hbs = require('hbs');
 const minifyHTML = require('./libs/minify-html');
 const db = require('./db');
+const { initRoot } = require('./libs/get-root');
+initRoot(__dirname);
 
 const globalRouter = require('./routes/_global');
 const indexRouter = require('./routes/index');

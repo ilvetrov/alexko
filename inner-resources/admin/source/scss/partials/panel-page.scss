@@ -1,0 +1,24 @@
+.panel-page {
+  &__wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
+@media (max-height: 590px) {
+  .panel-page {
+    &__wrap {
+      justify-content: flex-start;
+      padding-top: 160px;
+      padding-bottom: 30px;
+    }
+  }
+}

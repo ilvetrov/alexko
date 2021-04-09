@@ -85,11 +85,19 @@ class LoginSystem {
   }
 
   createSessionCookie(res, hash) {
-    res.cookie(this.cookieName, hash, {maxAge: 1000 * 60 * 60 * 24 * 365});
+    res.cookie(this.cookieName, hash, {
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+      httpOnly: true,
+      sameSite: true,
+      // domain: '.alexko.ltd',
+      // secure: true,
+    });
   }
 
   removeSessionCookie(res) {
-    res.cookie(this.cookieName, '', {maxAge: -1});
+    res.cookie(this.cookieName, '', {
+      maxAge: -1
+    });
   }
 
   getLoggedUser(req) {

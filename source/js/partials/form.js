@@ -1,5 +1,6 @@
 const { smoothScrollToElement } = require("./smooth-scroll");
 const { checkElementVisibilityForInteractions } = require("./check-scroll");
+const lookAtMeAnimation = require("./look-at-me");
 
 function initRequestForm(form, callback) {
   const url = form.getAttribute('action');
@@ -32,16 +33,6 @@ function initRequestForm(form, callback) {
       }
     }
     return false;
-  }
-}
-function lookAtMeAnimation(element) {
-  if (!element.classList.contains('look-at-me')) {
-    element.classList.add('look-at-me');
-    setTimeout(() => {
-      requestAnimationFrame(() => {
-        element.classList.remove('look-at-me');
-      });
-    }, 750);
   }
 }
 

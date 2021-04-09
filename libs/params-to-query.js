@@ -5,6 +5,4 @@ function paramsToQuery(data = {}) {
   return '?' + output.join('&');
 }
 
-module.exports = {
-  paramsToQuery
-}
+module.exports = paramsToQuery;
