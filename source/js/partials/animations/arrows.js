@@ -1,5 +1,4 @@
-const { gsap } = require('./../libs/gsap.min');
-const { ScrollTrigger } = require('./../libs/gsap-scroll-trigger.min');
+const { gsap, Back, Expo } = require('gsap/dist/gsap');
 
 const timeline = gsap.timeline({
   repeat: -1,

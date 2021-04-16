@@ -1,0 +1,28 @@
+.text-link {
+  text-decoration: none;
+  outline: none !important;
+  color: $accent-color !important;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    left: 0;
+    bottom: -2px;
+    pointer-events: none;
+    background-color: $accent-color;
+    opacity: 0;
+    transform-origin: center;
+    transform: scale(0);
+    transition: opacity .2s ease-in-out, transform .2s ease-in-out;
+  }
+
+  &:hover, &:focus {
+    &::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

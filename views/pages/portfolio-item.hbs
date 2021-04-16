@@ -1,0 +1,56 @@
+<main class="portfolio-item-page">
+  <div class="portfolio-item-page__wrap">
+    <div class="container-size">
+      <div class="portfolio-item-page__content">
+        <div class="portfolio-header portfolio-item-page__header">
+          <a href="/portfolio" class="subtitle portfolio-header__subtitle">
+            {{ lang 'portfolio' }}
+            <span class="accent-slash">/</span>
+          </a>
+          <!-- /.subtitle -->
+          <h1 class="page-title page-title_free-transform portfolio-header__title">
+            CAROUSEL 3D
+          </h1>
+          <!-- /.page-title -->
+          <div class="portfolio-descr portfolio-header__descr">
+            <strong class="portfolio-descr__type">Игра.</strong>
+            <span class="portfolio-descr__main-text">Под вашим управлением ребята на карусели — сбейте “земных”.</span>
+          </div>
+          <!-- /.portfolio-descr -->
+          <div class="portfolio-header__links">
+            <a href="#" class="text-link portfolio-header__link">
+              <span class="inline-click-extender">{{ lang 'download' }}</span>
+            </a>
+            <a href="#" class="text-link portfolio-header__link">
+              <span class="inline-click-extender">{{ lang 'app_creation' }}</span>
+            </a>
+            <a href="#" class="text-link portfolio-header__link">
+              <span class="inline-click-extender">{{ lang 'demo' }}</span>
+            </a>
+          </div>
+          <!-- /.portfolio-header__links -->
+        </div>
+        <!-- /.portfolio-header -->
+      </div>
+      <!-- /.portfolio-item-page__content -->
+    </div>
+    <!-- /.container-size -->
+    <div class="portfolio-item-page__intro-images js-portfolio-intro-images">
+      <div class="portfolio-item-page__intro-gallery portfolio-gallery swiper-container" data-portfolio-gallery="1">
+        <div class="swiper-wrapper">
+          {{#each intro_images as |intro_image|}}
+            <div class="portfolio-item-page__gallery-slide swiper-slide">
+              <img {{{ intro_image }}} alt="" class="portfolio-item-page__intro-image portfolio-shadow js-intro-image">
+            </div>
+            <!-- /.swiper-slide -->
+          {{/each}}
+        </div>
+        <!-- /.swiper-wrapper -->
+      </div>
+      <!-- /.portfolio-item-page__intro-gallery -->
+    </div>
+    <!-- /.portfolio-item-page__intro-images -->
+  </div>
+  <!-- /.portfolio-item-page__wrap -->
+</main>
+<!-- /.portfolio-item-page -->

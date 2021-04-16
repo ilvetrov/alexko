@@ -16,8 +16,7 @@ router.get('/', function(req, res, next) {
    
   res.renderMin('admin/index', {
     title: lang('admin_panel'),
-    advantages: lang('advantages'),
-    layout: 'layouts/admin.hbs',
+    layout: 'layouts/admin',
     images: {
       status_items: {
         done: asyncImg([
@@ -38,8 +37,68 @@ router.get('/', function(req, res, next) {
             serverSrc: 'inner-resources/admin/public/img/draft.svg'
           }
         ], false),
+        plus: asyncImg([
+          {
+            webSrc: '/img/plus.svg',
+            serverSrc: 'public/img/plus.svg'
+          }
+        ])
       }
     }
+  });
+});
+
+router.get('/portfolio/add', function(req, res, next) {
+  const lang = langConstructor(req);
+  
+  // res.renderMin('admin/portfolio/add', {
+  res.renderMin('pages/portfolio-item', {
+    title: lang('add_project'),
+    layout: 'layouts/admin',
+    intro_images: [
+      asyncImg([
+        {
+          webSrc: '/img/content/carousel-3d/level-1.png',
+          serverSrc: 'public/img/content/carousel-3d/level-1.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/img/content/carousel-3d/level-1.png',
+          serverSrc: 'public/img/content/carousel-3d/level-1.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/img/content/carousel-3d/level-3.png',
+          serverSrc: 'public/img/content/carousel-3d/level-3.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/img/content/carousel-3d/level-1.png',
+          serverSrc: 'public/img/content/carousel-3d/level-1.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/img/content/carousel-3d/win.png',
+          serverSrc: 'public/img/content/carousel-3d/win.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/img/content/carousel-3d/level-2.png',
+          serverSrc: 'public/img/content/carousel-3d/level-2.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/img/content/carousel-3d/level-1.png',
+          serverSrc: 'public/img/content/carousel-3d/level-1.png'
+        }
+      ])
+    ]
   });
 });
 

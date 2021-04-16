@@ -17,6 +17,13 @@
     "password": "Password",
     "login_to": "Login",
     "published": "Published",
+    "awaiting_approval": "Awaiting approval",
+    "drafts": "Drafts",
+    "add": "Add",
+    "add_project": "Add project",
+    "download": "Download",
+    "app_creation": "App creation",
+    "demo": "Demo",
     "advantages": [
       {
         "title": [

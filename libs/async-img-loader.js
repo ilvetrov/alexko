@@ -8,9 +8,10 @@ const fs = require("fs");
  * @param {string} images[].serverSrc - Image's src for server
  * @param {number} [images[].minWindowWidth=0] - Image is loading and visible when window width higher or equals this
  * @param {boolean} [scroll=true] - Load when appears in scroll area
- * @param {string} [isBackground=false] - default is img tag; isBackground turns on element's background styles
+ * @param {boolean} [isBackground=false] - default is img tag; isBackground turns on element's background styles
+ * @param {string} [manual=false] - manual image init only after manual call of initAsyncImg
  */
-function asyncImg(images, scroll = true, isBackground = false) {
+function asyncImg(images, scroll = true, isBackground = false, manual = false) {
   const defaultValues = {
     minWindowWidth: 0
   };
@@ -30,7 +31,8 @@ function asyncImg(images, scroll = true, isBackground = false) {
     let cookedLinks = {
       scroll: scroll,
       isBackground: isBackground,
-      images: []
+      images: [],
+      manual: manual
     };
     for (let i = 0; i < images.length; i++) {
       const image = {...defaultValues, ...images[i]};

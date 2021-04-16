@@ -1,6 +1,17 @@
-.click-extender {
-  display: inline-block;
-  padding: 10px;
-  margin: -10px;
-  box-sizing: content-box;
+@mixin clickExtenderInit($offsets) {
+  .click-extender {
+    display: inline-block;
+    padding: $offsets;
+    margin: -$offsets;
+    box-sizing: content-box;
+  }
+  .inline-click-extender {
+    @extend .click-extender;
+    padding-top: $offsets / 2;
+    padding-bottom: $offsets / 2;
+    margin-top: -$offsets / 2;
+    margin-bottom: -$offsets / 2;
+  }
 }
+
+@include clickExtenderInit(.63rem);

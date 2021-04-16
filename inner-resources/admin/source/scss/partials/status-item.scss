@@ -1,0 +1,39 @@
+.status-item {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  outline: none !important;
+  
+  &__img, &__amount {
+    transform: translateX(0rem);
+    transition: transform .2s;
+  }
+  &__img {
+    width: 1rem;
+    height: auto;
+    margin-right: .63rem;
+  }
+  &__amount {
+    font-size: .88rem;
+    font-weight: 700;
+    line-height: 1.135;
+    position: relative;
+    top: .07em;
+  }
+  
+  &:hover &, &:focus & {
+    &__img, &__amount {
+      transform: translateX(.4rem);
+    }
+  }
+  
+  &_faded {
+    color: $faded-color;
+  }
+  &_red {
+    color: #FF0000;
+  }
+  &_accent {
+    color: $accent-color;
+  }
+}

@@ -1,14 +1,10 @@
-const { gsap } = require('./../libs/gsap.min');
-const { ScrollTrigger } = require('./../libs/gsap-scroll-trigger.min');
+const { gsap } = require('gsap/dist/gsap');
+const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
 
 const advantageItemWraps = document.getElementsByClassName('js-advantage-item-wrap');
 const advantageItems = document.getElementsByClassName('js-advantage-item');
 const lastAdvantageItem = advantageItems[advantageItems.length - 1];
 const lastAdvantageItemWrap = advantageItemWraps[advantageItemWraps.length - 1];
-
-ScrollTrigger.defaults({
-  toggleActions: "play reverse play reverse"
-});
 
 const timeline = gsap.timeline();
 

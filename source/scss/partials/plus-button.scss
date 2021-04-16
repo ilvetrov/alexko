@@ -1,0 +1,7 @@
+.plus-button {
+  &.hover & {
+    &__img {
+      animation: rotationAnimation .7s 1;
+    }
+  }
+}

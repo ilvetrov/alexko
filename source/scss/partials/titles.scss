@@ -1,6 +1,7 @@
 .title-style {
   line-height: 1.135;
   font-weight: 900;
+  color: $header-color;
 }
 .page-title {
   @extend .title-style;
@@ -36,11 +37,22 @@
     flex-direction: column;
     align-items: center;
   }
+  &_free-transform {
+    text-transform: none;
+  }
 }
 .subtitle {
   font-size: 1rem;
   line-height: 1.6;
   letter-spacing: .02em;
+
+  &[href] {
+    transition: color .2s;
+
+    &:hover, &:focus {
+      color: $accent-color;
+    }
+  }
 }
 
 .page-title-block {

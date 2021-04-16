@@ -1,4 +1,5 @@
 .panel-item {
+  display: block;
   width: 257px;
   height: 257px;
   border-radius: 4px;
@@ -10,12 +11,34 @@
     padding-right: 30px;
     padding-bottom: 46px;
   }
+  &__content {
+    display: flex;
+  }
+  &__items {
+    width: 100%;
+  }
+  &__add-column {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  &__link-title {
+    color: $default-color;
+    text-decoration: none;
+    outline: none !important;
+  }
   &__title {
+    display: inline-block;
     font-size: 1.5rem;
     margin-bottom: 1.33em;
+    transition: color .2s;
+
+    &:hover, &:focus {
+      color: $accent-color;
+    }
   }
   &__item {
-    margin-bottom: 1.63em;
+    margin-bottom: 1.5rem;
 
     &:last-child {
       margin-bottom: 0;

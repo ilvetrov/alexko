@@ -34,42 +34,93 @@ class SourceToPublic {
 		.pipe(plumber())
 		.pipe(sass().on('error', sass.logError))
 		.pipe(autoprefixer())
-		.pipe(cleanCSS())
-		.pipe(gulp.dest(this.pathPrefix + 'public/css'));
+		.pipe(cleanCSS());
+	}
+
+	cssTask = () => {
+		return this.css().pipe(gulp.dest(this.pathPrefix + 'public/css'));
 	}
 	
 	jsDev = () => {
 		const entries = glob.sync(this.pathPrefix + 'source/js/*.js');
+
+		let rawStreams = [];
 		for (let i = 0; i < entries.length; i++) {
 			const entryPath = entries[i];
 			
-			return browserify({
-				entries: entryPath,
-				debug: true
-			})
-			.bundle()
-			.pipe(source(getFileName(entryPath)))
-			.pipe(buffer())
-			.pipe(chmod(0o664))
-			.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
+			rawStreams.push(
+				browserify({
+					entries: entryPath,
+					debug: true
+				})
+				.bundle()
+				.pipe(source(getFileName(entryPath)))
+				.pipe(buffer())
+				.pipe(chmod(0o666))
+			);
+		}
+		return rawStreams;
+	}
+	
+	jsDevTask = () => {
+		const rawStreams = this.jsDev();
+		for (let i = 0; i < rawStreams.length; i++) {
+			const rawStream = rawStreams[i];
+			const finishedStream = rawStream.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
+
+			if (i === rawStreams.length - 1) {
+				return finishedStream;
+			}
 		}
 	}
 
-	jsMin = () => {
-		return gulp.src(this.pathPrefix + 'public/js/*.js')
-		.pipe(plumber())
-		.pipe(babel({
-			presets: ['@babel/env']
-		}))
-		.pipe(uglify())
-		.pipe(chmod(0o664))
-		.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
+	jsMin = (rawStreams = undefined) => {
+		if (!rawStreams) {
+			rawStreams = [gulp.src(this.pathPrefix + 'public/js/*.js')]
+		}
+
+		let minRawStreams = [];
+		for (let i = 0; i < rawStreams.length; i++) {
+			const rawStream = rawStreams[i];
+			
+			minRawStreams.push(rawStream
+			.pipe(plumber())
+			.pipe(babel({
+				presets: ['@babel/env']
+			}))
+			.pipe(uglify({
+				parse: {
+					bare_returns: true,
+					ecma: 5,
+					module: true
+				},
+				mangle: {
+					keep_classnames: false,
+					keep_fnames: false,
+					module: true
+				},
+				ie8: true
+			}))
+			.pipe(chmod(0o664)));
+		}
+
+		return minRawStreams;
 	}
 
-	jsProd = (done) => {
-		return gulp.series(this.jsDev, this.jsMin)(() => {
-			done();
-		});
+	jsMinTask = (rawStreams = undefined) => {
+		const minRawStreams = this.jsMin(rawStreams);
+		for (let i = 0; i < minRawStreams.length; i++) {
+			const minRawStream = minRawStreams[i];
+			const finishedStream = minRawStream.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
+
+			if (i === minRawStreams.length - 1) {
+				return finishedStream;
+			}
+		}
+	}
+
+	jsProd = () => {
+		return this.jsMinTask(this.jsDev());
 	}
 
 	syncImages = (done) => {
@@ -128,17 +179,17 @@ class SourceToPublic {
 
 	prod = () => {
 		return new Promise((resolve, reject) => {
-			gulp.parallel(this.jsProd, this.css, this.syncImages)(() => {
+			gulp.parallel(this.jsProd, this.cssTask, this.syncImages)(() => {
 				resolve();
 			})
 		});
 	}
 
 	watch = () => {
-		gulp.parallel(this.jsDev, this.css, this.syncImages)();
+		gulp.parallel(this.jsDev, this.cssTask, this.syncImages)();
 	
-		gulp.watch(this.pathPrefix + 'source/**/*.js').on('change', gulp.series(this.jsDev));
-		gulp.watch(this.pathPrefix + 'source/**/*.scss').on('change', gulp.series(this.css));
+		gulp.watch(this.pathPrefix + 'source/**/*.js').on('change', gulp.series(this.jsDevTask));
+		gulp.watch(this.pathPrefix + 'source/**/*.scss').on('change', gulp.series(this.cssTask));
 	
 		gulp.watch(this.pathPrefix + 'source/img-entry/**').on('add', (path, stats) => {
 			this.minifyImg(path, () => {

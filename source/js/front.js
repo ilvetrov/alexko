@@ -1,10 +1,15 @@
 'use strict';
 
-const { gsap } = require('./partials/libs/gsap.min');
-const { ScrollTrigger } = require('./partials/libs/gsap-scroll-trigger.min');
+const { gsap } = require('gsap/dist/gsap');
+const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
+gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.defaults({
+  toggleActions: "play reverse play reverse"
+});
+
 const checkPage = require('./partials/check-page');
 const lookAtMeAnimation = require('./partials/look-at-me');
-gsap.registerPlugin(ScrollTrigger);
+const smoothHoverAnimation = require('./partials/smooth-hover-animation');
 
 require('./partials/async-img-front');
 require('./partials/scroll-to-anchor');
@@ -33,3 +38,7 @@ if (checkPage('login')) {
     }
   }
 }
+
+require('./partials/galleries');
+
+smoothHoverAnimation('plus-button', 'hover');

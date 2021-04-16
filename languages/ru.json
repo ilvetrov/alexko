@@ -17,6 +17,13 @@
     "password": "Пароль",
     "login_to": "Войти",
     "published": "Опубликовано",
+    "awaiting_approval": "На утверждении",
+    "drafts": "Черновики",
+    "add": "Добавить",
+    "add_project": "Добавить проект",
+    "download": "Скачать",
+    "app_creation": "Создание приложения",
+    "demo": "Демо",
     "advantages": [
       {
         "title": [
