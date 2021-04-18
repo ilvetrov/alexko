@@ -2,7 +2,7 @@ const { checkThatElementIsNear } = require("./check-scroll");
 const removeWhitespaces = require("./remove-whitespaces");
 
 const imagesElements = document.querySelectorAll('[data-async-images]');
-const srcComplexStorage = [];
+const srcComplexStorage = {};
 let currentImageNumber = 0;
 
 function getAsyncBackgroundsOutput() {
@@ -15,13 +15,14 @@ for (let elementIteration = 0; elementIteration < imagesElements.length; element
 }
 
 function initAsyncImg(imageElement, manual = true) {
+  const imageNumberOfThis = currentImageNumber;
   if (!imageElement.hasAttribute('data-async-images')) return 'not for async';
 
   const linksProperties = JSON.parse(imageElement.getAttribute('data-async-images'));
 
   if (linksProperties.manual && !manual) return;
 
-  const backgroundClassName = `background-image-${currentImageNumber}`;
+  const backgroundClassName = `background-image-${imageNumberOfThis}`;
   
   let setSrc;
   if (!linksProperties.isBackground) {
@@ -35,9 +36,9 @@ function initAsyncImg(imageElement, manual = true) {
   }
   
   if (linksProperties.scroll) {
-    srcComplexStorage[currentImageNumber] = () => {
+    srcComplexStorage[imageNumberOfThis] = () => {
       if (checkThatElementIsNear(imageElement)) {
-        document.removeEventListener('scroll', srcComplexStorage[currentImageNumber]);
+        window.removeEventListener('scroll', srcComplexStorage[imageNumberOfThis]);
   
         setSrc();
       }
@@ -47,14 +48,14 @@ function initAsyncImg(imageElement, manual = true) {
         if (checkThatElementIsNear(imageElement)) {
           setSrc();
         } else {
-          document.addEventListener('scroll', srcComplexStorage[currentImageNumber]);
+          window.addEventListener('scroll', srcComplexStorage[imageNumberOfThis]);
         }
       });
     } else {
       if (checkThatElementIsNear(imageElement)) {
         setSrc();
       } else {
-        document.addEventListener('scroll', srcComplexStorage[currentImageNumber]);
+        window.addEventListener('scroll', srcComplexStorage[imageNumberOfThis]);
       }
     }
   } else {
@@ -114,9 +115,9 @@ function setSrcForImg(images, imageElement) {
       const minSize = minSizes[i];
       if (window.innerWidth >= minSize) {
         
-        const neededImage = images.filter((image) => {
+        const neededImage = images.find((image) => {
           return image.minWindowWidth === minSize;
-        })[0];
+        });
   
         if (imageElement.src != neededImage.webSrc) {
           imageElement.src = neededImage.webSrc;
