@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const log = require('gulplog');
 const browserify = require('browserify');
 const sass = require('gulp-sass');
 const cleanCSS = require('gulp-clean-css');
@@ -14,6 +15,8 @@ const imagemin = require('gulp-imagemin');
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 const pngquant = require('imagemin-pngquant');
 const glob = require('glob');
+const watchify = require('watchify');
+const color = require('./libs/terminal-color');
 
 sass.compiler = require('node-sass');
 
@@ -34,56 +37,53 @@ class SourceToPublic {
 		.pipe(plumber())
 		.pipe(sass().on('error', sass.logError))
 		.pipe(autoprefixer())
-		.pipe(cleanCSS());
-	}
-
-	cssTask = () => {
-		return this.css().pipe(gulp.dest(this.pathPrefix + 'public/css'));
+		.pipe(cleanCSS())
+		.pipe(gulp.dest(this.pathPrefix + 'public/css'));
 	}
 	
 	jsDev = () => {
 		const entries = glob.sync(this.pathPrefix + 'source/js/*.js');
 
-		let rawStreams = [];
 		for (let i = 0; i < entries.length; i++) {
 			const entryPath = entries[i];
 			
-			rawStreams.push(
-				browserify({
-					entries: entryPath,
-					debug: true
-				})
-				.bundle()
+			const watchifyBuild = watchify(browserify({
+				entries: entryPath,
+				debug: true,
+				cache: {},
+				packageCache: {}
+			}));
+			
+			const watchifyBundle = () => {
+				return watchifyBuild.bundle()
 				.pipe(source(getFileName(entryPath)))
 				.pipe(buffer())
 				.pipe(chmod(0o666))
-			);
-		}
-		return rawStreams;
-	}
-	
-	jsDevTask = () => {
-		const rawStreams = this.jsDev();
-		for (let i = 0; i < rawStreams.length; i++) {
-			const rawStream = rawStreams[i];
-			const finishedStream = rawStream.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
-
-			if (i === rawStreams.length - 1) {
-				return finishedStream;
+				.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
 			}
+
+			watchifyBuild.on('update', watchifyBundle);
+			watchifyBuild.on('log', (data) => {
+				log.info(`Finished '${color.fgCyan}jsDev${color.reset}': ` + data);
+			});
+
+
+			watchifyBundle();
 		}
 	}
 
-	jsMin = (rawStreams = undefined) => {
-		if (!rawStreams) {
-			rawStreams = [gulp.src(this.pathPrefix + 'public/js/*.js')]
-		}
+	jsMin = () => {
+		const entries = glob.sync(this.pathPrefix + 'source/js/*.js');
 
-		let minRawStreams = [];
-		for (let i = 0; i < rawStreams.length; i++) {
-			const rawStream = rawStreams[i];
+		for (let i = 0; i < entries.length; i++) {
+			const entryPath = entries[i];
 			
-			minRawStreams.push(rawStream
+			const task = browserify({
+				entries: entryPath
+			})
+			.bundle()
+			.pipe(source(getFileName(entryPath)))
+			.pipe(buffer())
 			.pipe(plumber())
 			.pipe(babel({
 				presets: ['@babel/env']
@@ -101,26 +101,17 @@ class SourceToPublic {
 				},
 				ie8: true
 			}))
-			.pipe(chmod(0o664)));
-		}
+			.pipe(chmod(0o664))
+			.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
 
-		return minRawStreams;
-	}
-
-	jsMinTask = (rawStreams = undefined) => {
-		const minRawStreams = this.jsMin(rawStreams);
-		for (let i = 0; i < minRawStreams.length; i++) {
-			const minRawStream = minRawStreams[i];
-			const finishedStream = minRawStream.pipe(gulp.dest(this.pathPrefix + 'public/js/'));
-
-			if (i === minRawStreams.length - 1) {
-				return finishedStream;
+			if (i === entries.length - 1) {
+				return task;
 			}
 		}
 	}
 
 	jsProd = () => {
-		return this.jsMinTask(this.jsDev());
+		return this.jsMin();
 	}
 
 	syncImages = (done) => {
@@ -179,17 +170,17 @@ class SourceToPublic {
 
 	prod = () => {
 		return new Promise((resolve, reject) => {
-			gulp.parallel(this.jsProd, this.cssTask, this.syncImages)(() => {
+			gulp.parallel(this.jsProd, this.css, this.syncImages)(() => {
 				resolve();
 			})
 		});
 	}
 
 	watch = () => {
-		gulp.parallel(this.jsDev, this.cssTask, this.syncImages)();
+		gulp.parallel(this.css, this.syncImages)();
 	
-		gulp.watch(this.pathPrefix + 'source/**/*.js').on('change', gulp.series(this.jsDevTask));
-		gulp.watch(this.pathPrefix + 'source/**/*.scss').on('change', gulp.series(this.cssTask));
+		this.jsDev();
+		gulp.watch(this.pathPrefix + 'source/**/*.scss').on('change', gulp.series(this.css));
 	
 		gulp.watch(this.pathPrefix + 'source/img-entry/**').on('add', (path, stats) => {
 			this.minifyImg(path, () => {
