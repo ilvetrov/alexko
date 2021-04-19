@@ -56,6 +56,9 @@ class SourceToPublic {
 			
 			const watchifyBundle = () => {
 				return watchifyBuild.bundle()
+				.on('error', (data) => {
+					log.error(data.annotated);
+				})
 				.pipe(source(getFileName(entryPath)))
 				.pipe(buffer())
 				.pipe(chmod(0o666))
