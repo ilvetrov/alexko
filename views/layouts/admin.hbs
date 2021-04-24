@@ -2,13 +2,15 @@
 <html lang="{{ currentLang.cod_name }}">
   <head>
     {{> head}}
-    <link rel='stylesheet' href='/css/front.css'>
-    <link rel='stylesheet' href='/admin/resources/css/admin.css'>
+    <link rel="stylesheet" href="/css/front.css{{ fileVersion }}">
+    <link rel="stylesheet" href="/admin/resources/admin/public/css/admin.css{{ fileVersion }}">
   </head>
   <body>
     {{> header}}
+    {{> selects}}
+    {{> pop_up_inputs}}
     {{{body}}}
   </body>
-  <script src="/js/front.js" defer></script>
-  <script src="/admin/resources/js/admin.js" defer></script>
+  <script src="/js/front.js{{ fileVersion }}" defer></script>
+  <script src="/admin/resources/admin/public/js/admin.js{{ fileVersion }}" defer></script>
 </html>

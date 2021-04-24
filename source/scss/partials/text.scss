@@ -1,3 +1,37 @@
+.text-container {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &_desktop {
+    max-width: 1024px;
+  }
+  &_mobile {
+    max-width: 380px;
+  }
+}
+.text-h2 {
+  font-size: 1.75rem;
+  margin-top: 3.43em;
+  margin-bottom: 1.43em;
+  line-height: 1.37;
+  font-weight: 900;
+  color: $header-color;
+}
+.text-p {
+  font-size: 1rem;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  line-height: 1.9;
+}
+.text-img-wrap {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+.text-img {
+  max-width: 100%;
+  border-radius: 4px;
+}
 .text-link {
   text-decoration: none;
   outline: none !important;
@@ -10,19 +44,30 @@
     height: 1px;
     width: 100%;
     left: 0;
-    bottom: -2px;
+    bottom: -1px;
     pointer-events: none;
     background-color: $accent-color;
     opacity: 0;
-    transform-origin: center;
-    transform: scale(0);
-    transition: opacity .2s ease-in-out, transform .2s ease-in-out;
+    transition: opacity .25s ease-in-out;
+  }
+
+  &_independent {
+    &::after {
+      height: auto;
+      width: auto;
+      top: -.19em;
+      left: -.8em;
+      right: -.8em;
+      bottom: -.19em;
+      background-color: #ebf1ff;
+      z-index: -1;
+      border-radius: 4px;
+    }
   }
 
   &:hover, &:focus {
     &::after {
       opacity: 1;
-      transform: scale(1);
     }
   }
 }

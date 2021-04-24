@@ -3,6 +3,7 @@ const { admin } = require('../libs/auth');
 const auth = require('../libs/auth');
 const redirectTo = require('../libs/redirect-to');
 const { langConstructor } = require('../libs/user-language');
+const { asyncImg } = require('../libs/async-img-loader');
 var router = express.Router();
 
 /* GET home page. */
@@ -12,6 +13,64 @@ router.get('/', function(req, res, next) {
   res.renderMin('pages/index', {
     title: 'AlexKo – ' + lang('site_focus'),
     advantages: lang('advantages')
+  });
+});
+
+router.get('/portfolio/example', function(req, res, next) {
+  res.renderMin('pages/portfolio-item', {
+    title: 'CAROUSEL 3D',
+    intro_images: [
+      asyncImg([
+        {
+          webSrc: '/content/1/img/level-1.png',
+          serverSrc: 'public/content/1/img/level-1.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/content/1/img/level-1.png',
+          serverSrc: 'public/content/1/img/level-1.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/content/1/img/level-3.png',
+          serverSrc: 'public/content/1/img/level-3.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/content/1/img/level-1.png',
+          serverSrc: 'public/content/1/img/level-1.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/content/1/img/win.png',
+          serverSrc: 'public/content/1/img/win.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/content/1/img/level-2.png',
+          serverSrc: 'public/content/1/img/level-2.png'
+        }
+      ]),
+      asyncImg([
+        {
+          webSrc: '/content/1/img/level-1.png',
+          serverSrc: 'public/content/1/img/level-1.png'
+        }
+      ])
+    ],
+    images: {
+      level_3: asyncImg([
+        {
+          webSrc: '/content/1/img/level-3.png',
+          serverSrc: 'public/content/1/img/level-3.png'
+        }
+      ])
+    }
   });
 });
 

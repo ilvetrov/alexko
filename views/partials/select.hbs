@@ -1,0 +1,15 @@
+<div class="select-pop-up {{ selectData.modClass }} pop-up hidden disabled" data-pop-up="{{ selectData.name }}" data-pop-up-event="{{ selectData.event }}" data-pop-up-set-position-to-button>
+  <div class="select-pop-up__content" data-pop-up-content>
+    {{#each selectData.items as |item|}}
+      <div class="select-pop-up__item-wrap">
+        <div class="select-pop-up__item" data-option-id="{{ item.id }}" data-event-button>
+          {{ item.content }}
+        </div>
+        <!-- /.select-pop-up__item -->
+      </div>
+      <!-- /.select-pop-up__item-wrap -->
+    {{/each}}
+  </div>
+  <!-- /.select-pop-up__content -->
+</div>
+<!-- /.select-pop-up -->

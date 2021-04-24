@@ -17,6 +17,7 @@ const pngquant = require('imagemin-pngquant');
 const glob = require('glob');
 const watchify = require('watchify');
 const color = require('./libs/terminal-color');
+const { getFileName } = require('./libs/get-file-name');
 
 sass.compiler = require('node-sass');
 
@@ -53,7 +54,6 @@ class SourceToPublic {
 				cache: {},
 				packageCache: {}
 			}));
-			
 			const watchifyBundle = () => {
 				return watchifyBuild.bundle()
 				.on('error', (data) => {
@@ -222,8 +222,4 @@ function removeImg(path) {
 			});
 		}
 	});
-}
-
-function getFileName(path) {
-	return (path.match(/\/([^/]+)$/) || [])[1];
 }

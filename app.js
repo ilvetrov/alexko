@@ -8,6 +8,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs = require('hbs');
+const fileUpload = require('express-fileupload');
 const minifyHTML = require('./libs/minify-html');
 const db = require('./db');
 const { initRoot } = require('./libs/get-root');
@@ -21,6 +22,10 @@ const servicesRouter = require('./routes/services');
 const app = express();
 
 app.use(minifyHTML());
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: __dirname + '/tmp/files/'
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

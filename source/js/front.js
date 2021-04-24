@@ -2,6 +2,7 @@
 
 const { gsap } = require('gsap/dist/gsap');
 const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
+const { initRequestForm } = require('./partials/form');
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.defaults({
   toggleActions: "play reverse play reverse"
@@ -13,13 +14,13 @@ const smoothHoverAnimation = require('./partials/smooth-hover-animation');
 
 require('./partials/async-img-front');
 require('./partials/scroll-to-anchor');
+require('./partials/pop-up');
 
 if (checkPage('home')) {
   require('./partials/animations/arrows');
   require('./partials/animations/screen-scroll');
 }
 if (checkPage('login')) {
-  const { initRequestForm } = require('./partials/form');
   const loginForm = document.getElementsByClassName('js-login-form')[0];
   const redirectLink = (new URLSearchParams(window.location.search)).get('to') || getDefaultPath();
   initRequestForm(loginForm, (result) => {
@@ -40,5 +41,9 @@ if (checkPage('login')) {
 }
 
 require('./partials/galleries');
+require('./partials/animations/portfolio-text');
+require('./partials/controls/selects');
+require('./partials/controls/pop-up-inputs');
+require('./partials/upload-files');
 
 smoothHoverAnimation('plus-button', 'hover');

@@ -1,7 +1,7 @@
 <main class="portfolio-item-page">
   <div class="portfolio-item-page__wrap">
     <div class="container-size">
-      <div class="portfolio-item-page__content">
+      <div class="portfolio-item-page__header">
         <div class="portfolio-header portfolio-item-page__header">
           <a href="/portfolio" class="subtitle portfolio-header__subtitle">
             {{ lang 'portfolio' }}
@@ -18,13 +18,13 @@
           </div>
           <!-- /.portfolio-descr -->
           <div class="portfolio-header__links">
-            <a href="#" class="text-link portfolio-header__link">
+            <a href="#" class="text-link text-link_independent portfolio-header__link">
               <span class="inline-click-extender">{{ lang 'download' }}</span>
             </a>
-            <a href="#" class="text-link portfolio-header__link">
+            <a href="#" class="text-link text-link_independent portfolio-header__link">
               <span class="inline-click-extender">{{ lang 'app_creation' }}</span>
             </a>
-            <a href="#" class="text-link portfolio-header__link">
+            <a href="#" class="text-link text-link_independent portfolio-header__link">
               <span class="inline-click-extender">{{ lang 'demo' }}</span>
             </a>
           </div>
@@ -32,7 +32,7 @@
         </div>
         <!-- /.portfolio-header -->
       </div>
-      <!-- /.portfolio-item-page__content -->
+      <!-- /.portfolio-item-page__header -->
     </div>
     <!-- /.container-size -->
     <div class="portfolio-item-page__intro-images js-portfolio-intro-images">
@@ -52,5 +52,33 @@
     <!-- /.portfolio-item-page__intro-images -->
   </div>
   <!-- /.portfolio-item-page__wrap -->
+  <div class="portfolio-item-page__content js-portfolio-content">
+    <div class="container-size text-block-animation">
+      <h2 class="text-h2 text-container">
+        Задачи
+      </h2>
+      <!-- /.text-h2 -->
+    </div>
+    <!-- /.container-size -->
+    <div class="container-size text-block-animation">
+      <p class="text-p text-container">
+        Нам поступил заказ — сделать блочно, сделать красиво. Мы направили на это лучшие усилия и специальные отправные блоки.
+      </p>
+      <!-- /.text-p -->
+    </div>
+    <!-- /.container-size -->
+    <div class="container-size text-block-animation">
+      <p class="text-p text-container">
+        Сайт блочный во всём: в кнопках, в ссылка, в меню, даже в своём устройстве — давайте посмотрим поближе.
+      </p>
+      <!-- /.text-p -->
+    </div>
+    <!-- /.container-size -->
+    <div class="text-img-wrap text-container text-container_mobile text-block-animation">
+      <img {{{ images.level_3 }}} alt="Level 3" class="text-img portfolio-shadow">
+    </div>
+    <!-- /.text-img-wrap-->
+  </div>
+  <!-- /.portfolio-item-page__content -->
 </main>
 <!-- /.portfolio-item-page -->

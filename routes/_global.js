@@ -1,5 +1,6 @@
 var express = require('express');
 const { admin } = require('../libs/auth');
+const { insertingFileVersion } = require('../libs/files-version');
 var router = express.Router();
 const { setUserLanguage, langConstructor, getLanguagesList, getUserLanguage } = require('../libs/user-language');
 
@@ -10,6 +11,7 @@ router.use(async function(req, res, next) {
   res.locals.lang = langConstructor(req);
   res.locals.currentLang = getUserLanguage(req);
   res.locals.langsList = getLanguagesList(req);
+  res.locals.fileVersion = insertingFileVersion;
 
   next();
 });

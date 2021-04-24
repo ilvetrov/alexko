@@ -1,0 +1,111 @@
+<main class="portfolio-item-page js-edit-portfolio-page" data-editor-properties="{{ editorProperties }}">
+  <div class="portfolio-item-page__wrap">
+    <div class="container-size">
+      <div class="portfolio-item-page__header">
+        <div class="portfolio-header portfolio-item-page__header">
+          <a href="/portfolio" class="subtitle portfolio-header__subtitle">
+            {{ lang 'portfolio' }}
+            <span class="accent-slash">/</span>
+          </a>
+          <!-- /.subtitle -->
+          <h1 class="page-title page-title_free-transform portfolio-header__title js-editor-field" contenteditable="true" data-placeholder="{{ lang 'title' }}">
+          </h1>
+          <!-- /.page-title -->
+          <div class="portfolio-descr portfolio-header__descr">
+            <strong class="portfolio-descr__type"><span class="editor-inline-button js-project-type-output" data-pop-up-button="project_types">Тип проекта</span>.</strong>
+            <span class="portfolio-descr__main-text js-editor-field" contenteditable="true" data-placeholder="{{ lang 'short_descr' }}"></span>
+          </div>
+          <!-- /.portfolio-descr -->
+          <div class="portfolio-header__links">
+            <div class="text-link text-link_independent portfolio-header__link editor-pop-up-input-caller editor-pop-up-input-caller_empty js-to-link-button" data-pop-up-button="to_link">
+              <span class="inline-click-extender" data-variations="{{ toLinkVariations }}">{{ lang 'download' }}</span>
+            </div>
+            <a href="#" class="text-link text-link_independent portfolio-header__link">
+              <span class="inline-click-extender" data-variations="{{ creatingVariations }}">{{ lang 'app_creation' }}</span>
+            </a>
+            <div class="text-link text-link_independent portfolio-header__link">
+              <span class="inline-click-extender">{{ lang 'demo' }}</span>
+            </div>
+          </div>
+          <!-- /.portfolio-header__links -->
+        </div>
+        <!-- /.portfolio-header -->
+      </div>
+      <!-- /.portfolio-item-page__header -->
+    </div>
+    <!-- /.container-size -->
+    <div class="editor-intro-images">
+      <div class="container-size">
+        <div class="editor-intro-images__wrap">
+          <div class="editor-intro-images__content">
+            <div class="editor-intro-images__sections">
+              
+              <div class="editor-intro-images__section">
+                <h2 class="editor-intro-images__title">{{ lang 'mobile_images' }}</h2>
+                <!-- /.editor-intro-images__title -->
+                <input type="hidden" name="intro_images">
+                <div class="editor-intro-images__items">
+                  {{#repeat 7}}
+                    <div class="upload-file upload-file_mobile-image editor-intro-images__item" data-upload-file-preview="intro_images_{{ @index }}">
+                      <div class="upload-file__content">
+                        <input type="file" id="intro_images_{{ @index }}" class="disabled js-upload-files" data-project-id="{{ id }}" data-is-draft="{{ draft }}" data-group-file="intro_images">
+                        <label for="intro_images_{{ @index }}" class="upload-file__label portfolio-shadow" title="{{ lang 'add' }}" data-upload-file-label>
+                          <svg class="upload-file__plus" shape-rendering="crispEdges" viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 0v16M0 8h16" stroke="#126DFF" stroke-width="2"/></svg>
+                        </label>
+                        <!-- /.upload-file__label -->
+                      </div>
+                      <!-- /.upload-file__content -->
+                    </div>
+                    <!-- /.upload-file -->
+                  {{/repeat}}
+                </div>
+                <!-- /.editor-intro-images__items -->
+              </div>
+              <!-- /.editor-intro-images__section -->
+              <div class="editor-intro-images__section" data-hide-on-project-types="{{ hideDesktopImagesFor }}">
+                desktop
+              </div>
+              <!-- /.editor-intro-images__section -->
+
+            </div>
+            <!-- /.editor-intro-images__sections -->
+          </div>
+          <!-- /.editor-intro-images__content -->
+        </div>
+        <!-- /.editor-intro-images__wrap -->
+      </div>
+      <!-- /.container-size -->
+    </div>
+    <!-- /.editor-intro-images -->
+  </div>
+  <!-- /.portfolio-item-page__wrap -->
+  <div class="portfolio-item-page__content js-portfolio-content">
+    <div class="container-size text-block-animation">
+      <h2 class="text-h2 text-container">
+        Задачи
+      </h2>
+      <!-- /.text-h2 -->
+    </div>
+    <!-- /.container-size -->
+    <div class="container-size text-block-animation">
+      <p class="text-p text-container">
+        Нам поступил заказ — сделать блочно, сделать красиво. Мы направили на это лучшие усилия и специальные отправные блоки.
+      </p>
+      <!-- /.text-p -->
+    </div>
+    <!-- /.container-size -->
+    <div class="container-size text-block-animation">
+      <p class="text-p text-container">
+        Сайт блочный во всём: в кнопках, в ссылка, в меню, даже в своём устройстве — давайте посмотрим поближе.
+      </p>
+      <!-- /.text-p -->
+    </div>
+    <!-- /.container-size -->
+    {{!-- <div class="text-img-wrap text-container text-container_mobile text-block-animation">
+      <img {{{ images.level_3 }}} alt="Level 3" class="text-img portfolio-shadow">
+    </div>
+    <!-- /.text-img-wrap--> --}}
+  </div>
+  <!-- /.portfolio-item-page__content -->
+</main>
+<!-- /.portfolio-item-page -->

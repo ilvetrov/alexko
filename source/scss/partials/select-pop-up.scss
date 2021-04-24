@@ -1,0 +1,45 @@
+.select-pop-up {
+  background-color: rgba(255, 255, 255, .9);
+
+  &__content {
+    position: absolute;
+    pointer-events: none;
+  }
+  &__item {
+    display: inline-block;
+    cursor: pointer;
+    pointer-events: all;
+    user-select: none;
+    transition: color .2s;
+
+    &.active {
+      color: $accent-color;
+    }
+  }
+  &__content:hover &, &__content:focus & {
+    &__item {
+      color: $default-color;
+    }
+  }
+  &__item {
+    &:hover, &:focus {
+      color: $accent-color !important;
+    }
+  }
+
+  &.project-types {
+    line-height: 1.7;
+  }
+  &.project-types & {
+    &__content {
+      transform: translateY(-4px);
+    }
+    &__item-wrap {
+      margin-bottom: .5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

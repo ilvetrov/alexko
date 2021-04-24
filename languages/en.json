@@ -4,6 +4,12 @@
   "cod_name": "en",
   "aliases": [],
   "dictionary" : {
+    "site": "Site",
+    "sites": "Sites",
+    "app": "App",
+    "apps": "Apps",
+    "game": "Game",
+    "games": "Games",
     "site_focus": "We create apps and sites",
     "site_tagline_first_line": "Only your idea",
     "site_tagline_second_line": "Finished project",
@@ -21,9 +27,19 @@
     "drafts": "Drafts",
     "add": "Add",
     "add_project": "Add project",
+    "edit_project": "Edit project",
+    "open": "Open",
     "download": "Download",
+    "site_creation": "Site creation",
     "app_creation": "App creation",
+    "game_creation": "Game creation",
     "demo": "Demo",
+    "title": "Title",
+    "short_descr": "Short description",
+    "enter_here": "Enter here",
+    "link": "Link",
+    "mobile_images": "Mobile Images",
+    "desktop_images": "Desktop Images",
     "advantages": [
       {
         "title": [
@@ -41,8 +57,7 @@
           "about progress"
         ],
         "subtitle": [
-          "You can control",
-          "if all goes according to plan"
+          "You can control everything"
         ]
       },
       {

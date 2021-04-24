@@ -71,7 +71,7 @@ function langConstructor(req) {
   const language = getUserLanguage(req);
 
   return (text) => {
-    return language.dictionary[text] || 'undefined';
+    return language.dictionary[text] || getLanguage('en').dictionary[text] || text;
   }
 }
 
