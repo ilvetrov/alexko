@@ -29,8 +29,9 @@ gulp.task('default', function (done) {
 });
 
 class SourceToPublic {
-	constructor(pathPrefix = '') {
+	constructor(pathPrefix = '', name = 'default') {
 		this.pathPrefix = pathPrefix;
+		this.name = name;
 	}
 
 	css = () => {
@@ -67,7 +68,7 @@ class SourceToPublic {
 
 			watchifyBuild.on('update', watchifyBundle);
 			watchifyBuild.on('log', (data) => {
-				log.info(`Finished '${color.fgCyan}jsDev${color.reset}': ` + data);
+				log.info(`Finished '${color.fgCyan}jsDev of ${this.name}${color.reset}': ` + data);
 			});
 
 
@@ -194,8 +195,8 @@ class SourceToPublic {
 
 }
 
-const front = new SourceToPublic('');
-const admin = new SourceToPublic('inner-resources/admin/');
+const front = new SourceToPublic('', 'front');
+const admin = new SourceToPublic('inner-resources/admin/', 'admin');
 
 gulp.task('prod', function(done) {
 	Promise.all([
