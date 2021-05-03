@@ -1,6 +1,6 @@
 const filesVersion = '0.0.1';
 
-const insertingFileVersion = '';
+const insertingFileVersion = '?ver=' + filesVersion;
 
 module.exports = {
   filesVersion,
