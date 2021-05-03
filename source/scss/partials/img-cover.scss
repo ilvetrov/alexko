@@ -7,5 +7,6 @@
   margin: auto auto;
   min-width: 10000% * $multiplier;
   min-height: 10000% * $multiplier;
-  transform: scale(.01 / $multiplier);
+  transform: scale(.01 / $multiplier) translateY(0px);
+  backface-visibility: hidden;
 }
