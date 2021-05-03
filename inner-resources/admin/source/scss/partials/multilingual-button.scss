@@ -1,0 +1,12 @@
+.multilingual-button {
+  cursor: pointer;
+
+  &__icon {
+    transition: fill .2s;
+  }
+  &:hover &, &:focus & {
+    &__icon {
+      fill: $accent-color;
+    }
+  }
+}

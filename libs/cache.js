@@ -27,7 +27,9 @@ setInterval(() => {
   cacheStorage = {};
 }, 1000 * 60 * 60 * 24);
 
-module.exports = {
+const cache = {
   getOrSet,
   remove
 }
+
+module.exports = cache;

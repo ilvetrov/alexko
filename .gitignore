@@ -1,2 +1,5 @@
 node_modules
 *.env
+tmp/*
+inner-resources/drafts/*
+public/content/*

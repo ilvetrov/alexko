@@ -1,5 +1,6 @@
 const fs = require('fs');
 const languages = getAllLanguagesFromFiles();
+const userLocale = require('get-user-locale');
 
 function getAllLanguagesFromFiles() {
   const languageFiles = fs.readdirSync('languages');
@@ -33,6 +34,19 @@ function getLanguagesList(req = undefined) {
   return languageList;
 }
 
+function getLanguagesNames(req = undefined) {
+  const languages = getLanguagesList(req);
+
+  const outputLanguages = {};
+  for (const key in languages) {
+    if (Object.hasOwnProperty.call(languages, key)) {
+      const language = languages[key];
+      outputLanguages[language.cod_name] = language.full_name;
+    }
+  }
+  return outputLanguages;
+}
+
 function getLanguage(name) {
   for (const key in languages) {
     if (Object.hasOwnProperty.call(languages, key)) {
@@ -47,24 +61,25 @@ function getLanguage(name) {
 }
 
 function setUserLanguage(req, res) {
-  if (!req.cookies || !req.cookies.lang) {
+  if (!(req.cookies && req.cookies.lang)) {
     const userLanguage = getUserLanguage(req);
     req.userLang = userLanguage;
     res.cookie('lang', userLanguage.cod_name, {maxAge: 1000 * 60 * 60 * 24 * 365});
     return userLanguage;
   }
+  if (!req.userLang) {
+    const userLanguage = getUserLanguage(req);
+    req.userLang = userLanguage;
+    return userLanguage;
+  }
 }
 
 function getUserLanguage(req) {
-  if (req.cookies && req.cookies.lang) {
-    return getLanguage(req.cookies.lang);
-  } else if (req.userLang) {
-    return req.userLang;
-  } else {
-    const userLocale = require('get-user-locale');
-    const userLanguage = getLanguage(userLocale.getUserLocale().split('-')[0]);
-    return userLanguage;
-  }
+  if (req.userLang) return req.userLang;
+  if (req.cookies && req.cookies.lang) return getLanguage(req.cookies.lang);
+
+  const userLanguage = getLanguage(userLocale.getUserLocale().split('-')[0]);
+  return userLanguage;
 }
 
 function langConstructor(req) {
@@ -75,9 +90,19 @@ function langConstructor(req) {
   }
 }
 
+function langPropConstructor(req) {
+  const language = getUserLanguage(req);
+
+  return (object) => {
+    return object[language.cod_name] || object['en'];
+  }
+}
+
 module.exports = {
   setUserLanguage,
   langConstructor,
+  langPropConstructor,
   getLanguagesList,
+  getLanguagesNames,
   getUserLanguage
 }

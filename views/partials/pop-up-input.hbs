@@ -2,7 +2,14 @@
   <div class="pop-up-input__content" data-pop-up-content>
     <div class="field js-field">
       <label class="field__label" for="{{ popUpInput.modClass }}-input">{{ popUpInput.humanName }}</label>
-      <input type="url" name="to_link" placeholder="{{ popUpInput.humanName }}" class="field__input" id="{{ popUpInput.modClass }}-input" autocomplete="off">
+      <input type="url" name="to_link" placeholder="{{ popUpInput.humanName }}" class="field__input" id="{{ popUpInput.modClass }}-input" autocomplete="off" value="{{ popUpInput.defaultValue }}"
+        {{#if popUpInput.sendToCloud}}
+          data-send-to-cloud-name="{{ popUpInput.sendToCloud.name }}"
+          data-send-to-cloud-group="{{ popUpInput.sendToCloud.group }}"
+          {{#if popUpInput.sendToCloud.attribute}}
+            data-send-to-cloud-attribute="{{ popUpInput.sendToCloud.attribute }}"
+          {{/if}}
+        {{/if}}>
     </div>
     <!-- /.field -->
   </div>

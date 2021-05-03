@@ -42,8 +42,9 @@ if (checkPage('login')) {
 
 require('./partials/galleries');
 require('./partials/animations/portfolio-text');
-require('./partials/controls/selects');
+require('./partials/controls/select-project-type');
 require('./partials/controls/pop-up-inputs');
-require('./partials/upload-files');
+require('./partials/controls/multilingual-inputs').init();
+require('./partials/controls/change-editing-language');
 
 smoothHoverAnimation('plus-button', 'hover');

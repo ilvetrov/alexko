@@ -39,6 +39,20 @@ for (let i = 0; i < popUps.length; i++) {
     popUpActionButton.addEventListener('click', function() {
       if (callEvent(eventName, this)) {
         hidePopUp(popUp);
+
+        setTimeout(() => {
+          const selectedOptionWrap = this.parentElement;
+          const parent = this.parentElement.parentElement;
+          const optionsWraps = parent.children;
+        
+          for (let i = 0; i < optionsWraps.length; i++) {
+            const option = optionsWraps[i].children[0];
+            option.classList.remove('active');
+          }
+          parent.insertBefore(selectedOptionWrap, optionsWraps[0]);
+          this.classList.add('active');
+          
+        }, 150);
       }
     });
   }

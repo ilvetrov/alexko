@@ -1,4 +1,3 @@
-const lookAtMeAnimation = require('../look-at-me');
 const { addActionToEvent } = require('../pop-up');
 
 addActionToEvent('selectProjectType', function(selectedElement) {
@@ -31,20 +30,6 @@ addActionToEvent('selectProjectType', function(selectedElement) {
       hidingElement.classList.remove('disabled');
     }
   }
-  
-  setTimeout(() => {
-    const selectedOptionWrap = selectedElement.parentElement;
-    const parent = selectedElement.parentElement.parentElement;
-    const optionsWraps = parent.children;
-  
-    for (let i = 0; i < optionsWraps.length; i++) {
-      const option = optionsWraps[i].children[0];
-      option.classList.remove('active');
-    }
-    parent.insertBefore(selectedOptionWrap, optionsWraps[0]);
-    selectedElement.classList.add('active');
-    
-  }, 150);
 
   return true;
 });

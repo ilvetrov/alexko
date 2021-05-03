@@ -1,9 +1,17 @@
 .select-pop-up {
   background-color: rgba(255, 255, 255, .9);
+  line-height: 1.7;
 
   &__content {
     position: absolute;
     pointer-events: none;
+  }
+  &__item-wrap {
+    margin-bottom: .5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   &__item {
     display: inline-block;
@@ -36,10 +44,6 @@
     }
     &__item-wrap {
       margin-bottom: .5rem;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
   }
 }

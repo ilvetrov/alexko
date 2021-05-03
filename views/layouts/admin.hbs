@@ -4,12 +4,13 @@
     {{> head}}
     <link rel="stylesheet" href="/css/front.css{{ fileVersion }}">
     <link rel="stylesheet" href="/admin/resources/admin/public/css/admin.css{{ fileVersion }}">
+    <link rel="preload" href="/fonts/Lato-Regular.ttf" as="font">
   </head>
   <body>
     {{> header}}
-    {{> selects}}
-    {{> pop_up_inputs}}
+    {{> logic}}
     {{{body}}}
+    {{> bottom_logic}}
   </body>
   <script src="/js/front.js{{ fileVersion }}" defer></script>
   <script src="/admin/resources/admin/public/js/admin.js{{ fileVersion }}" defer></script>

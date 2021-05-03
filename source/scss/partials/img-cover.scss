@@ -1,0 +1,11 @@
+@mixin imgCover($multiplier: 1) {
+  position: absolute;
+  left: -10000% * ($multiplier * 5);
+  right: -10000% * ($multiplier * 5);
+  top: -10000% * ($multiplier * 5);
+  bottom: -10000% * ($multiplier * 5);
+  margin: auto auto;
+  min-width: 10000% * $multiplier;
+  min-height: 10000% * $multiplier;
+  transform: scale(.01 / $multiplier);
+}

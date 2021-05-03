@@ -1,5 +1,5 @@
 function checkImg(filePath) {
-  const extname = (filePath.match(/.+?(\..+)$/) || [])[1];
+  const extname = (filePath.match(/.+?(\.[^.]+)$/) || [])[1];
   return extname == '.png'
   || extname == '.jpg'
   || extname == '.jpeg'

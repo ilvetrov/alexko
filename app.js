@@ -34,7 +34,7 @@ app.set('view options', {
   layout: 'layouts/front'
 });
 hbs.registerPartials(__dirname + '/views/partials');
-require('./hbs-helpers/_entry');
+require('./hbs-helpers');
 
 app.use(logger('dev'));
 app.use(express.json());
