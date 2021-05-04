@@ -24,6 +24,7 @@
     "login_to": "Войти",
     "published": "Опубликовано",
     "awaiting_approval": "На утверждении",
+    "draft": "Черновик",
     "drafts": "Черновики",
     "add": "Добавить",
     "add_project": "Добавить проект",
@@ -43,6 +44,11 @@
     "save": "Сохранить",
     "other_languages": "Другие языки",
     "remove": "Удалить",
+    "settings": "Настройки",
+    "status": "Статус",
+    "all_can_edit": "Все могут редактировать",
+    "yes": "Да",
+    "no": "Нет",
     "advantages": [
       {
         "title": [

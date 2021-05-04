@@ -11,6 +11,8 @@ function init() {
 
 function initButton(button) {
   button.addEventListener('click', function() {
+    if (button.classList.contains('process')) return false;
+
     button.classList.add('process');
     const data = JSON.parse(button.getAttribute('data-send-to-cloud-properties'));
     const groupName = button.getAttribute('data-send-to-cloud-button');
@@ -80,6 +82,10 @@ function getInputValueFromElement(input) {
   let value = undefined;
   switch (inputType) {
     case 'INPUT':
+      value = input.value || undefined;
+      break;
+  
+    case 'SELECT':
       value = input.value || undefined;
       break;
   

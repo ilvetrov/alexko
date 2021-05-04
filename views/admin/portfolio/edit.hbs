@@ -1,31 +1,15 @@
-<div class="side-edit-panel js-for-replace-scrollbar">
-  <div class="side-edit-panel__content">
-    <div class="side-edit-panel__item">
-      <div class="multilingual-button click-extender" data-pop-up-button="editing_language">
-        {{{ directSvg.multilingual }}}
-      </div>
-      <!-- /.multilingual-button -->
-    </div>
-    <!-- /.side-edit-panel__item -->
-    <div class="side-edit-panel__item">
-      <div class="portfolio-settings"></div>
-      <!-- /.portfolio-settings -->
-    </div>
-    <!-- /.side-edit-panel__item -->
-  </div>
-  <!-- /.side-edit-panel__content -->
-</div>
-<!-- /.side-edit-panel -->
+{{> side_edit_panel}}
+{{> project_settings_panel}}
 
 <main class="portfolio-item-page js-edit-portfolio-page" data-editor-properties="{{ editorProperties }}">
   <div class="portfolio-item-page__wrap">
     <div class="container-size">
       <div class="portfolio-item-page__header">
         <div class="portfolio-header portfolio-item-page__header">
-          <div class="subtitle portfolio-header__subtitle editor-save-button" data-send-to-cloud-button="edit_project" data-send-to-cloud-properties="{{toString sendToCloudProperties }}">
-            <span class="hover-link">{{ lang 'save' }}</span>
-            <span class="accent-slash">☁</span>
-          </div>
+          <a href="/portfolio" class="subtitle portfolio-header__subtitle">
+            {{ lang 'portfolio' }}
+            <span class="accent-slash">/</span>
+          </a>
           <!-- /.subtitle -->
           <h1 class="page-title page-title_free-transform portfolio-header__title js-editor-field" contenteditable="true" data-placeholder="{{ lang 'title' }}" data-send-to-cloud-name="title" data-send-to-cloud-group="edit_project" data-multilingual="{{toString multilingual.title }}">
             {{ project.title }}
@@ -68,7 +52,7 @@
                   {{#repeat introImagesAmount.mobile}}
                     <div class="upload-file upload-file_mobile-image editor-intro-images__item {{iifEquals @index 3 'center' ''}} {{iifBigger @index introImagesDraftsStart.mobile 'disabled js-sample' ''}} {{iifInArray introImagesForOutput.mobile @index 'uploaded' ''}}" data-upload-file-preview="intro_images_{{ @index }}" data-group-file-previews="intro_images">
                       <div class="upload-file__content">
-                        <input type="file" id="intro_images_{{ @index }}" class="disabled js-upload-files" data-project-id="{{ project.id }}" data-is-draft="{{ draft }}" data-group-file="intro_images">
+                        <input type="file" id="intro_images_{{ @index }}" class="disabled js-upload-files" data-project-id="{{ project.id }}" data-group-file="intro_images">
                         <label for="intro_images_{{ @index }}" class="upload-file__label portfolio-shadow {{iifBigger @index 6 'upload-file__label_additional' ''}}" title="{{ lang 'add' }}" data-upload-file-label>
                           <svg class="upload-file__plus" shape-rendering="crispEdges" viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 0v16M0 8h16" stroke="#126DFF" stroke-width="2"/></svg>
                           {{#ifInArray introImagesForOutput.mobile @index}}
@@ -79,7 +63,7 @@
                       </div>
                       <!-- /.upload-file__content -->
                       <div class="upload-file__remove" title="{{ lang 'remove' }}" onclick="removePreviewOfUploadedFile(this);">
-                        {{{ directSvg.remove }}}
+                        {{{ directSvg.removeWhiteShadow }}}
                       </div>
                       <!-- /.upload-file__remove -->
                     </div>
@@ -98,7 +82,7 @@
                   {{#repeat introImagesAmount.desktop}}
                     <div class="upload-file upload-file_desktop-image editor-intro-images__item {{iifEquals @index 1 'center' ''}} {{iifBigger @index introImagesDraftsStart.desktop 'disabled js-sample' ''}} {{iifInArray introImagesForOutput.desktop @index 'uploaded' ''}}" data-upload-file-preview="intro_desktop_images_{{ @index }}" data-group-file-previews="intro_desktop_images">
                       <div class="upload-file__content">
-                        <input type="file" id="intro_desktop_images_{{ @index }}" class="disabled js-upload-files" data-project-id="{{ project.id }}" data-is-draft="{{ draft }}" data-group-file="intro_desktop_images">
+                        <input type="file" id="intro_desktop_images_{{ @index }}" class="disabled js-upload-files" data-project-id="{{ project.id }}" data-group-file="intro_desktop_images">
                         <label for="intro_desktop_images_{{ @index }}" class="upload-file__label portfolio-shadow {{iifBigger @index 2 'upload-file__label_additional' ''}}" title="{{ lang 'add' }}" data-upload-file-label>
                           <svg class="upload-file__plus" shape-rendering="crispEdges" viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 0v16M0 8h16" stroke="#126DFF" stroke-width="2"/></svg>
                           {{#ifInArray introImagesForOutput.desktop @index}}

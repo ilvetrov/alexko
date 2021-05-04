@@ -1,5 +1,5 @@
 const defaultProperties = {
-  draft: false
+  
 };
 
 let elementWithProperties, pageProperties;

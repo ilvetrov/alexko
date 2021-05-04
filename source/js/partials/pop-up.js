@@ -20,17 +20,12 @@ for (let i = 0; i < popUps.length; i++) {
     const popUpButton = popUpButtons[buttonIteration];
     popUpButton.addEventListener('click', () => {
       if (popUp.classList.contains('disabled')) {
-        (new Promise((resolve, reject) => {
-          if (!popUpNeedSetPositionToButton) return resolve();
-
+        if (popUpNeedSetPositionToButton) {
           blockScroll();
-          setPositionTo(popUpContent, popUpButton);
-          resolve();
-        }))
-        .then(() => {
-          popUpButton.blur();
-          showPopUp(popUp);
-        });
+        }
+        popUpButton.blur();
+        showPopUp(popUp);
+        setPositionTo(popUpContent, popUpButton);
       }
     });
   }
@@ -108,10 +103,35 @@ function hidePopUp(popUp) {
   }
 }
 
-function setPositionTo(popUpContent, toElement) {
+function setPositionTo(element, toElement) {
   const position = toElement.getBoundingClientRect();
-  popUpContent.style.left = `${position.x}px`;
-  popUpContent.style.top = `${position.y}px`;
+  const elementWidth = element.offsetWidth;
+  const elementHeight = element.offsetHeight;
+  const offset = 45;
+
+  element.style.left = '';
+  element.style.right = '';
+  element.style.top = '';
+  element.style.bottom = '';
+
+  if ((position.x + elementWidth + offset) < document.body.clientWidth) {
+    element.style.left = `${Math.max(position.x, 0)}px`;
+  } else {
+    element.style.left = `${Math.max(document.body.clientWidth - elementWidth - offset, 0)}px`;
+  }
+  
+  if (
+    (window.scrollY + position.y + element.offsetHeight) >= document.body.clientHeight
+    && (window.scrollY + (window.innerHeight - (elementHeight + offset))) >= 0
+  ) {
+    element.style.bottom = `${offset}px`;
+  } else {
+    if ((window.innerHeight - position.y) > offset) {
+      element.style.top = `${Math.max(position.y, 0)}px`;
+    } else {
+      element.style.top = `${Math.max(position.y - offset, 0)}px`;
+    }
+  }
 }
 
 function addCallbackToHideOfPopUp(popUp, callback) {

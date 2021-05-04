@@ -24,6 +24,7 @@
     "login_to": "Login",
     "published": "Published",
     "awaiting_approval": "Awaiting approval",
+    "draft": "Draft",
     "drafts": "Drafts",
     "add": "Add",
     "add_project": "Add project",
@@ -43,6 +44,11 @@
     "save": "Save",
     "other_languages": "Other languages",
     "remove": "Remove",
+    "settings": "Settings",
+    "status": "Status",
+    "all_can_edit": "All can edit",
+    "yes": "Yes",
+    "no": "No",
     "advantages": [
       {
         "title": [

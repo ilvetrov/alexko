@@ -15,6 +15,7 @@ const redirectTo = require('../libs/redirect-to');
 const { getFileNameWithoutExt } = require('../libs/get-file-name');
 const escapeString = require('escape-string-regexp');
 const { PortfolioProject } = require('../models/portfolio');
+const { frontMultilingualToBackend } = require('../libs/converters/multilingual');
 
 var router = express.Router();
 
@@ -88,13 +89,23 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
       ),
 
       new Promise((resolve, reject) =>
+        fs.readFile(getRoot() + '/public/img/remove.svg', (err, data) => resolve(data))
+      ),
+
+      new Promise((resolve, reject) =>
         fs.readFile(getRoot() + '/public/img/remove-white-shadow.svg', (err, data) => resolve(data))
+      ),
+      
+      new Promise((resolve, reject) =>
+        fs.readFile(getRoot() + '/public/img/gear.svg', (err, data) => resolve(data))
       ),
 
     ]).then(function([
       projectTypesFromDb,
       multilingualSvg,
       removeSvg,
+      removeWhiteShadowSvg,
+      gearSvg,
     ]) {
 
       const projectTypes = projectTypesFromDb.map((type, index) => {
@@ -208,7 +219,9 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         },
         directSvg: {
           multilingual: multilingualSvg,
-          remove: removeSvg
+          remove: removeSvg,
+          removeWhiteShadow: removeWhiteShadowSvg,
+          gear: gearSvg,
         },
         sendToCloudProperties: {
           link: '/admin/portfolio/edit',
@@ -217,7 +230,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
           }
         },
         editorProperties: JSON.stringify({
-          draft: draft
+          
         }),
         toLinkVariations: JSON.stringify(toLinkVariations),
         selects: [
@@ -292,8 +305,8 @@ router.post('/portfolio/edit', async function(req, res, next) {
     descr: frontMultilingualToBackend('descr', data, req),
     text: data.text,
     status: data.status || oldData.status,
-    common: data.common || oldData.common,
-    type_id: data.type_id || oldData.type_id,
+    common: data.common ?? oldData.common,
+    type_id: data.type_id ?? oldData.type_id,
     intro_images: {
       mobile: data.intro_images || oldData.intro_images.mobile,
       desktop: data.intro_desktop_images || oldData.intro_images.desktop
@@ -329,23 +342,6 @@ router.post('/portfolio/edit', async function(req, res, next) {
 
 });
 
-function frontMultilingualToBackend(selfName, allData, req) {
-  const languagesNames = getLanguagesNames(req);
-  const userLanguageName = getUserLanguage(req).cod_name;
-
-  const outputToBackend = {};
-  for (const codName in languagesNames) {
-    if (codName == userLanguageName) continue;
-    if (Object.hasOwnProperty.call(languagesNames, codName)) {
-      const newValue = allData[`${selfName}_${codName}`];
-      outputToBackend[codName] = newValue;
-    }
-  }
-  outputToBackend[userLanguageName] = allData[selfName];
-
-  return outputToBackend;
-}
-
 router.get('/resources/*', async function(req, res, next) {
   const fileRelativePath = req.params[0];
   if (glob.sync(getRoot() + `/inner-resources/${fileRelativePath}`).length > 0) {
@@ -357,10 +353,25 @@ router.get('/resources/*', async function(req, res, next) {
   }
 });
 
-router.post('/upload', function(req, res, next) {
+router.post('/upload', async function(req, res, next) {
   const files = req.files['files[]'];
   const projectId = Number(req.body.project_id);
-  const draft = Boolean(req.body.draft);
+
+  if (!projectId) return next(createError(404));
+
+  const project = await db.oneOrNone('SELECT * FROM portfolio WHERE id=$(id)', {
+    id: id
+  });
+
+  if (
+    !project
+    && (
+      res.locals.admin.id === project.admin_id
+      || res.locals.admin.can_edit_all
+    )
+  ) return next(createError(404));
+
+  const draft = Number(project.status !== 'published');
 
   if (files.length === undefined) {
     uploadFile(files, projectId, draft)

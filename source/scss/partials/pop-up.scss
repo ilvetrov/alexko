@@ -8,6 +8,25 @@
   opacity: 1;
   transition: opacity .2s;
 
+  &__close {
+    cursor: pointer;
+    transform-origin: center;
+    transform: scale(1);
+    transition: transform .2s;
+    
+    path {
+      transition: fill .2s;
+    }
+
+    &:hover, &:focus {
+      transform: scale(1.1);
+
+      path {
+        fill: $accent-color;
+      }
+    }
+  }
+
   &.hidden {
     opacity: 0;
     pointer-events: none;

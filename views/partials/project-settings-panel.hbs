@@ -1,0 +1,52 @@
+<div class="project-settings-panel pop-up hidden disabled" data-pop-up="project_settings_panel">
+  <div class="project-settings-panel__wrap">
+    <div class="project-settings-panel__container container-size">
+      <div class="project-settings-panel__content" data-pop-up-content>
+        <div class="project-settings-panel__close">
+          <div class="pop-up__close click-extender" data-pop-up-close-button="project_settings_panel">
+            {{{ directSvg.remove }}}
+          </div>
+          <!-- /.pop-up__close -->
+        </div>
+        <!-- /.project-settings-panel__close -->
+        <div class="project-settings-panel__item">
+          <div class="project-settings-panel__title">
+            {{ lang 'status' }}
+          </div>
+          <!-- /.project-settings-panel__title -->
+          <select name="project_status" id="" data-send-to-cloud-name="status" data-send-to-cloud-group="edit_project">
+            <option value="published" {{{iifEquals project.status 'published' 'selected="selected"' '' }}}>
+              {{ lang 'published' }}
+            </option>
+            <option value="awaiting_approval" {{{iifEquals project.status 'awaiting_approval' 'selected="selected"' '' }}}>
+              {{ lang 'awaiting_approval' }}
+            </option>
+            <option value="draft" {{{iifEquals project.status 'draft' 'selected="selected"' '' }}}>
+              {{ lang 'draft' }}
+            </option>
+          </select>
+        </div>
+        <!-- /.project-settings-panel__item -->
+        <div class="project-settings-panel__item">
+          <div class="project-settings-panel__title">
+            {{ lang 'all_can_edit' }}
+          </div>
+          <!-- /.project-settings-panel__title -->
+          <select name="project_status" id="" data-send-to-cloud-name="common" data-send-to-cloud-group="edit_project">
+            <option value="true" {{{iif project.common 'selected="selected"' '' }}}>
+              {{ lang 'yes' }}
+            </option>
+            <option value="false" {{{iif project.common '' 'selected="selected"' }}}>
+              {{ lang 'no' }}
+            </option>
+          </select>
+        </div>
+        <!-- /.project-settings-panel__item -->
+      </div>
+      <!-- /.project-settings-panel__content -->
+    </div>
+    <!-- /.container-size -->
+  </div>
+  <!-- /.project-settings-panel__wrap -->
+</div>
+<!-- /.project-settings-panel -->

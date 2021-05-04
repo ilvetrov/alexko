@@ -37,7 +37,6 @@ function processUploadInput(input) {
   const id = input.getAttribute('id');
   const number = (id.match(/\d+$/) || [])[0] || 0;
   const projectId = input.getAttribute('data-project-id');
-  const draft = input.getAttribute('data-is-draft');
   const preview = document.querySelector(`[data-upload-file-preview="${id}"]`);
   const files = input.files;
   const groupName = input.getAttribute('data-group-file');
@@ -53,7 +52,7 @@ function processUploadInput(input) {
 
   deactivatePreview(preview);
   
-  uploadFiles(files, projectId, draft, function(uploadedFiles) {
+  uploadFiles(files, projectId, function(uploadedFiles) {
     const uploadedFile = uploadedFiles[0];
     const uploadedFileWebSrc = uploadedFile.webSrc;
     if (dataOutput) {
@@ -92,10 +91,9 @@ function processUploadInput(input) {
   });
 }
 
-function uploadFiles(files, projectId, draft, successCallback, errorCallback) {
+function uploadFiles(files, projectId, successCallback, errorCallback) {
   const formData = new FormData();
   formData.append('project_id', projectId);
-  formData.append('draft', draft);
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     formData.append('files[]', file);
