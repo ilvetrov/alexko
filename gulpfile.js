@@ -18,6 +18,7 @@ const glob = require('glob');
 const watchify = require('watchify');
 const color = require('./libs/terminal-color');
 const { getFileName } = require('./libs/get-file-name');
+const babelify = require('babelify');
 
 sass.compiler = require('node-sass');
 
@@ -54,6 +55,13 @@ class SourceToPublic {
 				debug: true,
 				cache: {},
 				packageCache: {}
+			})
+			.transform(babelify, {
+				parserOpts: {
+					sourceType: 'module',
+					allowImportExportEverywhere: true,
+				},
+				presets: ['@babel/preset-env']
 			}));
 			const watchifyBundle = () => {
 				return watchifyBuild.bundle()
@@ -85,13 +93,20 @@ class SourceToPublic {
 			const task = browserify({
 				entries: entryPath
 			})
+			.transform(babelify, {
+				minified: true,
+				parserOpts: {
+					sourceType: 'module',
+					allowImportExportEverywhere: true,
+
+				},
+				comments: false,
+				presets: ['@babel/preset-env']
+			})
 			.bundle()
 			.pipe(source(getFileName(entryPath)))
 			.pipe(buffer())
 			.pipe(plumber())
-			.pipe(babel({
-				presets: ['@babel/env']
-			}))
 			.pipe(uglify({
 				parse: {
 					bare_returns: true,
