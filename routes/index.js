@@ -4,6 +4,7 @@ const auth = require('../libs/auth');
 const redirectTo = require('../libs/redirect-to');
 const { langConstructor } = require('../libs/user-language');
 const { asyncImg } = require('../libs/async-img-loader');
+const checkAdminCsrf = require('../middlewares/check-admin-csrf');
 var router = express.Router();
 
 /* GET home page. */
@@ -74,7 +75,7 @@ router.get('/portfolio/example', function(req, res, next) {
   });
 });
 
-router.get('/admin-login', function(req, res, next) {
+router.get('/admin-login-page', function(req, res, next) {
   auth.admin.getLoggedUser(req)
   .then(() => {
     redirectTo(res, req.query.to, '/admin');
@@ -90,7 +91,7 @@ router.get('/admin-login', function(req, res, next) {
   });
 });
 
-router.get('/admin-logout', function(req, res, next) {
+router.get('/admin-logout', checkAdminCsrf, function(req, res, next) {
   auth.admin.getLoggedUser(req)
   .then(() => {
     auth.admin.logout(req, res)

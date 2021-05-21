@@ -22,6 +22,7 @@
     "name": "Имя",
     "password": "Пароль",
     "login_to": "Войти",
+    "logout": "Выйти из аккаунта",
     "published": "Опубликовано",
     "awaiting_approval": "На утверждении",
     "draft": "Черновик",

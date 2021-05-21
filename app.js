@@ -17,6 +17,7 @@ initRoot(__dirname);
 const globalRouter = require('./routes/_global');
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
+const editorRouter = require('./routes/editor');
 const servicesRouter = require('./routes/services');
 
 const app = express();
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/services', servicesRouter);
 app.use('/admin', adminRouter);
+app.use('/admin/editor', editorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

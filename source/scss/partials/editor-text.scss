@@ -1,0 +1,42 @@
+.portfolio-item-page {
+  .ce-block {
+    &__content {
+      margin: 0;
+      max-width: none;
+    }
+  }
+  .ce-paragraph, .ce-header {
+    @extend .text-container;
+  }
+  .ce-header {
+    padding: 0;
+  }
+  h2.ce-header {
+    @extend .text-h2;
+  }
+  .ce-paragraph {
+    padding: 0;
+    @extend .text-p;
+  }
+  .image-tool {
+    @extend .text-container;
+    @extend .text-container_mobile;
+    @extend .text-img-wrap;
+  
+    &__image {
+      @extend .text-img;
+      overflow: visible
+    }
+    &__image-picture {
+      @extend .portfolio-shadow;
+    }
+    
+    &--desktopMode {
+      @extend .text-container_desktop;
+    }
+    &--stretched {
+      @extend .text-container_stretched;
+    }
+  }
+
+}

@@ -1,13 +1,14 @@
 const introImages = document.getElementsByClassName('js-intro-image');
-if (introImages.length === 0) return;
 
 const { gsap } = require('gsap/dist/gsap');
 const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
-const triggerHeader = document.getElementsByClassName('js-portfolio-content')[0].children[0];
 
 const timeline = gsap.timeline();
 
 function initIntroImages() {
+  if (introImages.length === 0) return;
+  const triggerHeader = document.getElementsByClassName('js-portfolio-content')[0].children[0];
+
   for (let i = 0; i < introImages.length; i++) {
     const introImage = introImages[i];
     const slide = introImage.parentElement;
@@ -65,6 +66,7 @@ function checkEmptyTransform(introImage) {
 }
 
 window.addEventListener('load', function() {
+  if (introImages.length === 0) return;
   ScrollTrigger.refresh();
 
   const centerImage = introImages[getCenterImage(introImages.length)];

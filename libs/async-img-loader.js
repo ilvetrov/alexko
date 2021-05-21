@@ -17,49 +17,60 @@ function asyncImg(images, scroll = true, isBackground = false, manual = false) {
   };
 
   let html = '';
-  if (images.length == 1 && cache.getOrSet(`image_can_write_without_blank_of_${images[0].serverSrc}`, () => {
-    return fs.statSync(images[0].serverSrc).size < 700;
-  })) {
+
+  try {
+    if (images.length == 1 && cache.getOrSet(`image_can_write_without_blank_of_${images[0].serverSrc}`, () => {
+      return fs.statSync(images[0].serverSrc).size < 700;
+    })) {
+      if (!isBackground) {
+        html = `src="${images[0].webSrc}"`;
+      } else {
+        html = `style="background-image: url(${images[0].webSrc})"`;
+      }
+    } else {
+  
+      let blank = '';
+      let cookedLinks = {
+        scroll: scroll,
+        isBackground: isBackground,
+        images: [],
+        manual: manual
+      };
+      for (let i = 0; i < images.length; i++) {
+        const image = {...defaultValues, ...images[i]};
+        const serverSrc = image.serverSrc;
+    
+        if (!isBackground && blank == '') {
+          const dimensions = cache.getOrSet('image_size_of_' + serverSrc, () => {
+            return sizeOf(serverSrc);
+          });
+          blank = `/services/blank?width=${dimensions.width}&height=${dimensions.height}`;
+        }
+        
+        delete image.serverSrc;
+        cookedLinks.images.push(image);
+      }
+      const asyncAttribute = `data-async-images='${JSON.stringify(cookedLinks)}'`;
+    
+      if (!isBackground) {
+        html = `src="${blank}" ${asyncAttribute}`;
+      } else {
+        html = asyncAttribute;
+      }
+  
+    }
+  
     if (!isBackground) {
-      html = `src="${images[0].webSrc}"`;
+      html = html + ' loading="lazy"';
+    }
+  } catch (error) {
+
+    if (!isBackground) {
+      html = `src="${images[0].webSrc}" loading="lazy"`;
     } else {
       html = `style="background-image: url(${images[0].webSrc})"`;
     }
-  } else {
 
-    let blank = '';
-    let cookedLinks = {
-      scroll: scroll,
-      isBackground: isBackground,
-      images: [],
-      manual: manual
-    };
-    for (let i = 0; i < images.length; i++) {
-      const image = {...defaultValues, ...images[i]};
-      const serverSrc = image.serverSrc;
-  
-      if (!isBackground && blank == '') {
-        const dimensions = cache.getOrSet('image_size_of_' + serverSrc, () => {
-          return sizeOf(serverSrc);
-        });
-        blank = `/services/blank?width=${dimensions.width}&height=${dimensions.height}`;
-      }
-      
-      delete image.serverSrc;
-      cookedLinks.images.push(image);
-    }
-    const asyncAttribute = `data-async-images='${JSON.stringify(cookedLinks)}'`;
-  
-    if (!isBackground) {
-      html = `src="${blank}" ${asyncAttribute}`;
-    } else {
-      html = asyncAttribute;
-    }
-
-  }
-
-  if (!isBackground) {
-    html = html + ' loading="lazy"';
   }
 
   return html;

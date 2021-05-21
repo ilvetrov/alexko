@@ -2,7 +2,10 @@ const insertAfter = require("../insertAfter");
 
 const dataNameAttributes = [
   'name',
-  'data-send-to-cloud-name'
+  'data-send-to-cloud-name',
+  'id',
+  'for',
+  'data-editorjs'
 ];
 
 const inputs = [];
@@ -29,7 +32,7 @@ function initInput(mainInput) {
       const duplicate = changesNamesToMultilingual(mainInput.cloneNode(true), codName);
       duplicate.classList.add('disabled');
       duplicate.removeAttribute('data-multilingual');
-      duplicate.innerText = value;
+      setValueToDuplicate(duplicate, value);
       
       inputs.push({
         codName: codName,
@@ -50,6 +53,12 @@ function changesNamesToMultilingual(input, codName) {
   input.value = '';
   input.innerText = '';
   return input;
+}
+
+function setValueToDuplicate(duplicate, value) {
+  if (!duplicate.hasAttribute('data-editorjs')) {
+    duplicate.innerText = value;
+  }
 }
 
 module.exports = {

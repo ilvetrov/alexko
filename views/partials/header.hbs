@@ -21,10 +21,17 @@
         </div>
         <!-- /.header__item -->
         <div class="header__item header__side-item header__side-item_right">
-          <a href="/cabinet" class="cabinet-link hover-link click-extender" title="{{ lang 'login_to_cabinet' }}">
-            <svg class="cabinet-link__img hover-link__fill" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path d="M7.003 0A3.696 3.696 0 003.31 3.691a3.696 3.696 0 003.692 3.692 3.696 3.696 0 003.691-3.692A3.696 3.696 0 007.003 0zm0 6.563A2.874 2.874 0 014.13 3.69 2.874 2.874 0 017.003.821a2.874 2.874 0 012.87 2.87 2.874 2.874 0 01-2.87 2.872zm4.592 3.231a5.263 5.263 0 00-3.772-1.59h-1.64a5.263 5.263 0 00-3.773 1.59A5.38 5.38 0 00.85 13.59c0 .226.184.41.41.41h11.485a.41.41 0 00.41-.41 5.38 5.38 0 00-1.56-3.796zM1.688 13.18c.206-2.327 2.143-4.157 4.494-4.157h1.64c2.352 0 4.29 1.83 4.495 4.157z"/></svg>
-          </a>
-          <!-- /.cabinet-link -->
+          {{#if admin}}
+            <a href="/admin-logout?token={{ adminCsrf.newToken }}" class="cabinet-link hover-link click-extender" title="{{ lang 'logout' }}">
+              <svg class="cabinet-link__img hover-link__fill" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path d="M7.003 0A3.696 3.696 0 003.31 3.691a3.696 3.696 0 003.692 3.692 3.696 3.696 0 003.691-3.692A3.696 3.696 0 007.003 0zm0 6.563A2.874 2.874 0 014.13 3.69 2.874 2.874 0 017.003.821a2.874 2.874 0 012.87 2.87 2.874 2.874 0 01-2.87 2.872zm4.592 3.231a5.263 5.263 0 00-3.772-1.59h-1.64a5.263 5.263 0 00-3.773 1.59A5.38 5.38 0 00.85 13.59c0 .226.184.41.41.41h11.485a.41.41 0 00.41-.41 5.38 5.38 0 00-1.56-3.796zM1.688 13.18c.206-2.327 2.143-4.157 4.494-4.157h1.64c2.352 0 4.29 1.83 4.495 4.157z"/></svg>
+            </a>
+            <!-- /.cabinet-link -->
+          {{else}}
+            <a href="/cabinet" class="cabinet-link hover-link click-extender" title="{{ lang 'login_to_cabinet' }}">
+              <svg class="cabinet-link__img hover-link__fill" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path d="M7.003 0A3.696 3.696 0 003.31 3.691a3.696 3.696 0 003.692 3.692 3.696 3.696 0 003.691-3.692A3.696 3.696 0 007.003 0zm0 6.563A2.874 2.874 0 014.13 3.69 2.874 2.874 0 017.003.821a2.874 2.874 0 012.87 2.87 2.874 2.874 0 01-2.87 2.872zm4.592 3.231a5.263 5.263 0 00-3.772-1.59h-1.64a5.263 5.263 0 00-3.773 1.59A5.38 5.38 0 00.85 13.59c0 .226.184.41.41.41h11.485a.41.41 0 00.41-.41 5.38 5.38 0 00-1.56-3.796zM1.688 13.18c.206-2.327 2.143-4.157 4.494-4.157h1.64c2.352 0 4.29 1.83 4.495 4.157z"/></svg>
+            </a>
+            <!-- /.cabinet-link -->
+          {{/if}}
         </div>
         <!-- /.header__item -->
       </div>

@@ -108,6 +108,11 @@
       box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
     }
   }
+  &_mobile-image.uploaded &__content:hover & {
+    &__label {
+      transform: scale(3);
+    }
+  }
   &.uploaded &__content:hover + & {
     &__remove {
       opacity: 0;

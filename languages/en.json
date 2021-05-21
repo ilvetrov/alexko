@@ -22,6 +22,7 @@
     "name": "Name",
     "password": "Password",
     "login_to": "Login",
+    "logout": "Logout",
     "published": "Published",
     "awaiting_approval": "Awaiting approval",
     "draft": "Draft",

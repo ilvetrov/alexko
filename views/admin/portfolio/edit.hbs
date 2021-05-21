@@ -92,6 +92,10 @@
                         <!-- /.upload-file__label -->
                       </div>
                       <!-- /.upload-file__content -->
+                      <div class="upload-file__remove" title="{{ lang 'remove' }}" onclick="removePreviewOfUploadedFile(this);">
+                        {{{ directSvg.removeWhiteShadow }}}
+                      </div>
+                      <!-- /.upload-file__remove -->
                     </div>
                     <!-- /.upload-file -->
                   {{/repeat}}
@@ -112,33 +116,6 @@
     <!-- /.editor-intro-images -->
   </div>
   <!-- /.portfolio-item-page__wrap -->
-  <div class="portfolio-item-page__content js-portfolio-content">
-    <div class="container-size text-block-animation">
-      <h2 class="text-h2 text-container">
-        Задачи
-      </h2>
-      <!-- /.text-h2 -->
-    </div>
-    <!-- /.container-size -->
-    <div class="container-size text-block-animation">
-      <p class="text-p text-container">
-        Нам поступил заказ — сделать блочно, сделать красиво. Мы направили на это лучшие усилия и специальные отправные блоки.
-      </p>
-      <!-- /.text-p -->
-    </div>
-    <!-- /.container-size -->
-    <div class="container-size text-block-animation">
-      <p class="text-p text-container">
-        Сайт блочный во всём: в кнопках, в ссылка, в меню, даже в своём устройстве — давайте посмотрим поближе.
-      </p>
-      <!-- /.text-p -->
-    </div>
-    <!-- /.container-size -->
-    {{!-- <div class="text-img-wrap text-container text-container_mobile text-block-animation">
-      <img {{{ images.level_3 }}} alt="Level 3" class="text-img portfolio-shadow">
-    </div>
-    <!-- /.text-img-wrap--> --}}
-  </div>
-  <!-- /.portfolio-item-page__content -->
+  <div class="portfolio-item-page__content js-portfolio-content" data-editorjs="project_text" data-multilingual="{{toString multilingual.text }}"></div>
 </main>
 <!-- /.portfolio-item-page -->

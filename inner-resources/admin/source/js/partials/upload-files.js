@@ -94,6 +94,7 @@ function processUploadInput(input) {
 function uploadFiles(files, projectId, successCallback, errorCallback) {
   const formData = new FormData();
   formData.append('project_id', projectId);
+  formData.append('token', frontVariables.adminToken);
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     formData.append('files[]', file);

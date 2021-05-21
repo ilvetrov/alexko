@@ -2,20 +2,21 @@ const createError = require('http-errors');
 const express = require('express');
 const { langConstructor, getUserLanguage, getLanguagesNames } = require('../libs/user-language');
 const checkAdmin = require('../middlewares/check-admin');
+const checkAdminCsrf = require('../middlewares/check-admin-csrf');
 const fs = require('fs');
-const path = require('path');
 const { getRoot } = require('../libs/get-root');
 const { glob } = require('glob');
 const { asyncImg } = require('../libs/async-img-loader');
 const db = require('../db');
-const minifyImg = require('../libs/minify-img');
-const checkImg = require('../libs/check-img');
 const { admin } = require('../libs/auth');
 const redirectTo = require('../libs/redirect-to');
-const { getFileNameWithoutExt } = require('../libs/get-file-name');
 const escapeString = require('escape-string-regexp');
 const { PortfolioProject } = require('../models/portfolio');
 const { frontMultilingualToBackend } = require('../libs/converters/multilingual');
+const uploadFile = require('../libs/upload-file');
+const getIntroImagesAsWebArray = require('../libs/converters/intro-images-as-web-array');
+const { getEditorImages, getEditorImagesFromMultilingual } = require('../libs/converters/get-editor-images');
+const registerImages = require('../libs/register-images');
 
 var router = express.Router();
 
@@ -58,9 +59,9 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/portfolio/add', async function(req, res, next) {
+router.get('/portfolio/add', checkAdminCsrf, async function(req, res, next) {
   const newProjectId = (await db.query('INSERT INTO portfolio (admin_id) VALUES ($(admin_id)) RETURNING id', {
-    admin_id: await admin.getLoggedUser(req).then(user => user.id).catch(() => undefined)
+    admin_id: req.locals.admin.id
   }))[0].id;
 
   redirectTo(res, '/admin/portfolio/edit/' + newProjectId);
@@ -197,6 +198,24 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
       if (!res.locals.frontVariables.dictionary) res.locals.frontVariables.dictionary = {};
       res.locals.frontVariables.dictionary.other_languages = lang('other_languages');
 
+      res.locals.frontVariables.projectId = project.id;
+      
+      res.locals.frontVariables.editorText = (function() {
+        const languagesNames = getLanguagesNames(req);
+
+        const outputItems = {};
+        for (const codName in languagesNames) {
+          if (Object.hasOwnProperty.call(languagesNames, codName)) {
+            if (codName === getUserLanguage(req).cod_name) {
+              outputItems[`project_text`] = project.allTexts[codName] ?? project.allTexts['en'];
+            } else {
+              outputItems[`project_text_${codName}`] = project.allTexts[codName] ?? project.allTexts['en'];
+            }
+          }
+        }
+        return outputItems;
+      }());
+
       res.renderMin('admin/portfolio/edit', {
         title: lang('edit_project') + ' ' + project.id,
         layout: 'layouts/admin',
@@ -215,7 +234,8 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         toLinkText: project.type_id && toLinkVariations[project.type_id] || toLinkVariations[2],
         multilingual: {
           title: project.allTitles,
-          descr: project.allDescrs
+          descr: project.allDescrs,
+          text: project.allTexts
         },
         directSvg: {
           multilingual: multilingualSvg,
@@ -289,7 +309,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
   });
 });
 
-router.post('/portfolio/edit', async function(req, res, next) {
+router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
   const data = req.body;
 
   if (!data.project_id) return res.send('missed project_id');
@@ -299,11 +319,18 @@ router.post('/portfolio/edit', async function(req, res, next) {
   })
   .then(result => result[0]);
 
+  if (data.editors_images) {
+    registerImages(
+      [...getIntroImagesAsWebArray(data.intro_images, data.intro_desktop_images), ...data.editors_images],
+      [...getIntroImagesAsWebArray(oldData.intro_images?.mobile || {}, oldData.intro_images?.desktop || {}), ...getEditorImagesFromMultilingual(oldData.text)]
+    );
+  }
+
   const newData = {
     id: Number(data.project_id),
     title: frontMultilingualToBackend('title', data, req),
     descr: frontMultilingualToBackend('descr', data, req),
-    text: data.text,
+    text: frontMultilingualToBackend('project_text', data, req),
     status: data.status || oldData.status,
     common: data.common ?? oldData.common,
     type_id: data.type_id ?? oldData.type_id,
@@ -353,14 +380,15 @@ router.get('/resources/*', async function(req, res, next) {
   }
 });
 
-router.post('/upload', async function(req, res, next) {
+router.post('/upload', checkAdminCsrf, async function(req, res, next) {
   const files = req.files['files[]'];
   const projectId = Number(req.body.project_id);
+  const blockId = req.body.block_id || null;
 
   if (!projectId) return next(createError(404));
 
   const project = await db.oneOrNone('SELECT * FROM portfolio WHERE id=$(id)', {
-    id: id
+    id: projectId
   });
 
   if (
@@ -374,7 +402,7 @@ router.post('/upload', async function(req, res, next) {
   const draft = Number(project.status !== 'published');
 
   if (files.length === undefined) {
-    uploadFile(files, projectId, draft)
+    uploadFile(files, projectId, blockId, draft)
     .then((webPath) => {
       res.send(JSON.stringify([webPath]));
     })
@@ -386,7 +414,7 @@ router.post('/upload', async function(req, res, next) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       uploadFilesFunctions.push(new Promise((resolve, reject) => {
-        uploadFile(file, projectId, draft)
+        uploadFile(file, projectId, blockId, draft)
         .then((webPath) => {
           resolve(webPath);
         })
@@ -401,90 +429,5 @@ router.post('/upload', async function(req, res, next) {
     });
   }
 });
-
-function uploadFile(file, projectId = 'common', draft = false) {
-  return new Promise(async (resolve, reject) => {
-    
-    let relativePath = `public/content/${projectId}`;
-    let folderWebPath = '/' + relativePath;
-    if (draft) {
-      relativePath = `inner-resources/drafts/${projectId}`;
-      folderWebPath = '/' + `admin/resources/drafts/${projectId}`;
-    }
-    const folderPath = getRoot() + '/' + relativePath;
-    
-    let outputFileName = file.name;
-    const sameFileExists = fs.existsSync(folderPath + '/' + file.name);
-    if (sameFileExists) {
-      const numberOfSynonyms = glob.sync(`${folderPath}/${getFileNameWithoutExt(file.name)}*${path.extname(file.name)}`).length;
-      outputFileName = `${getFileNameWithoutExt(outputFileName)}-${numberOfSynonyms + 1}${path.extname(outputFileName)}`;
-    }
-    const outputPath = folderPath + '/' + outputFileName;
-    const webPath = folderWebPath + '/' + outputFileName;
-  
-    if (!checkImg(file.name)) {
-      return fs.rename(file.tempFilePath, outputPath, (err) => {
-        if (err) return reject(err);
-        resolve({
-          webSrc: webPath,
-          serverSrc: relativePath + '/' + outputFileName
-        });
-      });
-    }
-
-    if (sameFileExists) {
-      var existingFileChecksum = await db.query(`SELECT checksum FROM original_images WHERE path=$(path) AND checksum=$(checksum)`, {
-        path: relativePath + '/' + file.name,
-        checksum: file.md5
-      }).then((fileInDb) => {
-        return fileInDb && fileInDb[0];
-      });
-      if (!existingFileChecksum) {
-        existingFileChecksum = await db.query(`SELECT checksum FROM original_images WHERE path=$(path) AND checksum=$(checksum)`, {
-          path: relativePath + '/' + outputFileName,
-          checksum: file.md5
-        }).then((fileInDb) => {
-          return fileInDb && fileInDb[0];
-        });
-      }
-      if (existingFileChecksum) {
-        fs.unlink(file.tempFilePath, (err) => {
-          if (err) throw err;
-        });
-        return resolve({
-          webSrc: folderWebPath + '/' + file.name,
-          serverSrc: relativePath + '/' + file.name
-        });
-      }
-    }
-
-    fs.readFile(file.tempFilePath, (err, data) => {
-      if (err) return reject(err);
-      minifyImg(data)
-      .then((buildedBuffer) => {
-        fs.lstat(folderPath, (err, stats) => {
-          if (err) fs.mkdirSync(folderPath);
-
-          db.query('INSERT INTO original_images (path, checksum) VALUES ($(path), $(checksum))', {
-            path: relativePath + '/' + (sameFileExists ? outputFileName : file.name),
-            checksum: file.md5
-          });
-          fs.writeFile(outputPath, buildedBuffer, (err) => {
-            if (err) return reject(err);
-            fs.unlink(file.tempFilePath, (err) => {
-              if (err) throw err;
-            });
-            resolve({
-              webSrc: webPath,
-              serverSrc: relativePath + '/' + outputFileName
-            });
-          });
-        });
-
-      });
-    });
-    
-  });
-}
 
 module.exports = router;

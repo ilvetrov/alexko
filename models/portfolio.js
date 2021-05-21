@@ -1,9 +1,11 @@
+const multilingualDefault = require("../libs/multilingual-default");
+
 class PortfolioProject {
   constructor (projectFromDB, userLang = 'en') {
     this.id = projectFromDB.id;
     this.#title = projectFromDB.title;
     this.#descr = projectFromDB.descr;
-    this.text = projectFromDB.text;
+    this.#text = projectFromDB.text;
     this.status = projectFromDB.status;
     this.admin_id = projectFromDB.admin_id;
     this.common = projectFromDB.common;
@@ -18,41 +20,64 @@ class PortfolioProject {
 
   #title;
   #descr;
+  #text;
+
+  #titleDefault = multilingualDefault;
+  #descrDefault = multilingualDefault;
+  #textDefault = multilingualDefault;
 
   get title() {
+    if (!this.#title) return this.#titleDefault[this.userLang];
+    
     return this.#title[this.userLang];
   }
 
   get allTitles() {
+    if (!this.#title) return this.#titleDefault;
+    
     return this.#title;
   }
 
   get otherTitles() {
-    const allTitles = {...this.allTitles};
-    delete allTitles[this.userLang];
-    return allTitles;
+    const all = {...this.allTitles};
+    delete all[this.userLang];
+    return all;
   }
 
   get descr() {
+    if (!this.#descr) return this.#descrDefault[this.userLang];
+    
     return this.#descr[this.userLang];
   }
 
   get allDescrs() {
+    if (!this.#descr) return this.#descrDefault;
+    
     return this.#descr;
   }
 
   get otherDescrs() {
-    const allDescrs = {...this.allDescrs};
-    delete allDescrs[this.userLang];
-    return allDescrs;
+    const all = {...this.allDescrs};
+    delete all[this.userLang];
+    return all;
   }
 
-  set title(value) {
-    this.#title = value;
+  get text() {
+    if (!this.#text) return this.#textDefault[this.userLang];
+    
+    return this.#text[this.userLang];
   }
-  
-  set descr(value) {
-    this.#descr = value;
+
+  get allTexts() {
+    if (!this.#text) return this.#textDefault;
+    
+    return this.#text;
+  }
+
+  get otherTexts() {
+    const all = {...this.allTexts};
+    delete all[this.userLang];
+    return all;
   }
 }
 

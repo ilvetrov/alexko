@@ -1,11 +1,13 @@
 const db = require("../db");
 const { getRandomHash } = require("./random");
+const { getTimeForPrevDaysInISO } = require("./time");
 
 class LoginSystem {
-  constructor(databaseName, codName, cookieName) {
+  constructor(databaseName, codName, cookieName, daysToExpire = 365) {
     this.databaseName = databaseName;
     this.codName = codName;
     this.cookieName = cookieName;
+    this.daysToExpire = Number(daysToExpire);
   }
 
   login(req, res, name, password) {
@@ -77,10 +79,11 @@ class LoginSystem {
     const hash = getRandomHash();
 
     this.createSessionCookie(res, hash);
-    return db.query('INSERT INTO sessions ("user_id", "hash", "type") VALUES ($(user_id), $(hash), $(type)); SELECT * FROM sessions WHERE hash=$(hash)', {
+    return db.query('INSERT INTO sessions ("user_id", "hash", "type", "secret") VALUES ($(user_id), $(hash), $(type), $(secret)) RETURNING *', {
       user_id: userId,
       hash: hash,
-      type: this.codName
+      type: this.codName,
+      secret: getRandomHash(5)
     });
   }
 
@@ -160,13 +163,7 @@ class LoginSystem {
 }
 
 function removeOldSessions() {
-  return db.query('DELETE FROM sessions WHERE "created_at"<$1', [getTimeForPrevMonthInISO()]);
-}
-
-function getTimeForPrevMonthInISO() {
-  return (new Date(
-    (new Date()).getTime() - 1000 * 60 * 60 * 24 * 365
-  )).toISOString();
+  return db.query('DELETE FROM sessions WHERE "created_at"<$1', [getTimeForPrevDaysInISO(this.daysToExpire)]);
 }
 
 removeOldSessions();
@@ -174,11 +171,11 @@ setInterval(() => {
 
   removeOldSessions()
   .then((result) => {
-    console.log('Cleaning of old sessions completed.');
+    console.log('Old sessions removed.');
   });
 
 }, 1000 * 60 * 60 * 24);
 
 module.exports = {
-  admin: new LoginSystem('admins', 'admin', 'ahsh')
+  admin: new LoginSystem('admins', 'admin', 'ahsh', 60)
 }

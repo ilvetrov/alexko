@@ -1,11 +1,9 @@
 const { addCallbackToUploaded, initUploadInput } = require("./upload-files");
+const { editorIntroImagesElement, editorIntroDesktopImagesElement } = require('./get-intro-images');
 
-const editorIntroImages = document.getElementsByClassName('js-editor-intro-images')[0];
-const editorIntroDesktopImages = document.getElementsByClassName('js-editor-intro-desktop-images')[0];
-
-if (editorIntroImages) {
-  addCallbackToUploaded('intro_images', true, addNewPreviewConstructor('intro_images', editorIntroImages));
-  addCallbackToUploaded('intro_desktop_images', true, addNewPreviewConstructor('intro_desktop_images', editorIntroDesktopImages));
+if (editorIntroImagesElement) {
+  addCallbackToUploaded('intro_images', true, addNewPreviewConstructor('intro_images', editorIntroImagesElement));
+  addCallbackToUploaded('intro_desktop_images', true, addNewPreviewConstructor('intro_desktop_images', editorIntroDesktopImagesElement));
   
   function addNewPreviewConstructor(idPrefix, container) {
     return function(preview, uploadedFile) {

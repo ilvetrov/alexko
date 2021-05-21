@@ -86,6 +86,7 @@
   position: fixed;
   bottom: 15px;
   right: 15px;
+  z-index: 2;
 
   &__content {
     border-radius: 38px;
@@ -144,6 +145,11 @@
     &__cloud {
       color: $accent-color;
       transform: scale(1.1);
+    }
+  }
+  &__button.look-at-me & {
+    &__cloud {
+      color: #ff0000;
     }
   }
 }

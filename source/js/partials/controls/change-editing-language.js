@@ -7,7 +7,7 @@ addActionToEvent('changeEditingLanguage', function(selectedOption) {
   for (let i = 0; i < inputs.length; i++) {
     const input = inputs[i];
     const inputLangName = input.codName;
-    const inputElement = input.element;
+    const inputElement = changeInnerProblemsOfDuplicating(input.element);
 
     if (inputLangName == selectedLangName) {
       inputElement.classList.remove('disabled');
@@ -18,3 +18,13 @@ addActionToEvent('changeEditingLanguage', function(selectedOption) {
 
   return true;
 });
+
+function changeInnerProblemsOfDuplicating(element) {
+  const editorNarrows = element.getElementsByClassName('codex-editor--narrow');
+  for (let i = 0; i < editorNarrows.length; i++) {
+    const editorNarrow = editorNarrows[i];
+    editorNarrow.classList.remove('codex-editor--narrow');
+  }
+
+  return element;
+}

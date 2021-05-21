@@ -1,5 +1,4 @@
 const { gsap } = require('gsap/dist/gsap');
-const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
 
 const advantageItemWraps = document.getElementsByClassName('js-advantage-item-wrap');
 const advantageItems = document.getElementsByClassName('js-advantage-item');

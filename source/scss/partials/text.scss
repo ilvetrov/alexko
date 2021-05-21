@@ -1,13 +1,16 @@
 .text-container {
-  max-width: 600px;
+  max-width: 38rem;
   margin-left: auto;
   margin-right: auto;
 
-  &_desktop {
-    max-width: 1024px;
-  }
   &_mobile {
-    max-width: 380px;
+    max-width: 24rem;
+  }
+  &_desktop {
+    max-width: 64rem;
+  }
+  &_stretched {
+    max-width: none;
   }
 }
 .text-h2 {
@@ -30,7 +33,7 @@
 }
 .text-img {
   max-width: 100%;
-  border-radius: 4px;
+  border-radius: .25rem;
 }
 .text-link {
   text-decoration: none;

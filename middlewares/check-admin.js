@@ -9,7 +9,7 @@ router.use(function(req, res, next) {
     next();
   })
   .catch(() => {
-    res.redirect(`/admin-login${paramsToQuery({
+    res.redirect(`/admin-login-page${paramsToQuery({
       to: req.originalUrl
     })}`);
   });
