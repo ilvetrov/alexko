@@ -21,34 +21,34 @@ function init() {
 function initInput(mainInput) {
   const values = JSON.parse(mainInput.getAttribute('data-multilingual'));
   inputs.push({
-    codName: frontVariables.currentLang,
+    codeName: frontVariables.currentLang,
     element: mainInput
   });
-  for (const codName in values) {
-    if (Object.hasOwnProperty.call(values, codName)) {
-      if (codName == frontVariables.currentLang) continue;
+  for (const codeName in values) {
+    if (Object.hasOwnProperty.call(values, codeName)) {
+      if (codeName == frontVariables.currentLang) continue;
 
-      const value = values[codName];
-      const duplicate = changesNamesToMultilingual(mainInput.cloneNode(true), codName);
+      const value = values[codeName];
+      const duplicate = changesNamesToMultilingual(mainInput.cloneNode(true), codeName);
       duplicate.classList.add('disabled');
       duplicate.removeAttribute('data-multilingual');
       setValueToDuplicate(duplicate, value);
       
       inputs.push({
-        codName: codName,
+        codeName: codeName,
         element: insertAfter(duplicate, mainInput)
       });
     }
   }
 }
 
-function changesNamesToMultilingual(input, codName) {
+function changesNamesToMultilingual(input, codeName) {
   for (let i = 0; i < dataNameAttributes.length; i++) {
     const dataNameAttribute = dataNameAttributes[i];
     if (!input.hasAttribute(dataNameAttribute)) continue;
 
     const attributeValue = input.getAttribute(dataNameAttribute);
-    input.setAttribute(dataNameAttribute, `${attributeValue}_${codName}`);
+    input.setAttribute(dataNameAttribute, `${attributeValue}_${codeName}`);
   }
   input.value = '';
   input.innerText = '';

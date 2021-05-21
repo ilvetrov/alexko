@@ -34,7 +34,7 @@ router.use(async function(req, res, next) {
     res.locals.langsList = getLanguagesList(req);
     res.locals.fileVersion = insertingFileVersion;
     res.locals.frontVariables = {
-      currentLang: getUserLanguage(req).cod_name,
+      currentLang: getUserLanguage(req).code_name,
       languages: languagesNames,
       adminToken: res.locals.adminCsrf && res.locals.adminCsrf.createNewToken()
     };

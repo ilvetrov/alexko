@@ -1,7 +1,7 @@
 {
   "full_name": "Русский",
   "short_name": "ru",
-  "cod_name": "ru",
+  "code_name": "ru",
   "aliases": ["uk", "ua", "be", "kz", "kk", "ky", "mo", "ab", "uz", "tg", "ka", "az", "hy", "ba", "kv", "tt", "cv"],
   "dictionary" : {
     "site": "Сайт",

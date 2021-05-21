@@ -4,9 +4,9 @@ const multilingualDefault = (function() {
   const languages = getLanguagesNames();
   
   const output = {};
-  for (const languageCodName in languages) {
-    if (Object.hasOwnProperty.call(languages, languageCodName)) {
-      output[languageCodName] = null;
+  for (const languagecodeName in languages) {
+    if (Object.hasOwnProperty.call(languages, languagecodeName)) {
+      output[languagecodeName] = null;
     }
   }
   

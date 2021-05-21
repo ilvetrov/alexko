@@ -3,9 +3,9 @@ const { getRandomHash } = require("./random");
 const { getTimeForPrevDaysInISO } = require("./time");
 
 class LoginSystem {
-  constructor(databaseName, codName, cookieName, daysToExpire = 365) {
+  constructor(databaseName, codeName, cookieName, daysToExpire = 365) {
     this.databaseName = databaseName;
-    this.codName = codName;
+    this.codeName = codeName;
     this.cookieName = cookieName;
     this.daysToExpire = Number(daysToExpire);
   }
@@ -21,8 +21,8 @@ class LoginSystem {
             this.createSession(res, user.id)
             .then((result) => {
               const session = result[0];
-              req[`logged_${this.codName}`] = user;
-              req[`session_of_logged_${this.codName}`] = session;
+              req[`logged_${this.codeName}`] = user;
+              req[`session_of_logged_${this.codeName}`] = session;
               resolve();
             })
             .catch(() => {
@@ -47,7 +47,7 @@ class LoginSystem {
     return new Promise((resolve, reject) => {
       this.getCurrentSession(req)
       .finally(() => {
-        delete req[`logged_${this.codName}`];
+        delete req[`logged_${this.codeName}`];
         this.removeSessionCookie(res);
       })
       .then((session) => {
@@ -82,7 +82,7 @@ class LoginSystem {
     return db.query('INSERT INTO sessions ("user_id", "hash", "type", "secret") VALUES ($(user_id), $(hash), $(type), $(secret)) RETURNING *', {
       user_id: userId,
       hash: hash,
-      type: this.codName,
+      type: this.codeName,
       secret: getRandomHash(5)
     });
   }
@@ -105,8 +105,8 @@ class LoginSystem {
 
   getLoggedUser(req) {
     return new Promise((resolve, reject) => {
-      if (req[`logged_${this.codName}`]) {
-        resolve(req[`logged_${this.codName}`]);
+      if (req[`logged_${this.codeName}`]) {
+        resolve(req[`logged_${this.codeName}`]);
       } else if (req.cookies && req.cookies[this.cookieName]) {
         const hash = req.cookies[this.cookieName];
   
@@ -122,8 +122,8 @@ class LoginSystem {
                 reject();
               } else {
                 delete user.password;
-                req[`logged_${this.codName}`] = user;
-                req[`session_of_logged_${this.codName}`] = session;
+                req[`logged_${this.codeName}`] = user;
+                req[`session_of_logged_${this.codeName}`] = session;
                 resolve(user);
               }
             });
@@ -138,12 +138,12 @@ class LoginSystem {
 
   getCurrentSession(req) {
     return new Promise((resolve, reject) => {
-      if (req[`session_of_logged_${this.codName}`]) {
-        resolve(req[`session_of_logged_${this.codName}`]);
+      if (req[`session_of_logged_${this.codeName}`]) {
+        resolve(req[`session_of_logged_${this.codeName}`]);
       } else if (req.cookies && req.cookies[this.cookieName]) {
         this.getSession(req.cookies[this.cookieName])
         .then((session) => {
-          req[`session_of_logged_${this.codName}`] = session;
+          req[`session_of_logged_${this.codeName}`] = session;
           resolve(session);
         });
       } else {

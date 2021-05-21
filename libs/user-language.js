@@ -9,7 +9,7 @@ function getAllLanguagesFromFiles() {
   for (let i = 0; i < languageFiles.length; i++) {
     const languageFile = languageFiles[i];
     const language = JSON.parse(fs.readFileSync(`languages/${languageFile}`));
-    tempLanguages[language.cod_name] = language;
+    tempLanguages[language.code_name] = language;
   }
   
   return tempLanguages;
@@ -24,7 +24,7 @@ function getLanguagesList(req = undefined) {
   for (const key in languages) {
     if (Object.hasOwnProperty.call(languages, key)) {
       const language = languages[key];
-      if (language.cod_name !== userLanguage.cod_name) {
+      if (language.code_name !== userLanguage.code_name) {
         languageList.push(language);
       }
     }
@@ -41,7 +41,7 @@ function getLanguagesNames(req = undefined) {
   for (const key in languages) {
     if (Object.hasOwnProperty.call(languages, key)) {
       const language = languages[key];
-      outputLanguages[language.cod_name] = language.full_name;
+      outputLanguages[language.code_name] = language.full_name;
     }
   }
   return outputLanguages;
@@ -64,7 +64,7 @@ function setUserLanguage(req, res) {
   if (!(req.cookies && req.cookies.lang)) {
     const userLanguage = getUserLanguage(req);
     req.userLang = userLanguage;
-    res.cookie('lang', userLanguage.cod_name, {maxAge: 1000 * 60 * 60 * 24 * 365});
+    res.cookie('lang', userLanguage.code_name, {maxAge: 1000 * 60 * 60 * 24 * 365});
     return userLanguage;
   }
   if (!req.userLang) {
@@ -94,7 +94,7 @@ function langPropConstructor(req) {
   const language = getUserLanguage(req);
 
   return (object) => {
-    return object[language.cod_name] || object['en'];
+    return object[language.code_name] || object['en'];
   }
 }
 

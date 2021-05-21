@@ -1,7 +1,7 @@
 {
   "full_name": "English",
   "short_name": "eng",
-  "cod_name": "en",
+  "code_name": "en",
   "aliases": [],
   "dictionary" : {
     "site": "Site",

@@ -76,7 +76,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
   }).then(async function(projectFromDb) {
     if (!projectFromDb) return next(createError(404));
 
-    const project = new PortfolioProject(projectFromDb, getUserLanguage(req).cod_name);
+    const project = new PortfolioProject(projectFromDb, getUserLanguage(req).code_name);
     const lang = langConstructor(req);
 
     Promise.all([
@@ -204,12 +204,12 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         const languagesNames = getLanguagesNames(req);
 
         const outputItems = {};
-        for (const codName in languagesNames) {
-          if (Object.hasOwnProperty.call(languagesNames, codName)) {
-            if (codName === getUserLanguage(req).cod_name) {
-              outputItems[`project_text`] = project.allTexts[codName] ?? project.allTexts['en'];
+        for (const codeName in languagesNames) {
+          if (Object.hasOwnProperty.call(languagesNames, codeName)) {
+            if (codeName === getUserLanguage(req).code_name) {
+              outputItems[`project_text`] = project.allTexts[codeName] ?? project.allTexts['en'];
             } else {
-              outputItems[`project_text_${codName}`] = project.allTexts[codName] ?? project.allTexts['en'];
+              outputItems[`project_text_${codeName}`] = project.allTexts[codeName] ?? project.allTexts['en'];
             }
           }
         }
@@ -267,13 +267,13 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
             items: (function() {
               const languagesNames = getLanguagesNames(req);
               const outputItems = [];
-              for (const codName in languagesNames) {
-                if (Object.hasOwnProperty.call(languagesNames, codName)) {
-                  const languageHumanName = languagesNames[codName];
+              for (const codeName in languagesNames) {
+                if (Object.hasOwnProperty.call(languagesNames, codeName)) {
+                  const languageHumanName = languagesNames[codeName];
                   outputItems.push({
-                    id: codName,
+                    id: codeName,
                     content: languageHumanName,
-                    active: codName == getUserLanguage(req).cod_name
+                    active: codeName == getUserLanguage(req).code_name
                   });
                 }
               }

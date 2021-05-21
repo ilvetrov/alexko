@@ -6,7 +6,7 @@ addActionToEvent('changeEditingLanguage', function(selectedOption) {
 
   for (let i = 0; i < inputs.length; i++) {
     const input = inputs[i];
-    const inputLangName = input.codName;
+    const inputLangName = input.codeName;
     const inputElement = changeInnerProblemsOfDuplicating(input.element);
 
     if (inputLangName == selectedLangName) {
