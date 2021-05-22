@@ -1,6 +1,6 @@
 const { smoothScrollToElement } = require("./smooth-scroll");
 const { checkElementVisibilityForInteractions } = require("./check-scroll");
-const lookAtMeAnimation = require("./look-at-me");
+const { lookAtMeAnimation } = require("./look-at-me");
 
 function initRequestForm(form, callback) {
   const url = form.getAttribute('action');

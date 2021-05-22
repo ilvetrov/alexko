@@ -38,7 +38,7 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
       mobile: data.intro_images || oldData.intro_images.mobile,
       desktop: data.intro_desktop_images || oldData.intro_images.desktop
     },
-    to_link: data.to_link,
+    to_link: data.to_link || null,
     demo_id: data.demo_id
   }
 

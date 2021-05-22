@@ -1,20 +1,11 @@
 const { getUserLanguage, getLanguagesNames } = require("../user-language");
+const getValuesFromAllLanguages = require("./get-values-from-all-languages");
 
 function frontMultilingualToBackend(selfName, allData, req) {
   const languagesNames = getLanguagesNames(req);
   const userLanguageName = getUserLanguage(req).code_name;
 
-  const outputToBackend = {};
-  for (const codeName in languagesNames) {
-    if (codeName == userLanguageName) continue;
-    if (Object.hasOwnProperty.call(languagesNames, codeName)) {
-      const newValue = allData[`${selfName}_${codeName}`];
-      outputToBackend[codeName] = newValue;
-    }
-  }
-  outputToBackend[userLanguageName] = allData[selfName];
-
-  return outputToBackend;
+  return getValuesFromAllLanguages(selfName, userLanguageName, languagesNames, allData);
 }
 
 module.exports = {

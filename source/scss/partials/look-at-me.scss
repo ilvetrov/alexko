@@ -21,3 +21,25 @@
     transform: translateX(0px);
   }
 }
+
+.look-at-me-inline {
+  animation: lookAtMeInlineAnimation .75s 1;
+}
+@keyframes lookAtMeInlineAnimation {
+  0% {
+    color: initial;
+    background-color: initial;
+  }
+  20% {
+    color: #fff;
+    background-color: #ff0000;
+  }
+  70% {
+    color: #fff;
+    background-color: #ff0000;
+  }
+  100% {
+    color: initial;
+    background-color: initial;
+  }
+}

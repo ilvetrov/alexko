@@ -9,7 +9,7 @@ ScrollTrigger.defaults({
 });
 
 const checkPage = require('./partials/check-page');
-const lookAtMeAnimation = require('./partials/look-at-me');
+const { lookAtMeAnimation } = require('./partials/look-at-me');
 const smoothHoverAnimation = require('./partials/smooth-hover-animation');
 
 require('./partials/async-img-front');

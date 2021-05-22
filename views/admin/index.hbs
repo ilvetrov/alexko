@@ -15,7 +15,7 @@
             <div class="panel-item__content">
               <div class="panel-item__items">
                 <div class="panel-item__item">
-                  <a href="/admin/portfolio?show=published" class="status-item status-item_faded click-extender" title="{{ lang 'published' }}">
+                  <a href="/admin/portfolio?status=published" class="status-item status-item_faded click-extender" title="{{ lang 'published' }}">
                     <img {{{ images.status_items.done }}} alt="{{ lang 'published' }}" class="status-item__img">
                     <div class="status-item__amount">
                       42
@@ -26,7 +26,7 @@
                 </div>
                 <!-- /.panel-item__item -->
                 <div class="panel-item__item">
-                  <a href="/admin/portfolio?show=awaiting_approval" class="status-item status-item_red click-extender" title="{{ lang 'awaiting_approval' }}">
+                  <a href="/admin/portfolio?status=awaiting_approval" class="status-item status-item_red click-extender" title="{{ lang 'awaiting_approval' }}">
                     <img {{{ images.status_items.clock }}} alt="{{ lang 'awaiting_approval' }}" class="status-item__img">
                     <div class="status-item__amount">
                       2
@@ -37,7 +37,7 @@
                 </div>
                 <!-- /.panel-item__item -->
                 <div class="panel-item__item">
-                  <a href="/admin/portfolio?show=drafts" class="status-item status-item_accent click-extender" title="{{ lang 'drafts' }}">
+                  <a href="/admin/portfolio?status=drafts" class="status-item status-item_accent click-extender" title="{{ lang 'drafts' }}">
                     <img {{{ images.status_items.draft }}} alt="{{ lang 'drafts' }}" class="status-item__img">
                     <div class="status-item__amount">
                       1
@@ -51,7 +51,7 @@
               </div>
               <!-- /.panel-item__items -->
               <div class="panel-item__add-column">
-                <a href="/admin/portfolio/add" class="plus-button panel-item__plus-button click-extender" title="{{ lang 'add' }}">
+                <a href="/admin/portfolio/add?token={{ adminCsrf.newToken }}" class="plus-button panel-item__plus-button click-extender" title="{{ lang 'add' }}">
                   <img {{{ images.status_items.plus }}} alt="{{ lang 'add' }}" class="plus-button__img panel-item__plus">
                 </a>
                 <!-- /.panel-item__plus-button -->

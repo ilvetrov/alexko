@@ -1,5 +1,4 @@
 .editor-placeholder {
-  // opacity: .5;
   user-select: none;
 }
 .editor-inline-button {
@@ -21,9 +20,9 @@
     color: inherit;
     opacity: .5;
   }
-  &:empty:focus::before {
-    content: '';
-  }
+  // &:empty:focus::before {
+  //   content: '';
+  // }
 }
 .editor-intro-images {
   background-color: #F9F9F9;
