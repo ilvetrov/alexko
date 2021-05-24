@@ -9,7 +9,6 @@ var router = express.Router();
 router.post('/upload', checkAdminCsrf, async function(req, res, next) {
   const files = req.files['files[]'];
   const projectId = Number(req.body.project_id);
-  const blockId = req.body.block_id || null;
 
   if (!projectId) return next(createError(404));
 
@@ -28,7 +27,7 @@ router.post('/upload', checkAdminCsrf, async function(req, res, next) {
   const draft = Number(project.status !== 'published');
 
   if (files.length === undefined) {
-    uploadFile(files, projectId, blockId, draft)
+    uploadFile(files, projectId, draft)
     .then((webPath) => {
       res.send(JSON.stringify([webPath]));
     })
@@ -40,7 +39,7 @@ router.post('/upload', checkAdminCsrf, async function(req, res, next) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       uploadFilesFunctions.push(new Promise((resolve, reject) => {
-        uploadFile(file, projectId, blockId, draft)
+        uploadFile(file, projectId, draft)
         .then((webPath) => {
           resolve(webPath);
         })

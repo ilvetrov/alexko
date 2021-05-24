@@ -2,9 +2,9 @@ const fs = require('fs');
 
 function removeFileIfExists(path) {
 	fs.lstat(path, (err, stats) => {
-		if (err) throw err;
+		if (err) console.error(err);
     fs.unlink(path, (err) => {
-      if (err) throw err;
+      if (err) console.error(err);
     });
 	});
 }

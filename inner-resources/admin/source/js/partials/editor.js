@@ -2,6 +2,7 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import { getEditorImages } from '../../../../../libs/converters/get-editor-images';
+import getImgSrc from '../../../../../libs/get-img-src';
 import ImageTool from './tools/image'
 import NonBreakingSpace from './tools/non-breaking-space';
 
@@ -38,7 +39,7 @@ for (let i = 0; i < editorsElements.length; i++) {
               })
               .then(response => response.json())
               .then(data => {
-                const uploadedImg = data[0];
+                const uploadedImg = getImgSrc(data[0], document.querySelector('[data-send-to-cloud-name="status"]')?.value === 'draft' || document.querySelector('[data-send-to-cloud-name="status"]')?.value === 'awaiting_approval');
                 return {
                   success: 1,
                   file: {

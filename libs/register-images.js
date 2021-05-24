@@ -2,8 +2,10 @@ const db = require("../db");
 const removeFileIfExists = require("./remove-file-if-exists");
 const { getTimeForPrevDaysInISO } = require("./time");
 const { getRoot } = require('../libs/get-root');
+const getImgSrc = require("./get-img-src");
+const detectImgIsDraft = require("./detect-img-is-draft");
 
-async function registerImages(newImages, oldImages = []) {
+async function registerImages(newImages, oldImages = [], projectIsDraft = undefined) {
   if (!newImages) newImages = [];
 
   Promise.all([
@@ -17,16 +19,17 @@ async function registerImages(newImages, oldImages = []) {
         
         if (newImages.indexOf(oldImage) == -1) {
 
-          db.query('UPDATE images SET quantity = quantity - 1, new = false WHERE path = $<path> RETURNING quantity', {
-            path: oldImage
+          db.query('UPDATE images SET quantity = quantity - 1, new = false WHERE name = $<name> RETURNING quantity', {
+            name: oldImage
           })
-          .then(function(result) {
+          .then(async function(result) {
             const quantity = result[0].quantity;
         
             if (quantity <= 0) {
-              removeFileIfExists(getRoot() + '/' + oldImage);
-              db.query('DELETE FROM images WHERE path=$<path>', {
-                path: oldImage
+              const imgIsDraft = projectIsDraft ?? await detectImgIsDraft(oldImage);
+              removeFileIfExists(getRoot() + '/' + getImgSrc(oldImage, imgIsDraft).serverSrc);
+              db.query('DELETE FROM images WHERE name=$<name>', {
+                name: oldImage
               });
             }
         
@@ -49,8 +52,8 @@ async function registerImages(newImages, oldImages = []) {
         
         if (oldImages.indexOf(newImage) == -1) {
 
-          db.query('UPDATE images SET quantity = quantity + 1, new = false WHERE path = $<path> RETURNING quantity', {
-            path: newImage
+          db.query('UPDATE images SET quantity = quantity + 1, new = false WHERE name = $<name> RETURNING quantity', {
+            name: newImage
           })
           .catch(function(reason) {
             console.error(reason);
@@ -84,38 +87,37 @@ function initImages() {
 initImages();
 
 function removeNewButLongUnusedImages() {
-  return db.query('DELETE FROM images WHERE "new" = true AND "quantity" = 0 AND "created_at" < $1 RETURNING path', [getTimeForPrevDaysInISO(3)])
+  return db.query('DELETE FROM images WHERE "new" = true AND "quantity" = 0 AND "created_at" < $1 RETURNING name', [getTimeForPrevDaysInISO(3)])
   .then(function(values) {
     removeImagesFromFiles(
-      imagesDbValuesToPaths(values)
+      imagesDbValuesToNames(values)
     );
     return;
   });
 }
 
 function removeUnusedImages() {
-  return db.query('DELETE FROM images WHERE "new" = false AND "quantity" = 0 AND "created_at" < $1 RETURNING path', [getTimeForPrevDaysInISO(1)])
+  return db.query('DELETE FROM images WHERE "new" = false AND "quantity" = 0 AND "created_at" < $1 RETURNING name', [getTimeForPrevDaysInISO(1)])
   .then(function(values) {
     removeImagesFromFiles(
-      imagesDbValuesToPaths(values)
+      imagesDbValuesToNames(values)
     );
     return;
   });
 }
 
-function imagesDbValuesToPaths(values) {
-  return values.map(function(value) {
-    return value.path;
-  });
+function imagesDbValuesToNames(values) {
+  return values.map(value => value.name);
 }
-function removeImagesFromFiles(paths) {
-  for (let i = 0; i < paths.length; i++) {
-    const path = paths[i];
-    removeImageFromFiles(path);
+function removeImagesFromFiles(names) {
+  for (let i = 0; i < names.length; i++) {
+    const name = names[i];
+    removeImageFromFiles(name);
   }
 }
-function removeImageFromFiles(path) {
-  removeFileIfExists(getRoot() + '/' + path);
+async function removeImageFromFiles(name) {
+  const imgIsDraft = await detectImgIsDraft(name);
+  removeFileIfExists(getRoot() + '/' + getImgSrc(name, imgIsDraft).serverSrc);
 }
 
 module.exports = registerImages;

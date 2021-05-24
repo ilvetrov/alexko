@@ -7,7 +7,7 @@ const checkImg = require('./check-img');
 const { getRoot } = require('./get-root');
 const { glob } = require('glob');
 
-function uploadFile(file, projectId, blockId = null, draft = false) {
+function uploadFile(file, projectId, draft = false) {
   return new Promise(async (resolve, reject) => {
     
     let relativePath = `public/content/${projectId}`;
@@ -25,22 +25,18 @@ function uploadFile(file, projectId, blockId = null, draft = false) {
       outputFileName = `${getFileNameWithoutExt(outputFileName)}-${numberOfSynonyms + 1}${path.extname(outputFileName)}`;
     }
     const outputPath = folderPath + '/' + outputFileName;
-    const webPath = folderWebPath + '/' + outputFileName;
   
     if (!checkImg(file.name)) {
       return fs.rename(file.tempFilePath, outputPath, (err) => {
         if (err) return reject(err);
-        resolve({
-          webSrc: webPath,
-          serverSrc: relativePath + '/' + outputFileName
-        });
+        resolve(projectId + '/' + outputFileName);
       });
     }
 
     if (sameFileExists) {
       var existingInTheSameName = false;
-      var existingImage = await db.query(`SELECT id, new FROM images WHERE path=$(path) AND original_checksum=$(originalChecksum)`, {
-        path: relativePath + '/' + file.name,
+      var existingImage = await db.query(`SELECT id, new FROM images WHERE name=$(name) AND original_checksum=$(originalChecksum)`, {
+        name: projectId + '/' + file.name,
         originalChecksum: file.md5
       }).then((fileInDb) => {
         return fileInDb && fileInDb[0];
@@ -48,8 +44,8 @@ function uploadFile(file, projectId, blockId = null, draft = false) {
       if (existingImage) existingInTheSameName = true;
 
       if (!existingImage) {
-        existingImage = await db.query(`SELECT id, new FROM images WHERE path=$(path) AND original_checksum=$(originalChecksum)`, {
-          path: relativePath + '/' + outputFileName,
+        existingImage = await db.query(`SELECT id, new FROM images WHERE name=$(name) AND original_checksum=$(originalChecksum)`, {
+          name: projectId + '/' + outputFileName,
           originalChecksum: file.md5
         }).then((fileInDb) => {
           return fileInDb && fileInDb[0];
@@ -68,10 +64,7 @@ function uploadFile(file, projectId, blockId = null, draft = false) {
             createdAt: (new Date()).toISOString()
           });
         }
-        return resolve({
-          webSrc: folderWebPath + '/' + existingName,
-          serverSrc: relativePath + '/' + existingName
-        });
+        return resolve(projectId + '/' + existingName);
       }
     }
 
@@ -82,8 +75,8 @@ function uploadFile(file, projectId, blockId = null, draft = false) {
         fs.lstat(folderPath, (err, stats) => {
           if (err) fs.mkdirSync(folderPath);
 
-          db.query('INSERT INTO images (path, original_checksum, quantity, new) VALUES ($(path), $(originalChecksum), $(quantity), $(new))', {
-            path: relativePath + '/' + (sameFileExists ? outputFileName : file.name),
+          db.query('INSERT INTO images (name, original_checksum, quantity, new) VALUES ($(name), $(originalChecksum), $(quantity), $(new))', {
+            name: `${projectId}/${outputFileName}`,
             originalChecksum: file.md5,
             quantity: 0,
             new: true
@@ -96,10 +89,7 @@ function uploadFile(file, projectId, blockId = null, draft = false) {
             fs.unlink(file.tempFilePath, (err) => {
               if (err) throw err;
             });
-            resolve({
-              webSrc: webPath,
-              serverSrc: relativePath + '/' + outputFileName
-            });
+            resolve(projectId + '/' + outputFileName);
           });
         });
 

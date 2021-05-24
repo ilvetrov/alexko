@@ -7,6 +7,7 @@ const { asyncImg } = require('../../../libs/async-img-loader');
 const db = require('../../../db');
 const redirectTo = require('../../../libs/redirect-to');
 const { PortfolioProject } = require('../../../models/portfolio');
+const getImgSrc = require('../../../libs/get-img-src');
 
 var router = express.Router();
 
@@ -101,10 +102,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
               for (const key in images) {
                 if (Object.hasOwnProperty.call(images, key)) {
                   const image = images[key];
-                  asyncImages[Number(key)] = asyncImg([{
-                    webSrc: image.webSrc,
-                    serverSrc: image.serverSrc
-                  }], true);
+                  asyncImages[Number(key)] = asyncImg([getImgSrc(image, project.status !== 'published')], true);
                 }
               }
               return asyncImages;

@@ -1,4 +1,5 @@
 const checkImg = require("../../../../../libs/check-img");
+const getImgSrc = require("../../../../../libs/get-img-src");
 
 const callbacks = {};
 const groupCallbacks = {};
@@ -53,12 +54,17 @@ function processUploadInput(input) {
   deactivatePreview(preview);
   
   uploadFiles(files, projectId, function(uploadedFiles) {
-    const uploadedFile = uploadedFiles[0];
+    const uploadedFileName = uploadedFiles[0];
+    const uploadedFile = getImgSrc(
+      uploadedFileName,
+      document.querySelector('[data-send-to-cloud-name="status"]')?.value === 'draft' || document.querySelector('[data-send-to-cloud-name="status"]')?.value === 'awaiting_approval'
+    );
     const uploadedFileWebSrc = uploadedFile.webSrc;
+
     if (dataOutput) {
-      data[number] = uploadedFile;
+      data[number] = uploadedFileName;
     } else {
-      data = uploadedFile;
+      data = uploadedFileName;
     }
 
     if (dataOutput) {
@@ -133,6 +139,7 @@ function removePreview(input, data = undefined, dataOutput = undefined) {
   preview.classList.remove('uploaded');
   const img = preview.getElementsByClassName('upload-file__img')[0];
   if (img) img.remove();
+  input.value = '';
   if (input.hasAttribute('data-file')) input.setAttribute('data-file', '');
   if (dataOutput && data !== undefined) {
     delete data[number];

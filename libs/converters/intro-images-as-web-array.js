@@ -8,7 +8,7 @@ function getIntroImagesAsWebArray(...introImages) {
     for (const key in images) {
       if (Object.hasOwnProperty.call(images, key)) {
         const image = images[key];
-        outputImages.push(image.serverSrc);
+        outputImages.push(image);
       }
     }
   }

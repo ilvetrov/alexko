@@ -6,6 +6,7 @@ const { frontMultilingualToBackend } = require('../../../libs/converters/multili
 const getIntroImagesAsWebArray = require('../../../libs/converters/intro-images-as-web-array');
 const { getEditorImagesFromMultilingual } = require('../../../libs/converters/get-editor-images');
 const registerImages = require('../../../libs/register-images');
+const fs = require('fs-extra');
 
 var router = express.Router();
 
@@ -18,13 +19,6 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
     id: data.project_id
   })
   .then(result => result[0]);
-
-  if (data.editors_images) {
-    registerImages(
-      [...getIntroImagesAsWebArray(data.intro_images, data.intro_desktop_images), ...data.editors_images],
-      [...getIntroImagesAsWebArray(oldData.intro_images?.mobile || {}, oldData.intro_images?.desktop || {}), ...getEditorImagesFromMultilingual(oldData.text)]
-    );
-  }
 
   const newData = {
     id: Number(data.project_id),
@@ -42,6 +36,14 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
     demo_id: data.demo_id
   }
 
+  if (data.editors_images) {
+    registerImages(
+      [...getIntroImagesAsWebArray(data.intro_images, data.intro_desktop_images), ...data.editors_images],
+      [...getIntroImagesAsWebArray(oldData.intro_images?.mobile || {}, oldData.intro_images?.desktop || {}), ...getEditorImagesFromMultilingual(oldData.text)],
+      newData.status !== 'published'
+    );
+  }
+
   db.query(`
   UPDATE portfolio
   SET
@@ -57,15 +59,34 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
   WHERE id=$(id)
   `, newData)
   .then((result) => {
+    if (newData.status === 'published' && oldData.status !== 'published') {
+      fs.move(`inner-resources/drafts/${newData.id}`, `public/content/${newData.id}`)
+      .then(function() {
+        sendSuccess();
+      });
+    } else if (newData.status !== 'published' && oldData.status === 'published') {
+      fs.move(`public/content/${newData.id}`, `inner-resources/drafts/${newData.id}`)
+      .then(function() {
+        sendSuccess();
+      });
+    } else {
+      sendSuccess();
+    }
+  })
+  .catch((reason) => {
+    sendUnsuccess();
+  });
+
+  function sendSuccess() {
     res.json({
       'success': true
     });
-  })
-  .catch((reason) => {
+  }
+  function sendUnsuccess() {
     res.json({
       'success': false
     });
-  });
+  }
 
 });
 
