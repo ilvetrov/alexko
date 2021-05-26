@@ -1,0 +1,64 @@
+.table {
+  &__cell {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-right: 3.63rem;
+    text-align: left;
+    
+    &:last-child {
+      padding-right: 0;
+      text-align: right;
+    }
+
+    &_right-align {
+      text-align: right;
+    }
+    &_accent {
+      color: #4A638B;
+      font-weight: 900;
+    }
+    &_inactive {
+      color: #bdbdbd;
+    }
+
+    > a {
+      display: block;
+      max-width: max-content;
+      transition: transform .2s;
+      transform-origin: center;
+      transform: scale(1);
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    &_draft {
+      color: #686868;
+    }
+    &_awaiting_approval {
+      color: #ff0000;
+    }
+    &_published {
+      color: $accent-color;
+    }
+  }
+  &__row:first-child &__cell {
+    padding-top: 0;
+  }
+  &__void {
+    padding: 0;
+  }
+  &__delimiter {
+    background-color: $accent-color;
+    height: 1px;
+  }
+  &__delimiter-spacer {
+    height: 1.5rem;
+  }
+  &__link {
+    color: inherit;
+    text-decoration: none;
+    outline: none !important;
+  }
+}

@@ -47,4 +47,16 @@
       margin-bottom: .5rem;
     }
   }
+  &.change-language {
+    font-size: .88rem;
+    line-height: 1.23;
+  }
+  &.change-language & {
+    &__content {
+      transform: translateX(.63rem) translateY(.63rem);
+    }
+    &__item-wrap {
+      margin-bottom: 1rem;
+    }
+  }
 }

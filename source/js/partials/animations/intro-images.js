@@ -91,7 +91,7 @@ window.addEventListener('load', function() {
 });
 
 function getCenterImage(numberOfImages) {
-  return Math.min(Math.round(numberOfImages / 2), 3);
+  return Math.min(Math.floor(numberOfImages / 2), 3);
 }
 
 function getOffset(introImage) {

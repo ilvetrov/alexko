@@ -33,7 +33,8 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
       desktop: data.intro_desktop_images || oldData.intro_images.desktop
     },
     to_link: data.to_link || null,
-    demo_id: data.demo_id
+    demo_id: data.demo_id,
+    slug: encodeURIComponent(data.slug) || null
   }
 
   if (data.editors_images) {
@@ -55,7 +56,8 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
     type_id = $(type_id),
     intro_images = $(intro_images),
     to_link = $(to_link),
-    demo_id = $(demo_id)
+    demo_id = $(demo_id),
+    slug = $(slug)
   WHERE id=$(id)
   `, newData)
   .then((result) => {

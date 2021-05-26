@@ -56,12 +56,19 @@ function initButton(button) {
           return;
         }
 
-        console.log(values.to_link);
         if (values.to_link === '') {
           disableButtonProcessWithError(button, 'Укажите ссылку');
           lookAtMeAnimation(button);
 
           lookAtMeAnimation(document.getElementsByClassName('js-to-link-button')[0]);
+          return;
+        }
+
+        if (values.slug === '') {
+          disableButtonProcessWithError(button, 'Укажите адрес URI');
+          lookAtMeAnimation(button);
+
+          lookAtMeAnimation(document.querySelector('[data-pop-up-button="project_settings_panel"]'));
           return;
         }
 

@@ -1,5 +1,6 @@
 'use strict';
 
+require('./partials/controls/change-language');
 const { gsap } = require('gsap/dist/gsap');
 const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
 const { initRequestForm } = require('./partials/form');

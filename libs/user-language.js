@@ -86,8 +86,20 @@ function langConstructor(req) {
   const language = getUserLanguage(req);
 
   return (text) => {
-    return language.dictionary[text] || getLanguage('en').dictionary[text] || text;
+    return lang(text, language);
   }
+}
+
+function langConstructorByCodeName(langCodeName) {
+  const language = getLanguage(langCodeName);
+
+  return (text) => {
+    return lang(text, language);
+  }
+}
+
+function lang(text, language) {
+  return language.dictionary[text] || getLanguage('en').dictionary[text] || text;
 }
 
 function langPropConstructor(req) {
@@ -101,6 +113,7 @@ function langPropConstructor(req) {
 module.exports = {
   setUserLanguage,
   langConstructor,
+  langConstructorByCodeName,
   langPropConstructor,
   getLanguagesList,
   getLanguagesNames,

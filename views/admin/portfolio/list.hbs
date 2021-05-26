@@ -1,0 +1,98 @@
+<div class="portfolio-item-page">
+  <div class="portfolio-item-page__wrap">
+    <div class="container-size">
+      <div class="portfolio-item-page__header">
+        <h1 class="page-title page-title_free-transform">
+          {{ lang 'portfolio' }}
+        </h1>
+        <!-- /.page-title -->
+      </div>
+      <!-- /.portfolio-item-page__header -->
+      <div class="portfolio-item-page__list">
+        <table class="table">
+          <tr class="table__row">
+            <th class="table__header table__cell">
+              {{ lang 'title' }}
+            </th>
+            <!-- /.table__header -->
+            <th class="table__header table__cell">
+              {{ lang 'type' }}
+            </th>
+            <!-- /.table__header -->
+            <th class="table__header table__cell">
+              {{ lang 'admin' }}
+            </th>
+            <!-- /.table__header -->
+            <th class="table__header table__cell">
+              {{ lang 'writing_date' }}
+            </th>
+            <!-- /.table__header -->
+            <th class="table__header table__cell">
+              {{ lang 'release_date' }}
+            </th>
+            <!-- /.table__header -->
+            <th class="table__header table__cell">
+              {{ lang 'status' }}
+            </th>
+            <!-- /.table__header -->
+          </tr>
+          <!-- /.table__row -->
+          <tr class="table__delimiter">
+            <td class="table__void" colspan="7"></td>
+          </tr>
+          <!-- /.table__delimiter -->
+          <tr class="table__delimiter-spacer"></tr>
+          {{#each projects as |project|}}
+            <tr class="table__row">
+              <td class="table__cell table__cell_accent {{iif project.title '' 'table__cell_inactive'}}">
+                <a href="/admin/portfolio/edit/{{ project.id }}" class="table__link">
+                  {{#if project.title}}
+                    {{ project.title }}
+                  {{else}}
+                    *{{ ../lang 'not_specified' }}*
+                  {{/if}}
+                </a>
+                <!-- /.table__link -->
+              </td>
+              <!-- /.table__cell -->
+              <td class="table__cell">
+                {{#if project.type_name}}
+                  {{ project.type_name }}
+                {{else}}
+                  *{{ ../lang 'not_specified' }}*
+                {{/if}}
+              </td>
+              <!-- /.table__cell -->
+              <td class="table__cell">
+                {{#if project.admin_name}}
+                  {{ project.admin_name }}
+                {{else}}
+                  *{{ ../lang 'not_specified' }}*
+                {{/if}}
+              </td>
+              <!-- /.table__cell -->
+              <td class="table__cell table__cell_right-align">
+                {{ project.humanPortfolioDate }}
+              </td>
+              <!-- /.table__cell -->
+              <td class="table__cell table__cell_right-align">
+                {{ project.humanProjectDate }}
+              </td>
+              <!-- /.table__cell -->
+              <td class="table__cell table__cell_{{ project.status }}">
+                {{ ../lang project.status }}
+              </td>
+              <!-- /.table__cell -->
+            </tr>
+            <!-- /.table__row -->
+          {{/each}}
+        </table>
+        <!-- /.table -->
+      </div>
+      <!-- /.portfolio-item-page__list -->
+    </div>
+    <!-- /.container-size -->
+  </div>
+  <!-- /.portfolio-item-page__wrap -->
+</div>
+<!-- /.portfolio-item-page -->

@@ -9,7 +9,7 @@ const fs = require("fs");
  * @param {number} [images[].minWindowWidth=0] - Image is loading and visible when window width higher or equals this
  * @param {boolean} [scroll=true] - Load when appears in scroll area
  * @param {boolean} [isBackground=false] - default is img tag; isBackground turns on element's background styles
- * @param {string} [manual=false] - manual image init only after manual call of initAsyncImg
+ * @param {boolean} [manual=false] - manual image init only after manual call of initAsyncImg
  */
 function asyncImg(images, scroll = true, isBackground = false, manual = false) {
   const defaultValues = {

@@ -25,9 +25,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
 
     Promise.all([
 
-      new Promise((resolve, reject) =>
-        db.query('SELECT id, singular_name FROM project_types').then(data => resolve(data))
-      ),
+      db.query('SELECT id, singular_name FROM project_types'),
       
       new Promise((resolve, reject) =>
         fs.readFile(getRoot() + '/public/img/multilingual.svg', (err, data) => resolve(data))
@@ -128,12 +126,6 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         desktop: introImagesAmount.desktop - 2
       };
   
-      const toLinkVariations = {
-        1: lang('open'),
-        2: lang('download'),
-        3: lang('download'),
-      };
-  
       const draft = Number(project.status !== 'published');
   
       if (!res.locals.frontVariables.dictionary) res.locals.frontVariables.dictionary = {};
@@ -172,7 +164,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         introImagesAmount: introImagesAmount,
         introImagesDraftsStart: introImagesDraftsStart,
         hideDesktopImages: project.type_id && hideDesktopImagesForTypes.indexOf(activeProjectType.id) != -1,
-        toLinkText: project.type_id && toLinkVariations[project.type_id] || toLinkVariations[2],
+        toLinkText: project.type_id && project.to_link_text,
         multilingual: {
           title: project.allTitles,
           descr: project.allDescrs,
@@ -193,8 +185,8 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         editorProperties: JSON.stringify({
           
         }),
-        toLinkVariations: JSON.stringify(toLinkVariations),
-        selects: [
+        toLinkVariations: JSON.stringify(project.to_link_variations),
+        selects: [...(res.locals.selects ?? []), ...[
           {
             name: 'project_types',
             event: 'selectProjectType',
@@ -221,7 +213,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
               return outputItems;
             }())
           }
-        ],
+        ]],
         popUpInputs: [
           {
             name: 'to_link',
@@ -235,11 +227,8 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
             }
           }
         ],
-        creatingVariations: JSON.stringify({
-          1: lang('site_creation'),
-          2: lang('app_creation'),
-          3: lang('game_creation'),
-        }),
+        creatingText: project.creating_text,
+        creatingVariations: JSON.stringify(project.creating_variations),
         hideDesktopImagesForTypes: JSON.stringify(hideDesktopImagesForTypes),
       });
     });

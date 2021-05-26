@@ -15,6 +15,7 @@ function init() {
   }
 
   window.removePreviewOfUploadedFile = function(removeButton) {
+    if (removeButton.classList.contains('uploaded')) return false;
     const input = removeButton.parentElement.getElementsByTagName('input')[0];
     const groupName = input.getAttribute('data-group-file');
     const dataOutput = groupName && document.querySelector(`[name="${groupName}"]`);

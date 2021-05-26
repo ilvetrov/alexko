@@ -32,7 +32,7 @@
             {{ lang 'all_can_edit' }}
           </div>
           <!-- /.project-settings-panel__title -->
-          <select name="project_status" id="" data-send-to-cloud-name="common" data-send-to-cloud-group="edit_project">
+          <select name="project_status" data-send-to-cloud-name="common" data-send-to-cloud-group="edit_project">
             <option value="true" {{{iif project.common 'selected="selected"' '' }}}>
               {{ lang 'yes' }}
             </option>
@@ -40,6 +40,14 @@
               {{ lang 'no' }}
             </option>
           </select>
+        </div>
+        <!-- /.project-settings-panel__item -->
+        <div class="project-settings-panel__item">
+          <div class="project-settings-panel__title">
+            {{ lang 'slug' }}
+          </div>
+          <!-- /.project-settings-panel__title -->
+          <input type="url" data-send-to-cloud-name="slug" data-send-to-cloud-group="edit_project" {{#if project.slug}} value={{ project.slug }} {{/if}}>
         </div>
         <!-- /.project-settings-panel__item -->
       </div>

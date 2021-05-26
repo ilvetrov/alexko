@@ -12,13 +12,9 @@ router.use(async function(req, res, next) {
 
   Promise.all([
 
-    new Promise((resolve, reject) =>
-      admin.getLoggedUser(req).then(user => resolve(user)).catch(() => resolve(undefined))
-    ),
+    admin.getLoggedUser(req).catch(() => undefined),
 
-    new Promise((resolve, reject) =>
-      admin.getCurrentSession(req).then(session => resolve(session)).catch(() => resolve(undefined))
-    ),
+    admin.getCurrentSession(req).catch(() => undefined),
 
   ]).then(function([
     admin,
@@ -38,6 +34,41 @@ router.use(async function(req, res, next) {
       languages: languagesNames,
       adminToken: res.locals.adminCsrf && res.locals.adminCsrf.createNewToken()
     };
+    res.locals.selects = [
+      {
+        name: 'change_language',
+        event: 'changeLanguage',
+        modClass: 'change-language',
+        itemsOLD: (function() {
+          const languagesNames = getLanguagesNames(req);
+          const outputItems = [];
+          for (const codeName in languagesNames) {
+            if (Object.hasOwnProperty.call(languagesNames, codeName)) {
+              const languageHumanName = languagesNames[codeName];
+              outputItems.push({
+                id: codeName,
+                content: languageHumanName,
+                active: codeName == getUserLanguage(req).code_name
+              });
+            }
+          }
+          return outputItems;
+        }()),
+        items: (function() {
+          const languages = getLanguagesList(req);
+          const outputItems = [];
+          for (let i = 0; i < languages.length; i++) {
+            const language = languages[i];
+            outputItems.push({
+              id: language.code_name,
+              content: `${language.short_name} • ${language.full_name}`,
+              active: language.code_name == getUserLanguage(req).code_name
+            });
+          }
+          return outputItems;
+        }())
+      }
+    ];
   
     next();
   });

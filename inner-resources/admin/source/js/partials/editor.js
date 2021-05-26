@@ -39,12 +39,12 @@ for (let i = 0; i < editorsElements.length; i++) {
               })
               .then(response => response.json())
               .then(data => {
-                const uploadedImg = getImgSrc(data[0], document.querySelector('[data-send-to-cloud-name="status"]')?.value === 'draft' || document.querySelector('[data-send-to-cloud-name="status"]')?.value === 'awaiting_approval');
+                const uploadedImg = data[0];
                 return {
                   success: 1,
                   file: {
-                    url: uploadedImg.webSrc,
-                    serverUrl: uploadedImg.serverSrc
+                    url: `/admin/portfolio/image-preview/${uploadedImg}`,
+                    name: uploadedImg
                   }
                 };
               });

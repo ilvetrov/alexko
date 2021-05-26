@@ -3,11 +3,10 @@ const { getRandomHash } = require("./random");
 const { getTimeForPrevDaysInISO } = require("./time");
 
 class LoginSystem {
-  constructor(databaseName, codeName, cookieName, daysToExpire = 365) {
+  constructor(databaseName, codeName, cookieName) {
     this.databaseName = databaseName;
     this.codeName = codeName;
     this.cookieName = cookieName;
-    this.daysToExpire = Number(daysToExpire);
   }
 
   login(req, res, name, password) {
@@ -163,7 +162,7 @@ class LoginSystem {
 }
 
 function removeOldSessions() {
-  return db.query('DELETE FROM sessions WHERE "created_at"<$1', [getTimeForPrevDaysInISO(this.daysToExpire)]);
+  return db.query('DELETE FROM sessions WHERE "created_at"<$1', [getTimeForPrevDaysInISO(60)]);
 }
 
 removeOldSessions();
@@ -177,5 +176,5 @@ setInterval(() => {
 }, 1000 * 60 * 60 * 24);
 
 module.exports = {
-  admin: new LoginSystem('admins', 'admin', 'ahsh', 60)
+  admin: new LoginSystem('admins', 'admin', 'ahsh')
 }

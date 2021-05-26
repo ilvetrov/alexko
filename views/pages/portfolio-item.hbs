@@ -9,24 +9,26 @@
           </a>
           <!-- /.subtitle -->
           <h1 class="page-title page-title_free-transform portfolio-header__title">
-            CAROUSEL 3D
+            {{ project.title }}
           </h1>
           <!-- /.page-title -->
           <div class="portfolio-descr portfolio-header__descr">
-            <strong class="portfolio-descr__type">Игра.</strong>
-            <span class="portfolio-descr__main-text">Под вашим управлением ребята на карусели — сбейте “земных”.</span>
+            <strong class="portfolio-descr__type">{{ lang project.type_name }}.</strong>
+            <span class="portfolio-descr__main-text">{{ project.descr }}</span>
           </div>
           <!-- /.portfolio-descr -->
           <div class="portfolio-header__links">
-            <a href="#" class="text-link text-link_independent portfolio-header__link">
-              <span class="inline-click-extender">{{ lang 'download' }}</span>
+            <a href="{{ project.to_link }}" class="text-link text-link_independent portfolio-header__link">
+              <span class="inline-click-extender">{{ project.to_link_text }}</span>
             </a>
-            <a href="#" class="text-link text-link_independent portfolio-header__link">
-              <span class="inline-click-extender">{{ lang 'app_creation' }}</span>
+            <a href="#about-creating" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70">
+              <span class="inline-click-extender">{{ project.creating_text }}</span>
             </a>
-            <a href="#" class="text-link text-link_independent portfolio-header__link">
-              <span class="inline-click-extender">{{ lang 'demo' }}</span>
-            </a>
+            {{#if project.demo_id}}
+              <a href="#" class="text-link text-link_independent portfolio-header__link">
+                <span class="inline-click-extender">{{ lang 'demo' }}</span>
+              </a>
+            {{/if}}
           </div>
           <!-- /.portfolio-header__links -->
         </div>
@@ -35,12 +37,12 @@
       <!-- /.portfolio-item-page__header -->
     </div>
     <!-- /.container-size -->
-    <div class="portfolio-item-page__intro-images js-portfolio-intro-images">
-      <div class="portfolio-item-page__intro-gallery portfolio-gallery swiper-container" data-portfolio-gallery="1">
+    <div class="portfolio-item-page__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item-page__intro-images_desktop' '' }}">
+      <div class="portfolio-item-page__intro-gallery intro-images swiper-container {{iifEquals project.type_id 1 'intro-images_desktop' 'intro-images_mobile' }}" data-portfolio-gallery="1">
         <div class="swiper-wrapper">
           {{#each intro_images as |intro_image|}}
-            <div class="portfolio-item-page__gallery-slide swiper-slide">
-              <img {{{ intro_image }}} alt="" class="portfolio-item-page__intro-image portfolio-shadow js-intro-image">
+            <div class="intro-images__slide swiper-slide">
+              <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow js-intro-image">
             </div>
             <!-- /.swiper-slide -->
           {{/each}}
@@ -52,32 +54,10 @@
     <!-- /.portfolio-item-page__intro-images -->
   </div>
   <!-- /.portfolio-item-page__wrap -->
-  <div class="portfolio-item-page__content js-portfolio-content">
-    <div class="container-size text-block-animation">
-      <h2 class="text-h2 text-container">
-        Задачи
-      </h2>
-      <!-- /.text-h2 -->
-    </div>
-    <!-- /.container-size -->
-    <div class="container-size text-block-animation">
-      <p class="text-p text-container">
-        Нам поступил заказ — сделать блочно, сделать красиво. Мы направили на это лучшие усилия и специальные отправные блоки.
-      </p>
-      <!-- /.text-p -->
-    </div>
-    <!-- /.container-size -->
-    <div class="container-size text-block-animation">
-      <p class="text-p text-container">
-        Сайт блочный во всём: в кнопках, в ссылка, в меню, даже в своём устройстве — давайте посмотрим поближе.
-      </p>
-      <!-- /.text-p -->
-    </div>
-    <!-- /.container-size -->
-    <div class="text-img-wrap text-container text-container_mobile text-block-animation">
-      <img {{{ images.level_3 }}} alt="Level 3" class="text-img portfolio-shadow">
-    </div>
-    <!-- /.text-img-wrap-->
+  <div id="about-creating" class="portfolio-item-page__content js-portfolio-content">
+    {{#each project.text.blocks as |block|}}
+      {{{textPartial block.type block.data }}}
+    {{/each}}
   </div>
   <!-- /.portfolio-item-page__content -->
 </main>

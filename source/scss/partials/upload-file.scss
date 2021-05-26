@@ -89,6 +89,10 @@
       display: none;
     }
   }
+  &.uploaded &__label {
+    cursor: default;
+    pointer-events: none;
+  }
   &.uploaded &__content & {
     &__label {
       position: relative;

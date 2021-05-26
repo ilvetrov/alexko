@@ -36,4 +36,9 @@
   &_accent {
     color: $accent-color;
   }
+  &_inactive & {
+    &__img, &__amount {
+      transform: translateX(0rem) !important;
+    }
+  }
 }

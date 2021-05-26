@@ -1,0 +1,12 @@
+.list-is-empty {
+  &__content {
+    padding-bottom: 1px;
+    padding-top: 50px;
+  }
+  &__title {
+    width: auto;
+    max-width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

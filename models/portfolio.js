@@ -1,7 +1,40 @@
 const multilingualDefault = require("../libs/multilingual-default");
+const { langConstructorByCodeName } = require("../libs/user-language");
 
 class PortfolioProject {
+  static async getAll(admin) {
+
+  }
+  static async #createQuery(admin, status = undefined, typeId = undefined) {
+    return `
+      SELECT * FROM portfolio
+      ${!admin.can_edit_all || !!status || !!typeId ? 'WHERE' : ''}
+
+        ${!admin.can_edit_all ? '(admin_id = $<admin_id> OR common = true)' : ''}
+        ${!admin.can_edit_all && !!status ? 'AND' : ''}
+
+        ${!!status ? 'status = $<status>' : ''}
+        ${(!!status || !admin.can_edit_all) && !!typeId ? 'AND' : ''}
+
+        ${!!typeId ? 'type_id = $<typeId>' : ''}
+    `;
+  }
+
   constructor (projectFromDB, userLang = 'en') {
+    const lang = langConstructorByCodeName(userLang);
+    
+    const toLinkVariations = {
+      1: lang('open'),
+      2: lang('download'),
+      3: lang('download'),
+    };
+
+    const creatingVariations = {
+      1: lang('site_creation'),
+      2: lang('app_creation'),
+      3: lang('game_creation'),
+    };
+
     this.id = projectFromDB.id;
     this.#title = projectFromDB.title;
     this.#descr = projectFromDB.descr;
@@ -14,7 +47,19 @@ class PortfolioProject {
     this.type_id = projectFromDB.type_id;
     this.intro_images = projectFromDB.intro_images;
     this.to_link = projectFromDB.to_link;
+    this.to_link_text = toLinkVariations[projectFromDB.type_id ?? 2];
+    this.to_link_variations = toLinkVariations;
+    this.creating_text = creatingVariations[projectFromDB.type_id ?? 2];
+    this.creating_variations = creatingVariations;
     this.demo_id = projectFromDB.demo_id;
+    this.slug = projectFromDB.slug;
+    if (projectFromDB.type_name) {
+      this.type_name = lang(projectFromDB.type_name);
+    }
+    if (projectFromDB.admin_name) {
+      this.admin_name = projectFromDB.admin_name;
+    }
+
     this.userLang = userLang;
   }
 
@@ -78,6 +123,15 @@ class PortfolioProject {
     const all = {...this.allTexts};
     delete all[this.userLang];
     return all;
+  }
+
+  get humanProjectDate() {
+    const date = new Date(Date.parse(this.project_date))
+    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+  }
+  get humanPortfolioDate() {
+    const date = new Date(Date.parse(this.portfolio_date))
+    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
   }
 }
 
