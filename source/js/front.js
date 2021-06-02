@@ -47,5 +47,6 @@ require('./partials/controls/select-project-type');
 require('./partials/controls/pop-up-inputs');
 require('./partials/controls/multilingual-inputs').init();
 require('./partials/controls/change-editing-language');
+require('./partials/write-to-us');
 
 smoothHoverAnimation('plus-button', 'hover');

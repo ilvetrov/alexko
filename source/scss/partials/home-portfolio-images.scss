@@ -1,0 +1,18 @@
+.home-portfolio-images {
+  &__slide {
+    transition: transform .2s;
+  }
+  
+  &_mobile & {
+    &__slide {
+      width: 22.6rem;
+      transform: translateY(30px * 4);
+    }
+  }
+  &_desktop & {
+    &__slide {
+      width: 72rem;
+      transform: translateY(30px * 2);
+    }
+  }
+}

@@ -1,11 +1,11 @@
 {{> side_edit_panel}}
 {{> project_settings_panel}}
 
-<main class="portfolio-item-page js-edit-portfolio-page" data-editor-properties="{{ editorProperties }}">
-  <div class="portfolio-item-page__wrap">
+<main class="portfolio-item portfolio-item-page js-edit-portfolio-page" data-editor-properties="{{ editorProperties }}">
+  <div class="portfolio-item__wrap">
     <div class="container-size">
-      <div class="portfolio-item-page__header">
-        <div class="portfolio-header portfolio-item-page__header">
+      <div class="portfolio-item__header">
+        <div class="portfolio-header portfolio-item__header">
           <a href="/portfolio" class="subtitle portfolio-header__subtitle">
             {{ lang 'portfolio' }}
             <span class="accent-slash">/</span>
@@ -24,7 +24,7 @@
             <div class="text-link text-link_independent portfolio-header__link editor-pop-up-input-caller {{iif project.to_link '' 'editor-pop-up-input-caller_empty'}} js-to-link-button" data-pop-up-button="to_link">
               <span class="inline-click-extender" data-variations="{{ toLinkVariations }}">{{ toLinkText }}</span>
             </div>
-            <a href="#" class="text-link text-link_independent portfolio-header__link">
+            <a href="#about-creating" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70">
               <span class="inline-click-extender" data-variations="{{ creatingVariations }}">{{ creatingText }}</span>
             </a>
             <div class="text-link text-link_independent portfolio-header__link">
@@ -35,7 +35,7 @@
         </div>
         <!-- /.portfolio-header -->
       </div>
-      <!-- /.portfolio-item-page__header -->
+      <!-- /.portfolio-item__header -->
     </div>
     <!-- /.container-size -->
     <div class="editor-intro-images">
@@ -115,7 +115,7 @@
     </div>
     <!-- /.editor-intro-images -->
   </div>
-  <!-- /.portfolio-item-page__wrap -->
-  <div class="portfolio-item-page__content js-portfolio-content" data-editorjs="project_text" data-multilingual="{{toString multilingual.text }}"></div>
+  <!-- /.portfolio-item__wrap -->
+  <div id="about-creating" class="portfolio-item__content js-portfolio-content" data-editorjs="project_text" data-multilingual="{{toString multilingual.text }}"></div>
 </main>
-<!-- /.portfolio-item-page -->
+<!-- /.portfolio-item -->

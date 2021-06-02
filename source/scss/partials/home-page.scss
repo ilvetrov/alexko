@@ -1,0 +1,22 @@
+.home-page {
+  &__portfolio-item {
+    margin-bottom: 10rem;
+  }
+  &__intro-images {
+    margin-bottom: .88rem;
+  }
+  &__intro-gallery {
+    max-width: 1620px;
+    margin-left: auto;
+    margin-top: auto;
+
+    &.mobile-gallery {
+      margin-top: 2.1rem;
+      padding-bottom: 30px * 4;
+    }
+    &.desktop-gallery {
+      margin-top: 4rem;
+      padding-bottom: 30px * 2;
+    }
+  }
+}

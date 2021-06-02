@@ -18,6 +18,16 @@ timeline.to('.js-hello-section-wrap', {
   opacity: 0
 });
 
+timeline.to('.js-hello-section-page-menu', {
+  scrollTrigger: {
+    trigger: advantageItems[0],
+    start: 'center bottom',
+    end: 'top center',
+    scrub: true
+  },
+  y: -.022 * window.innerHeight
+});
+
 for (let i = 0; i < advantageItemWraps.length; i++) {
   const advantageItemWrap = advantageItemWraps[i];
   timeline.to(advantageItemWrap, {

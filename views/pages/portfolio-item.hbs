@@ -1,8 +1,8 @@
-<main class="portfolio-item-page">
-  <div class="portfolio-item-page__wrap">
+<main class="portfolio-item portfolio-item-page">
+  <div class="portfolio-item__wrap">
     <div class="container-size">
-      <div class="portfolio-item-page__header">
-        <div class="portfolio-header portfolio-item-page__header">
+      <div class="portfolio-item__header">
+        <div class="portfolio-header">
           <a href="/portfolio" class="subtitle portfolio-header__subtitle">
             {{ lang 'portfolio' }}
             <span class="accent-slash">/</span>
@@ -18,7 +18,7 @@
           </div>
           <!-- /.portfolio-descr -->
           <div class="portfolio-header__links">
-            <a href="{{ project.to_link }}" class="text-link text-link_independent portfolio-header__link">
+            <a href="{{ project.to_link }}" {{{iif project.to_link_is_external 'target="_blank"' '' }}} class="text-link text-link_independent portfolio-header__link">
               <span class="inline-click-extender">{{ project.to_link_text }}</span>
             </a>
             <a href="#about-creating" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70">
@@ -34,13 +34,13 @@
         </div>
         <!-- /.portfolio-header -->
       </div>
-      <!-- /.portfolio-item-page__header -->
+      <!-- /.portfolio-item__header -->
     </div>
     <!-- /.container-size -->
-    <div class="portfolio-item-page__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item-page__intro-images_desktop' '' }}">
-      <div class="portfolio-item-page__intro-gallery intro-images swiper-container {{iifEquals project.type_id 1 'intro-images_desktop' 'intro-images_mobile' }}" data-portfolio-gallery="1">
+    <div class="portfolio-item__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
+      <div class="portfolio-item__intro-gallery intro-images swiper-container {{iifEquals project.type_id 1 'intro-images_desktop' 'intro-images_mobile' }}" data-portfolio-gallery="1" data-centered-slides data-is-loop data-with-intro-images>
         <div class="swiper-wrapper">
-          {{#each intro_images as |intro_image|}}
+          {{#each project.introImagesForFrontDesktop as |intro_image|}}
             <div class="intro-images__slide swiper-slide">
               <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow js-intro-image">
             </div>
@@ -49,16 +49,16 @@
         </div>
         <!-- /.swiper-wrapper -->
       </div>
-      <!-- /.portfolio-item-page__intro-gallery -->
+      <!-- /.portfolio-item__intro-gallery -->
     </div>
-    <!-- /.portfolio-item-page__intro-images -->
+    <!-- /.portfolio-item__intro-images -->
   </div>
-  <!-- /.portfolio-item-page__wrap -->
-  <div id="about-creating" class="portfolio-item-page__content js-portfolio-content">
+  <!-- /.portfolio-item__wrap -->
+  <div id="about-creating" class="portfolio-item__content js-portfolio-content">
     {{#each project.text.blocks as |block|}}
       {{{textPartial block.type block.data }}}
     {{/each}}
   </div>
-  <!-- /.portfolio-item-page__content -->
+  <!-- /.portfolio-item__content -->
 </main>
-<!-- /.portfolio-item-page -->
+<!-- /.portfolio-item -->

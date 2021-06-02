@@ -1,5 +1,4 @@
 const hbs = require('hbs');
-const handlebars = require('handlebars');
 const { getRoot } = require('../libs/get-root');
 const cache = require('../libs/cache');
 const fs = require('fs');

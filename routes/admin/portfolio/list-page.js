@@ -21,6 +21,7 @@ router.get('/portfolio', async function(req, res, next) {
       ${currentAdmin.can_edit_all ? '' : '(admin_id = $<admin_id> OR common = true)'}
       ${!!status && !currentAdmin.can_edit_all ? 'AND' : ''}
       ${!!status ? 'status = $<status>' : ''}
+    ORDER BY portfolio_date DESC
   `;
   db.query(query, {
     admin_id: currentAdmin.id,

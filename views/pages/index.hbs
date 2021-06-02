@@ -10,8 +10,8 @@
             </div>
             <!-- /.subtitle -->
             <h1 class="page-title page-title_separated-lines page-title-block__title">
-              <span class="page-title__line">{{ lang 'site_tagline_first_line' }} <div class="page-title__arrow-block page-title__arrow-block_right"><img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_right js-right-arrow"></div></span>
-              <span class="page-title__line page-title__line_accent"><div class="page-title__arrow-block page-title__arrow-block_left"><img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_left js-left-arrow"></div> {{ lang 'site_tagline_second_line' }}</span>
+              <span class="page-title__line">{{ helloTitle.firstLine }} {{#ifEquals helloTitleVariant 0 }}<div class="page-title__arrow-block page-title__arrow-block_right"><img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_right js-right-arrow"></div>{{/ifEquals}}</span>
+              <span class="page-title__line page-title__line_accent">{{#ifEquals helloTitleVariant 0 }}<div class="page-title__arrow-block page-title__arrow-block_left"><img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_left js-left-arrow"></div>{{/ifEquals}} {{ helloTitle.secondLine }}</span>
             </h1>
             <!-- /.page-title -->
             <button class="accent-button">
@@ -22,7 +22,7 @@
           <!-- /.page-title-block -->
         </div>
         <!-- /.hello-section__content -->
-        <div class="page-menu bottom-screen-offset">
+        <div class="page-menu bottom-screen-offset js-hello-section-page-menu">
           {{#if advantages.length}}
           <a href="/#why-us" class="page-menu__item">
             {{ lang 'why_us' }}
@@ -81,8 +81,103 @@
     <!-- /.advantages-section -->
   {{/if}}
   <section id="portfolio" class="portfolio-section js-portfolio-section">
-    <div>Тут будет портфолио</div>
+    {{#each projects as |project|}}
+      <div class="portfolio-item portfolio-section__item home-page__portfolio-item">
+        <div class="container-size">
+          <div class="home-page__header">
+            <div class="portfolio-header">
+              <a href="/portfolio" class="subtitle portfolio-header__subtitle">
+                {{ ../lang 'last_projects' }}
+                <span class="accent-slash">/</span>
+              </a>
+              <!-- /.subtitle -->
+              <a href="/portfolio/{{ project.slug }}" class="page-title page-title_free-transform page-title_mini page-title_link portfolio-header__title portfolio-header__title_mini">
+                {{ project.title }}
+              </a>
+              <!-- /.page-title -->
+              <div class="portfolio-descr">
+                <strong class="portfolio-descr__type">{{ ../lang project.type_name }}.</strong>
+                <span class="portfolio-descr__main-text">{{ project.descr }}</span>
+              </div>
+              <!-- /.portfolio-descr -->
+            </div>
+            <!-- /.portfolio-header -->
+          </div>
+          <!-- /.home-page__header -->
+        </div>
+        <!-- /.container-size -->
+        <div class="portfolio-item__intro-images home-page__intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
+          <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals project.type_id 1 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery' }}" data-portfolio-gallery="{{ @index }}" data-space-between="{{iifEquals project.type_id 1 '67' '56' }}" data-increment-indent>
+            <div class="swiper-wrapper">
+              {{#each introImagesForFrontDesktop as |intro_image|}}
+                <div class="home-portfolio-images__slide swiper-slide">
+                  <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow">
+                </div>
+                <!-- /.swiper-slide -->
+              {{/each}}
+            </div>
+            <!-- /.swiper-wrapper -->
+          </div>
+          <!-- /.portfolio-item__intro-gallery -->
+        </div>
+        <!-- /.portfolio-item__intro-images -->
+        <div class="container-size">
+          <div class="container-center">
+            <a href="/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
+              {{ ../lang 'view_in_portfolio' }}
+            </a>
+            <!-- /.accent-button -->
+          </div>
+          <!-- /.container-center -->
+        </div>
+        <!-- /.container-size -->
+      </div>
+      <!-- /.portfolio-item -->
+    {{/each}}
   </section>
   <!-- /.portfolio-section -->
+  <section class="write-to-us-section">
+    <div class="container-size">
+      <div class="container-center">
+        <form action="/forms/lead" method="POST" class="form form_big js-write-to-us-form">
+          <div class="form__title">{{ writeToUs.title }}</div>
+          <!-- /.form__title -->
+          <div class="field field_big form__field js-field" data-field-require>
+            <label class="field__label" for="login-name">Email</label>
+            <input type="email" name="email" placeholder="name@example.com" class="field__input" id="login-name">
+          </div>
+          <!-- /.field -->
+          <div class="field field_big form__field js-field" data-field-require>
+            <label class="field__label" for="about-task">{{ lang 'what_do_you_want' }}?</label>
+            <textarea name="about_task" id="about-task" class="field__input field__textarea" rows="8" placeholder="{{ writeToUs.field_example }}"></textarea>
+          </div>
+          <!-- /.field -->
+          <div class="checkbox-field form__checkbox js-field" data-field-require>
+            <div class="checkbox checkbox-field__checkbox">
+              <input class="checkbox__input" type="checkbox" name="personal_data" id="personal-data">
+              <label for="personal-data" class="checkbox__view">
+                <img class="checkbox__arrow" src="/img/checked.svg" alt="">
+              </label>
+              <!-- /.checkbox__view -->
+            </div>
+            <!-- /.checkbox -->
+            <label for="personal-data" class="checkbox-field__label">{{ lang 'personal_data_text' }} <a href="/personal-data" class="checkbox-field__link" target="_blank" rel="noopener noreferrer">{{ lang 'personal_data_link' }}</a></label>
+          </div>
+          <!-- /.checkbox-field -->
+          <div class="form__button">
+            <button type="submit" class="accent-button accent-button_extra-wide accent-button_solid">
+              {{ lang 'write_to_alexko' }}
+            </button>
+            <!-- /.accent-button -->
+          </div>
+          <!-- /.form__button -->
+        </form>
+        <!-- /.form -->
+      </div>
+      <!-- /.container-center -->
+    </div>
+    <!-- /.container-size -->
+  </section>
+  <!-- /.write-to-us-section -->
 </main>
 <!-- /.home-page -->

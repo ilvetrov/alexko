@@ -1,5 +1,6 @@
 .intro-images {
   &__slide {
+    will-change: transform;
     transition: transform .2s;
 
     &.swiper-slide-active, &.swiper-slide-duplicate-active {

@@ -98,14 +98,21 @@ function clearFormData(form) {
 
 const fields = document.getElementsByClassName('js-field');
 for (let i = 0; i < fields.length; i++) {
-  const field = fields[i];
-  const input = field.querySelector('[name]');
-  input.addEventListener('focus', () => {
-    field.classList.add('focus');
-  });
-  input.addEventListener('blur', () => {
-    field.classList.remove('focus');
-  });
+  setTimeout(() => {
+    const field = fields[i];
+    const input = field.querySelector('[name]');
+    input.addEventListener('focus', () => {
+      field.classList.add('focus');
+    });
+    input.addEventListener('blur', () => {
+      field.classList.remove('focus');
+    });
+    if (input.getAttribute('type') === 'password') {
+      input.addEventListener('focus', () => {
+        input.select();
+      });
+    }
+  }, 0);
 }
 
 module.exports = {

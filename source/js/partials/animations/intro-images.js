@@ -7,7 +7,10 @@ const timeline = gsap.timeline();
 
 function initIntroImages() {
   if (introImages.length === 0) return;
-  const triggerHeader = document.getElementsByClassName('js-portfolio-content')[0].children[0];
+  const portfolioContents = document.getElementsByClassName('js-portfolio-content');
+  if (!portfolioContents) return;
+
+  const triggerHeader = portfolioContents[0].children[0];
 
   for (let i = 0; i < introImages.length; i++) {
     const introImage = introImages[i];
@@ -42,6 +45,10 @@ function initIntroImages() {
 }
 
 function updateIntroImages() {
+  if (introImages.length === 0) return;
+  const portfolioContents = document.getElementsByClassName('js-portfolio-content');
+  if (!portfolioContents) return;
+  
   timeline.invalidate();
 
   if (!checkEmptyTransform(introImages[0])) {

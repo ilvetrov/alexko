@@ -1,0 +1,62 @@
+<main class="portfolio-item-page portfolio-item">
+  <div class="portfolio-item__wrap">
+    <section id="portfolio" class="portfolio-section js-portfolio-section">
+      {{#each projects as |project|}}
+        <div class="portfolio-item portfolio-section__item home-page__portfolio-item">
+          <div class="container-size">
+            <div class="home-page__header">
+              <div class="portfolio-header">
+                <a href="/portfolio/{{ project.slug }}" class="subtitle portfolio-header__subtitle">
+                  {{ ../lang 'portfolio' }}
+                  <span class="accent-slash">/</span>
+                </a>
+                <!-- /.subtitle -->
+                <a href="/portfolio/{{ project.slug }}" class="page-title page-title_free-transform page-title_mini page-title_link portfolio-header__title portfolio-header__title_mini">
+                  {{ project.title }}
+                </a>
+                <!-- /.page-title -->
+                <div class="portfolio-descr">
+                  <strong class="portfolio-descr__type">{{ ../lang project.type_name }}.</strong>
+                  <span class="portfolio-descr__main-text">{{ project.descr }}</span>
+                </div>
+                <!-- /.portfolio-descr -->
+              </div>
+              <!-- /.portfolio-header -->
+            </div>
+            <!-- /.home-page__header -->
+          </div>
+          <!-- /.container-size -->
+          <div class="portfolio-item__intro-images home-page__intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
+            <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals project.type_id 1 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery' }}" data-portfolio-gallery="{{ @index }}" data-space-between="{{iifEquals project.type_id 1 '67' '56' }}" data-increment-indent>
+              <div class="swiper-wrapper">
+                {{#each introImagesForFrontDesktop as |intro_image|}}
+                  <div class="home-portfolio-images__slide swiper-slide">
+                    <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow">
+                  </div>
+                  <!-- /.swiper-slide -->
+                {{/each}}
+              </div>
+              <!-- /.swiper-wrapper -->
+            </div>
+            <!-- /.portfolio-item__intro-gallery -->
+          </div>
+          <!-- /.portfolio-item__intro-images -->
+          <div class="container-size">
+            <div class="container-center">
+              <a href="/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
+                {{ ../lang 'view_in_portfolio' }}
+              </a>
+              <!-- /.accent-button -->
+            </div>
+            <!-- /.container-center -->
+          </div>
+          <!-- /.container-size -->
+        </div>
+        <!-- /.portfolio-item -->
+      {{/each}}
+    </section>
+    <!-- /.portfolio-section -->
+  </div>
+  <!-- /.portfolio-item__wrap -->
+</main>
+<!-- /.portfolio-item-page -->

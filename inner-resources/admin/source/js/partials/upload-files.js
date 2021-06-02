@@ -19,12 +19,8 @@ function init() {
     const input = removeButton.parentElement.getElementsByTagName('input')[0];
     const groupName = input.getAttribute('data-group-file');
     const dataOutput = groupName && document.querySelector(`[name="${groupName}"]`);
-    let data = input.getAttribute('data-file') || '';
-    if (dataOutput) {
-      data = JSON.parse(dataOutput.value || '{}');
-    }
     
-    removePreview(input, data, dataOutput);
+    removePreview(input, dataOutput);
   }
 }
 
@@ -43,13 +39,9 @@ function processUploadInput(input) {
   const files = input.files;
   const groupName = input.getAttribute('data-group-file');
   const dataOutput = groupName && document.querySelector(`[name="${groupName}"]`);
-  let data = input.getAttribute('data-file') || '';
-  if (dataOutput) {
-    data = JSON.parse(dataOutput.value || '{}');
-  }
 
   if (preview.classList.contains('uploaded')) {
-    removePreview(input, data, dataOutput);
+    removePreview(input, dataOutput);
   }
 
   deactivatePreview(preview);
@@ -62,15 +54,12 @@ function processUploadInput(input) {
     );
     const uploadedFileWebSrc = uploadedFile.webSrc;
 
+    const data = getInputData(input, dataOutput);
     if (dataOutput) {
       data[number] = uploadedFileName;
-    } else {
-      data = uploadedFileName;
-    }
-
-    if (dataOutput) {
       dataOutput.value = JSON.stringify(data);
     } else {
+      data = uploadedFileName;
       input.setAttribute('data-file', JSON.stringify(data));
     }
 
@@ -78,7 +67,7 @@ function processUploadInput(input) {
       activatePreview(preview);
     });
 
-    dataOutput.dispatchEvent(new Event('change'));
+    dataOutput?.dispatchEvent(new Event('change'));
 
     if (callbacks[id]) {
       for (let i = 0; i < callbacks[id].length; i++) {
@@ -94,8 +83,16 @@ function processUploadInput(input) {
     }
   }, function() {
     activatePreview(preview);
-    dataOutput.dispatchEvent(new Event('change'));
+    dataOutput?.dispatchEvent(new Event('change'));
   });
+}
+
+function getInputData(input, dataOutput) {
+  if (dataOutput) {
+    return JSON.parse(dataOutput.value || '{}');
+  } else {
+    return input.getAttribute('data-file') || '';
+  }
 }
 
 function uploadFiles(files, projectId, successCallback, errorCallback) {
@@ -133,7 +130,7 @@ function activatePreview(preview) {
   preview.classList.remove('process');
 }
 
-function removePreview(input, data = undefined, dataOutput = undefined) {
+function removePreview(input, dataOutput = undefined) {
   const id = input.getAttribute('id');
   const number = (id.match(/\d+$/) || [])[0] || 0;
   const preview = document.querySelector(`[data-upload-file-preview="${id}"]`);
@@ -142,12 +139,11 @@ function removePreview(input, data = undefined, dataOutput = undefined) {
   if (img) img.remove();
   input.value = '';
   if (input.hasAttribute('data-file')) input.setAttribute('data-file', '');
-  if (dataOutput && data !== undefined) {
+  if (dataOutput) {
+    const data = getInputData(input, dataOutput);
     delete data[number];
     dataOutput.value = JSON.stringify(data);
   }
-
-  return data;
 }
 
 function insertToPreview(uploadedFileWebSrc, preview, callback) {

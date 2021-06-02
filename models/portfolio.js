@@ -1,3 +1,5 @@
+const { asyncImg } = require("../libs/async-img-loader");
+const getImgSrc = require("../libs/get-img-src");
 const multilingualDefault = require("../libs/multilingual-default");
 const { langConstructorByCodeName } = require("../libs/user-language");
 
@@ -18,6 +20,20 @@ class PortfolioProject {
 
         ${!!typeId ? 'type_id = $<typeId>' : ''}
     `;
+  }
+
+  static #processIntroImagesForFront(introImages) {
+    const asyncImages = [];
+    for (const order in introImages) {
+      if (Object.hasOwnProperty.call(introImages, order)) {
+        const introImage = introImages[order];
+        asyncImages.push(
+          asyncImg([getImgSrc(introImage, false)])
+        );
+      }
+    }
+
+    return asyncImages;
   }
 
   constructor (projectFromDB, userLang = 'en') {
@@ -49,6 +65,7 @@ class PortfolioProject {
     this.to_link = projectFromDB.to_link;
     this.to_link_text = toLinkVariations[projectFromDB.type_id ?? 2];
     this.to_link_variations = toLinkVariations;
+    this.to_link_is_external = !!projectFromDB.to_link?.match(/^http/);
     this.creating_text = creatingVariations[projectFromDB.type_id ?? 2];
     this.creating_variations = creatingVariations;
     this.demo_id = projectFromDB.demo_id;
@@ -127,11 +144,19 @@ class PortfolioProject {
 
   get humanProjectDate() {
     const date = new Date(Date.parse(this.project_date))
-    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
   get humanPortfolioDate() {
     const date = new Date(Date.parse(this.portfolio_date))
-    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+  }
+
+  get introImagesForFrontDesktop() {
+    return PortfolioProject.#processIntroImagesForFront(this.type_id == 1 ? this.intro_images.desktop : this.intro_images.mobile);
+  }
+
+  get introImagesForFrontMobile() {
+    return PortfolioProject.#processIntroImagesForFront(this.intro_images.mobile);
   }
 }
 

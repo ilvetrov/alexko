@@ -7,6 +7,13 @@
   letter-spacing: .015em;
   padding: 1em 2.63em;
   transition: color .2s;
+  
+  &[href] {
+    display: inline-block;
+    text-decoration: none;
+    outline: none !important;
+    color: inherit;
+  }
 
   &:hover, &:focus {
     color: $accent-color;
@@ -14,5 +21,22 @@
 
   &_wide {
     min-width: 14.35em;
+  }
+  &_extra-wide {
+    min-width: 17.7em;
+  }
+  &_big {
+    padding: 1.2em 3.8em;
+  }
+  &_solid {
+    color: #fff;
+    background-color: $accent-color;
+    border: none;
+    transition: background-color .2s;
+
+    &:hover, &:focus {
+      color: #fff;
+      background-color: #2d7eff;
+    }
   }
 }

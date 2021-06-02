@@ -40,6 +40,18 @@
   &_free-transform {
     text-transform: none;
   }
+  &_mini {
+    font-size: 2rem;
+  }
+  &_link {
+    text-decoration: none;
+    outline: none !important;
+    transition: color .2s;
+    
+    &:focus {
+      color: $accent-color;
+    }
+  }
 }
 .subtitle {
   font-size: 1rem;

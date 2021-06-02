@@ -1,9 +1,7 @@
-const { checkThatElementIsNear } = require("./check-scroll");
 const removeWhitespaces = require("./remove-whitespaces");
 
 const imagesElements = document.querySelectorAll('[data-async-images]');
 const srcComplexStorage = {};
-let currentImageNumber = 0;
 
 function getAsyncBackgroundsOutput() {
   return document.getElementsByClassName('js-async-backgrounds')[0];
@@ -11,18 +9,17 @@ function getAsyncBackgroundsOutput() {
 
 for (let elementIteration = 0; elementIteration < imagesElements.length; elementIteration++) {
   const imageElement = imagesElements[elementIteration];
-  initAsyncImg(imageElement, false);
+  setTimeout(() => {
+    initAsyncImg(imageElement, false);
+  }, 0);
 }
 
 function initAsyncImg(imageElement, manual = true) {
-  const imageNumberOfThis = currentImageNumber;
   if (!imageElement.hasAttribute('data-async-images')) return 'not for async';
-
+  
   const linksProperties = JSON.parse(imageElement.getAttribute('data-async-images'));
-
+  
   if (linksProperties.manual && !manual) return;
-
-  const backgroundClassName = `background-image-${imageNumberOfThis}`;
   
   let setSrc;
   if (!linksProperties.isBackground) {
@@ -30,45 +27,29 @@ function initAsyncImg(imageElement, manual = true) {
       setSrcForImg(linksProperties.images, imageElement);
     }
   } else {
+    const imageNumber = Math.round(Math.random() * 99999);
+    const backgroundClassName = `background-image-${imageNumber}`;
     setSrc = () => {
       setSrcForBackground(linksProperties.images, imageElement, backgroundClassName);
     }
   }
   
   if (linksProperties.scroll) {
-    srcComplexStorage[imageNumberOfThis] = () => {
-      if (checkThatElementIsNear(imageElement)) {
-        window.removeEventListener('scroll', srcComplexStorage[imageNumberOfThis]);
-  
-        setSrc();
+    const observer = new IntersectionObserver(function(entries) {
+      for (let i = 0; i < entries.length; i++) {
+        setTimeout(() => {
+          const entry = entries[i];
+          if (entry.isIntersecting) {
+            observer.unobserve(imageElement);
+            setSrc();
+          }
+        }, 0);
       }
-    };
-    if (!manual) {
-      window.addEventListener('load', () => {
-        if (checkThatElementIsNear(imageElement)) {
-          setSrc();
-        } else {
-          window.addEventListener('scroll', srcComplexStorage[imageNumberOfThis]);
-        }
-      });
-    } else {
-      if (checkThatElementIsNear(imageElement)) {
-        setSrc();
-      } else {
-        window.addEventListener('scroll', srcComplexStorage[imageNumberOfThis]);
-      }
-    }
+    });
+    observer.observe(imageElement);
   } else {
-    if (!manual) {
-      window.addEventListener('load', () => {
-        setSrc();
-      });
-    } else {
-      setSrc();
-    }
+    setSrc();
   }
-
-  currentImageNumber++;
 }
 
 function setSrcForBackground(images, imageElement, className) {
@@ -114,14 +95,13 @@ function setSrcForImg(images, imageElement) {
     for (let i = 0; i < minSizes.length; i++) {
       const minSize = minSizes[i];
       if (window.innerWidth >= minSize) {
-        
-        const neededImage = images.find((image) => {
-          return image.minWindowWidth === minSize;
-        });
+        setTimeout(() => {
+          const neededImage = images.find((image) => {
+            return image.minWindowWidth === minSize;
+          });
   
-        if (imageElement.src != neededImage.webSrc) {
           imageElement.src = neededImage.webSrc;
-        }
+        }, 0);
   
         break;
       }

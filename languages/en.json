@@ -11,9 +11,9 @@
     "game": "Game",
     "games": "Games",
     "site_focus": "We create apps and sites",
-    "site_tagline_first_line": "Only your idea",
-    "site_tagline_second_line": "Finished project",
-    "cta_button": "Connect with us",
+    "site_tagline_first_line": "Idea from you",
+    "site_tagline_second_line": "Project from us",
+    "cta_button": "Write to us",
     "why_us": "Why us",
     "portfolio": "Portfolio",
     "change_language": "Change language",
@@ -58,14 +58,21 @@
     "not_specified": "Not specified",
     "list_is_empty": "List is empty",
     "slug": "Slug",
+    "last_projects": "Last projects",
+    "view_in_portfolio": "Show more",
+    "what_do_you_want": "What do you want",
+    "write_to_alexko": "Write to AlexKo",
+    "personal_data_text": "I agree to the processing of",
+    "personal_data_link": "personal data",
+
     "advantages": [
       {
         "title": [
-          "We write technical task",
-          "ourselves"
+          "Technical task",
+          "is our care"
         ],
         "subtitle": [
-          "You pay — we will do the rest"
+          "You pay and we'll do the rest"
         ],
         "accent": true
       },
@@ -87,6 +94,25 @@
           "inside the Technical task"
         ],
         "accent": true
+      },
+      {
+        "title": [
+          "We explain"
+        ],
+        "subtitle": [
+          "How we work, admin panel, etc."
+        ]
+      }
+    ],
+
+    "form_text": [
+      {
+        "title": "Site, app or game?",
+        "field_example": "Game, online store, app, landing..."
+      },
+      {
+        "title": "App, site or game?",
+        "field_example": "Game, online store, app, landing..."
       }
     ]
   }

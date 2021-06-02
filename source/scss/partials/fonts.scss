@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/Raleway-Regular.ttf') format('truetype');
+  src: url('/fonts/Raleway-Regular.woff') format('woff');
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/fonts/Raleway-Bold.ttf') format('truetype');
+  src: url('/fonts/Raleway-Bold.woff') format('woff');
 }
 
 @font-face {
@@ -19,5 +19,13 @@
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url('/fonts/Raleway-Black.ttf') format('truetype');
+  src: url('/fonts/Raleway-Black.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Lato-Regular.woff') format('woff');
 }
