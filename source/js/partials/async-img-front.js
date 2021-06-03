@@ -1,18 +1,21 @@
 const removeWhitespaces = require("./remove-whitespaces");
 
 const imagesElements = document.querySelectorAll('[data-async-images]');
-const srcComplexStorage = {};
 
 function getAsyncBackgroundsOutput() {
   return document.getElementsByClassName('js-async-backgrounds')[0];
 };
 
-for (let elementIteration = 0; elementIteration < imagesElements.length; elementIteration++) {
-  const imageElement = imagesElements[elementIteration];
-  setTimeout(() => {
-    initAsyncImg(imageElement, false);
-  }, 0);
+function initAllNotManualAsyncImg() {
+  for (let elementIteration = 0; elementIteration < imagesElements.length; elementIteration++) {
+    const imageElement = imagesElements[elementIteration];
+    setTimeout(() => {
+      initAsyncImg(imageElement, false);
+    }, 0);
+  }
 }
+
+initAllNotManualAsyncImg();
 
 function initAsyncImg(imageElement, manual = true) {
   if (!imageElement.hasAttribute('data-async-images')) return 'not for async';
@@ -33,26 +36,20 @@ function initAsyncImg(imageElement, manual = true) {
       setSrcForBackground(linksProperties.images, imageElement, backgroundClassName);
     }
   }
-  
-  if (linksProperties.scroll) {
-    const observer = new IntersectionObserver(function(entries) {
-      for (let i = 0; i < entries.length; i++) {
-        setTimeout(() => {
-          const entry = entries[i];
-          if (entry.isIntersecting) {
-            observer.unobserve(imageElement);
-            setSrc();
-          }
-        }, 0);
-      }
-    });
-    observer.observe(imageElement);
-  } else {
+
+  if (!linksProperties.isBackground && 'loading' in HTMLImageElement.prototype) {
     setSrc();
+  } else {
+    const newImage = new Image();
+    newImage.src = linksProperties.images[0].webSrc;
+    newImage.onload = function() {
+      setSrc();
+    };
   }
 }
 
 function setSrcForBackground(images, imageElement, className) {
+  console.log(imageElement);
   imageElement.classList.add(className);
   
   let html = '';
@@ -64,7 +61,7 @@ function setSrcForBackground(images, imageElement, className) {
     html = html + removeWhitespaces(`
     @media (min-width: ${image.minWindowWidth}px) {
       .${className} {
-        background-image: url(${image.webSrc});
+        background-image: url("${image.webSrc}");
       }
     }
     `);
@@ -99,8 +96,12 @@ function setSrcForImg(images, imageElement) {
           const neededImage = images.find((image) => {
             return image.minWindowWidth === minSize;
           });
-  
-          imageElement.src = neededImage.webSrc;
+          
+          if (imageElement.src !== neededImage.webSrc) {
+            requestAnimationFrame(function() {
+              imageElement.src = neededImage.webSrc;
+            });
+          }
         }, 0);
   
         break;
