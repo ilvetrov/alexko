@@ -1,7 +1,7 @@
 .advantage {
   &__title {
     font-size: 1.88rem;
-    letter-spacing: 1.135;
+    line-height: 1.135;
     font-weight: 900;
     margin-bottom: .87em;
   }
@@ -9,6 +9,22 @@
   &_accent & {
     &__title {
       color: $accent-color;
+    }
+  }
+}
+
+@media (max-width: 510px) {
+  .advantage {
+    &__title {
+      font-size: 5.8vw;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .advantage {
+    &__title {
+      font-size: 1.37rem;
     }
   }
 }

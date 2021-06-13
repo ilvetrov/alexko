@@ -1,6 +1,6 @@
 .checkbox-field {
   display: flex;
-  width: 23.1rem;
+  width: 100%;
   font-size: 14px;
   line-height: 1.5;
 
@@ -9,6 +9,7 @@
   }
   &__label {
     cursor: pointer;
+    user-select: none;
   }
   &__link {
     text-decoration: none;
@@ -19,6 +20,7 @@
 .checkbox {
   user-select: none;
   overflow: hidden;
+  min-width: 1rem;
 
   &__input {
     position: absolute;

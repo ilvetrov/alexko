@@ -5,12 +5,23 @@
     <link rel="stylesheet" href="/css/front.css{{ fileVersion }}">
     <link rel="stylesheet" href="/admin/resources/admin/public/css/admin.css{{ fileVersion }}">
   </head>
-  <body>
-    {{> header}}
-    {{> logic}}
-    {{{body}}}
-    {{> bottom_logic}}
+  <body class="lang-{{ currentLang.code_name }}">
+    <script>{{{ bodyViewClassSetter }}}</script>
+    <div class="page">
+      <div class="page__content">
+        {{> header}}
+        {{> logic}}
+        {{{body}}}
+        {{> bottom_logic}}
+      </div>
+      <!-- /.page__content -->
+      {{> footer}}
+    </div>
+    <!-- /.page -->
     <script src="/js/front.js{{ fileVersion }}" defer></script>
     <script src="/admin/resources/admin/public/js/admin.js{{ fileVersion }}" defer></script>
+    {{#if accessToDebugScripts}}
+      <script src="/admin/resources/admin/public/js/debug.js{{ fileVersion }}" defer></script>
+    {{/if}}
   </body>
 </html>

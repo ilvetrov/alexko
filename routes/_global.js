@@ -1,5 +1,6 @@
 var express = require('express');
 const { admin } = require('../libs/auth');
+const bodyViewClassSetter = require('../libs/body-view-class-setter');
 const { CSRF } = require('../libs/csrf');
 const { insertingFileVersion } = require('../libs/files-version');
 var router = express.Router();
@@ -29,11 +30,19 @@ router.use(async function(req, res, next) {
     res.locals.currentLang = getUserLanguage(req);
     res.locals.langsList = getLanguagesList(req);
     res.locals.fileVersion = insertingFileVersion;
+    res.locals.isDevelopment = process.env.NODE_ENV === 'development';
+    res.locals.accessToDebugScripts = res.locals.isDevelopment && !!res.locals.admin;
+    res.locals.bodyViewClassSetter = bodyViewClassSetter;
+
     res.locals.frontVariables = {
       currentLang: getUserLanguage(req).code_name,
       languages: languagesNames,
       adminToken: res.locals.adminCsrf && res.locals.adminCsrf.createNewToken()
     };
+    res.locals.writeToUs = res.locals.lang('form_text')[0];
+
+    const currentYear = (new Date()).getFullYear();
+    res.locals.copyrightYear = `2021${currentYear !== 2021 ? '—' + currentYear : ''}`;
     res.locals.selects = [
       {
         name: 'change_language',

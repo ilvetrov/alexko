@@ -1,0 +1,22 @@
+.footer {
+  background-color: rgba(25, 24, 39, .02);
+
+  &__content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  &__bottom-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 425px) {
+  .footer {
+    &__content {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  }
+}

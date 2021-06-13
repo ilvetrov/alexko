@@ -2,10 +2,6 @@
   &__slide {
     will-change: transform;
     transition: transform .2s;
-
-    &.swiper-slide-active, &.swiper-slide-duplicate-active {
-      transform: translateY(0px) !important;
-    }
   }
   &__image {
     max-width: 100%;
@@ -30,12 +26,18 @@
   }
   &_desktop & {
     &__slide {
-      width: 43rem;
+      width: 64rem;
       transform: translateY(81px);
 
       &.swiper-slide-prev, &.swiper-slide-duplicate-prev, &.swiper-slide-next, &.swiper-slide-duplicate-next {
         transform: translateY(81px);
       }
+    }
+  }
+
+  &__slide {
+    &.swiper-slide-active, &.swiper-slide-duplicate-active {
+      transform: translateY(0px);
     }
   }
 }

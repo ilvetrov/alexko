@@ -7,7 +7,40 @@
     justify-content: space-between;
     align-items: center;
     height: 100vh;
-    min-height: 630px;
-    min-height: #{"max(100vh, 630px)"};
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hello-section {
+    &__wrap {
+      height: 520px;
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  .hello-section {
+    &__wrap {
+      min-height: 630px;
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .hello-section {
+    &__wrap {
+      min-height: 132vw;
+      max-height: 700px;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .hello-section {
+    &__wrap {
+      min-height: 500px;
+      max-height: 620px;
+    }
   }
 }

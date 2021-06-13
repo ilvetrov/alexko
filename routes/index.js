@@ -43,8 +43,7 @@ router.get('/', function(req, res, next) {
         delete advantages[0];
         return advantages;
       }()),
-      projects: projects,
-      writeToUs: lang('form_text')[0]
+      projects: projects
     });
   });
    

@@ -7,6 +7,7 @@ const getIntroImagesAsWebArray = require('../../../libs/converters/intro-images-
 const { getEditorImagesFromMultilingual } = require('../../../libs/converters/get-editor-images');
 const registerImages = require('../../../libs/register-images');
 const fs = require('fs-extra');
+const normalizeIntroImages = require('../../../libs/normalize-intro-images');
 
 var router = express.Router();
 
@@ -29,8 +30,8 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
     common: data.common ?? oldData.common,
     type_id: data.type_id ?? oldData.type_id,
     intro_images: {
-      mobile: data.intro_images || oldData.intro_images.mobile,
-      desktop: data.intro_desktop_images || oldData.intro_images.desktop
+      mobile: normalizeIntroImages(data.intro_images) || oldData.intro_images.mobile,
+      desktop: normalizeIntroImages(data.intro_desktop_images) || oldData.intro_images.desktop
     },
     to_link: data.to_link || null,
     demo_id: data.demo_id,

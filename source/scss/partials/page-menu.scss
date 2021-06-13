@@ -19,3 +19,11 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .page-menu {
+    &__item {
+      margin-right: 1.13em;
+    }
+  }
+}

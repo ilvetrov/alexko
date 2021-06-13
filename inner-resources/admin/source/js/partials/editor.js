@@ -2,7 +2,6 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import { getEditorImages } from '../../../../../libs/converters/get-editor-images';
-import getImgSrc from '../../../../../libs/get-img-src';
 import ImageTool from './tools/image'
 import NonBreakingSpace from './tools/non-breaking-space';
 

@@ -1,0 +1,11 @@
+.copyright {
+  text-align: center;
+  font-size: .75rem;
+  line-height: 1.7;
+  color: rgba(0, 0, 0, .6);
+  
+  &__company-name {
+    color: $accent-color;
+    font-weight: 700;
+  }
+}

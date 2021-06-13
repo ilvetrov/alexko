@@ -8,3 +8,4 @@ require('./in-array');
 require('./to-string');
 require('./dynamic-partial');
 require('./published-image-src');
+require('./remove-whitespaces');

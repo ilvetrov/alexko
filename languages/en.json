@@ -4,6 +4,7 @@
   "code_name": "en",
   "aliases": [],
   "dictionary" : {
+    "company_name": "AlexKo, ltd",
     "site": "Site",
     "sites": "Sites",
     "app": "App",
@@ -60,10 +61,10 @@
     "slug": "Slug",
     "last_projects": "Last projects",
     "view_in_portfolio": "Show more",
-    "what_do_you_want": "What do you want",
-    "write_to_alexko": "Write to AlexKo",
+    "what_do_you_want": "What do you want",
+    "write_to_alexko": "Write to AlexKo",
     "personal_data_text": "I agree to the processing of",
-    "personal_data_link": "personal data",
+    "personal_data_link": "personal data",
 
     "advantages": [
       {
@@ -107,11 +108,11 @@
 
     "form_text": [
       {
-        "title": "Site, app or game?",
+        "title": "Site, app or game?",
         "field_example": "Game, online store, app, landing..."
       },
       {
-        "title": "App, site or game?",
+        "title": "App, site or game?",
         "field_example": "Game, online store, app, landing..."
       }
     ]

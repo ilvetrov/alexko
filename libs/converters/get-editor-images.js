@@ -6,7 +6,7 @@ function getEditorImages(editorData) {
   for (let i = 0; i < editorData.blocks.length; i++) {
     const block = editorData.blocks[i];
     if (block.type == 'image') {
-      images.push(block.data.file.serverUrl);
+      images.push(block.data.file.name);
     }
   }
 

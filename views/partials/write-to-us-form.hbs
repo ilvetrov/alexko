@@ -1,0 +1,37 @@
+<form action="/forms/lead" method="POST" class="form form_big js-write-to-us-form">
+  <div class="form__title">{{ writeToUs.title }}</div>
+  <!-- /.form__title -->
+  <div class="form__content">
+    <div class="field field_big form__field js-field" data-field-require>
+      <label class="field__label" for="login-name">Email</label>
+      <input type="email" name="email" placeholder="name@example.com" class="field__input" id="login-name">
+    </div>
+    <!-- /.field -->
+    <div class="field field_big form__field js-field" data-field-require>
+      <label class="field__label" for="about-task">{{ lang 'what_do_you_want' }}?</label>
+      <textarea name="about_task" id="about-task" class="field__input field__textarea" placeholder="{{ writeToUs.field_example }}"></textarea>
+    </div>
+    <!-- /.field -->
+    <div class="checkbox-field form__checkbox js-field" data-field-require>
+      <div class="checkbox checkbox-field__checkbox">
+        <input class="checkbox__input" type="checkbox" name="personal_data" id="personal-data">
+        <label for="personal-data" class="checkbox__view">
+          <img class="checkbox__arrow" src="/img/checked.svg" alt="">
+        </label>
+        <!-- /.checkbox__view -->
+      </div>
+      <!-- /.checkbox -->
+      <label for="personal-data" class="checkbox-field__label">{{ lang 'personal_data_text' }} <a href="/personal-data" class="checkbox-field__link" target="_blank" rel="noopener noreferrer">{{ lang 'personal_data_link' }}</a></label>
+    </div>
+    <!-- /.checkbox-field -->
+  </div>
+  <!-- /.form__content -->
+  <div class="form__button">
+    <button type="submit" class="accent-button accent-button_extra-wide accent-button_solid">
+      <span class="accent-button__text">{{ lang 'write_to_alexko' }}</span>
+    </button>
+    <!-- /.accent-button -->
+  </div>
+  <!-- /.form__button -->
+</form>
+<!-- /.form -->

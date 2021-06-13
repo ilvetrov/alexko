@@ -1,24 +1,30 @@
-const introImages = document.getElementsByClassName('js-intro-image');
+if (!checkMobile()) {
+  var introImages = document.getElementsByClassName('js-intro-image');
+  
+  var { gsap } = require('gsap/dist/gsap');
+  var { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
+  
+  var timeline = gsap.timeline();
+}
 
-const { gsap } = require('gsap/dist/gsap');
-const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
-
-const timeline = gsap.timeline();
+const introImagesSelfTimelines = [];
 
 function initIntroImages() {
+  if (checkMobile()) return;
   if (introImages.length === 0) return;
   const portfolioContents = document.getElementsByClassName('js-portfolio-content');
   if (!portfolioContents) return;
-
+  
   const triggerHeader = portfolioContents[0].children[0];
-
+  
   for (let i = 0; i < introImages.length; i++) {
     const introImage = introImages[i];
     const slide = introImage.parentElement;
+    const isDesktop = introImage.hasAttribute('data-intro-image-desktop');
 
-    timeline.fromTo(slide, {
+    introImagesSelfTimelines.push(timeline.fromTo(slide, {
       y: () => {
-        const calculated = getOffset(introImage) || 0;
+        const calculated = getOffset(introImage, isDesktop) || 0;
         return calculated;
       }
     }, {
@@ -35,7 +41,7 @@ function initIntroImages() {
       onStart: () => {
         slide.style.transform = '';
       }
-    });
+    }));
     slide.style.transform = '';
     setTimeout(() => {
       slide.style.transform = '';
@@ -45,6 +51,7 @@ function initIntroImages() {
 }
 
 function updateIntroImages() {
+  if (checkMobile()) return;
   if (introImages.length === 0) return;
   const portfolioContents = document.getElementsByClassName('js-portfolio-content');
   if (!portfolioContents) return;
@@ -72,45 +79,48 @@ function checkEmptyTransform(introImage) {
   return (introImage.parentElement.style.transform == '' || introImage.parentElement.style.transform == 'translate(0px, 0px)');
 }
 
-window.addEventListener('load', function() {
-  if (introImages.length === 0) return;
-  ScrollTrigger.refresh();
-
-  const centerImage = introImages[getCenterImage(introImages.length)];
+if (!checkMobile()) {
+  window.addEventListener('load', function() {
+    if (introImages.length === 0) return;
+    ScrollTrigger.refresh();
   
-  setTimeout(() => {
-    if (checkEmptyTransform(centerImage)) {
-      ScrollTrigger.refresh();
-    }
-    window.addEventListener('scroll', refreshIfEmpty);
-  }, 100);
-
-  function refreshIfEmpty() {
-    if (checkEmptyTransform(centerImage)) {
-      window.removeEventListener('scroll', refreshIfEmpty);
-      ScrollTrigger.refresh();
-      
-      setTimeout(() => {
+    const centerImage = introImages[getCenterImage(introImages[0].hasAttribute('data-intro-image-desktop'))];
+    
+    setTimeout(() => {
+      if (checkEmptyTransform(centerImage)) {
         ScrollTrigger.refresh();
-      }, 500);
+      }
+      window.addEventListener('scroll', refreshIfEmpty);
+    }, 100);
+  
+    function refreshIfEmpty() {
+      if (checkEmptyTransform(centerImage)) {
+        window.removeEventListener('scroll', refreshIfEmpty);
+        ScrollTrigger.refresh();
+        
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 500);
+      }
     }
-  }
-});
-
-function getCenterImage(numberOfImages) {
-  return Math.min(Math.floor(numberOfImages / 2), 3);
+  });
 }
 
-function getOffset(introImage) {
+function getCenterImage(isDesktop) {
+  return isDesktop ? 1 : 3;
+}
+
+function getOffset(introImage, isDesktop = false) {
   const slide = introImage.parentElement;
   const slides = Array.from(introImages).map(introImageInArray => {
     return introImageInArray.parentElement;
   });
 
-  if (isCenter(slide, slides)) {
+  if (isCenter(slide)) {
     return 0;
   }
-  if (isAroundTheCenter(slide, slides)) {
+  if (isDesktop) return 56;
+  if (isAroundTheCenter(slide)) {
     return 56;
   }
   try {
@@ -128,20 +138,20 @@ function getOffset(introImage) {
   }
 }
 
-function isCenter(slide, slides) {
+function isCenter(slide) {
   return (
     slide.classList.contains('swiper-slide-active')
-    || (slide.classList.contains('swiper-slide-duplicate-active') && !isAroundTheCenter(slide, slides) && !isEdge(slide, slides) && !isEdge2(slide, slides))
+    || (slide.classList.contains('swiper-slide-duplicate-active'))
   );
 }
 
-function isAroundTheCenter(slide, slides) {
+function isAroundTheCenter(slide) {
   return (
     (
       (slide.classList.contains('swiper-slide-next'))
       || (slide.classList.contains('swiper-slide-prev'))
-      || (slide.classList.contains('swiper-slide-duplicate-next') && !isEdge(slide, slides) && !isEdge2(slide, slides))
-      || (slide.classList.contains('swiper-slide-duplicate-prev') && !isEdge(slide, slides) && !isEdge2(slide, slides))
+      || (slide.classList.contains('swiper-slide-duplicate-next'))
+      || (slide.classList.contains('swiper-slide-duplicate-prev'))
     )
   );
 }
@@ -183,5 +193,6 @@ module.exports = {
   isCenter,
   isAroundTheCenter,
   isEdge,
-  isEdge2
+  isEdge2,
+  introImagesSelfTimelines
 };

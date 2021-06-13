@@ -6,6 +6,9 @@
   opacity: 1;
   transition: opacity .2s;
 
+  &__content {
+    max-width: 100%;
+  }
   &__logo {
     display: flex;
     justify-content: center;
@@ -14,12 +17,23 @@
   &__title {
     @extend .title-style;
     font-size: 1.75rem;
-    margin-top: 1.29em;
     margin-bottom: 1.71em;
     text-align: center;
+
+    @at-root {
+      h1#{&} {
+        font-size: 1.75rem;
+      }
+    }
+  }
+  &__logo + &__title {
+    margin-top: 1.29em;
   }
   &__field + &__field {
     margin-top: 1.31rem;
+  }
+  &__checkbox-wrap {
+    width: 23.1rem;
   }
   &__checkbox {
     margin-top: 1rem;
@@ -39,6 +53,60 @@
   &_big & {
     &__button {
       margin-top: 2.63rem;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .form {
+    &__title {
+      line-height: 1.275;
+      margin-bottom: 32px;
+    }
+    &__field + &__field {
+      margin-top: 1.63rem;
+    }
+  }
+}
+
+@media (max-width: 510px) {
+  .form {
+    &__title {
+      font-size: 5vw;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .form {
+    &__title {
+      font-size: 22px;
+    }
+    &_big & {
+      &__button {
+        margin-top: 9.3vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  .form {
+    &__content {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .form {
+    &__button {
+      width: 100%;
+    }
+    &_big & {
+      &__button {
+        margin-top: 24px;
+      }
     }
   }
 }

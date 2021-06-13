@@ -1,13 +1,16 @@
 'use strict';
 
+require('./partials/dynamic-styles');
 require('./partials/controls/change-language');
-const { gsap } = require('gsap/dist/gsap');
-const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
+if (!checkMobile()) {
+  const { gsap } = require('gsap/dist/gsap');
+  const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.defaults({
+    toggleActions: "play reverse play reverse"
+  });
+}
 const { initRequestForm } = require('./partials/form');
-gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.defaults({
-  toggleActions: "play reverse play reverse"
-});
 
 const checkPage = require('./partials/check-page');
 const { lookAtMeAnimation } = require('./partials/look-at-me');
@@ -16,6 +19,7 @@ const smoothHoverAnimation = require('./partials/smooth-hover-animation');
 require('./partials/async-img-front');
 require('./partials/scroll-to-anchor');
 require('./partials/pop-up');
+require('./partials/mobile-observer');
 
 if (checkPage('home')) {
   require('./partials/animations/arrows');
@@ -42,7 +46,6 @@ if (checkPage('login')) {
 }
 
 require('./partials/galleries');
-require('./partials/animations/portfolio-text');
 require('./partials/controls/select-project-type');
 require('./partials/controls/pop-up-inputs');
 require('./partials/controls/multilingual-inputs').init();

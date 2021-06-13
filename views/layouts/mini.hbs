@@ -5,9 +5,20 @@
     <link rel="stylesheet" href="/css/front.css{{ fileVersion }}">
     <link rel="stylesheet" href="/css/mini.css{{ fileVersion }}">
   </head>
-  <body>
-    {{> logic}}
-    {{{body}}}
+  <body class="lang-{{ currentLang.code_name }}">
+    <script>{{{ bodyViewClassSetter }}}</script>
+    <div class="page">
+      <div class="page__content">
+        {{> logic}}
+        {{{body}}}
+      </div>
+      <!-- /.page__content -->
+      {{> footer}}
+    </div>
+    <!-- /.page -->
     <script src="/js/front.js{{ fileVersion }}" defer></script>
+    {{#if accessToDebugScripts}}
+      <script src="/admin/resources/admin/public/js/debug.js{{ fileVersion }}" defer></script>
+    {{/if}}
   </body>
 </html>

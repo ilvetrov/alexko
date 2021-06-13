@@ -13,26 +13,21 @@ if (portfolioGalleries.length > 0) {
       const isDesktop = portfolioGallery.classList.contains('desktop-gallery');
       const isLoop = portfolioGallery.hasAttribute('data-is-loop');
       const isIncrementingIndent = portfolioGallery.hasAttribute('data-increment-indent');
-      const swiperWrapper = portfolioGallery.getElementsByClassName('swiper-wrapper')[0];
-      const numberOfSlides = swiperWrapper.children.length;
       const withIntroImages = portfolioGallery.hasAttribute('data-with-intro-images');
       const spaceBetween = Number(portfolioGallery.getAttribute('data-space-between') ?? 67);
+      const initialSlide = getCenterImage(isDesktop);
+
       const swiper = new Swiper(portfolioGallery, {
         slidesPerView: 'auto',
         centeredSlides: centeredSlides,
-        initialSlide: getCenterImage(numberOfSlides) - (
-          !centeredSlides && !isLoop && !isDesktop
-            ? 1
-            : 0
-        ),
-        spaceBetween: spaceBetween,
+        initialSlide: initialSlide,
         slideToClickedSlide: true,
         loop: isLoop,
         threshold: 5,
         on: {
           init: function() {
             changeFloatPosition(this);
-            if (centeredSlides) {
+            if (centeredSlides && !isDesktop) {
               setEdges(this);
             }
             
@@ -45,7 +40,7 @@ if (portfolioGalleries.length > 0) {
           },
           slideChange: function() {
             changeFloatPosition(this);
-            if (centeredSlides) {
+            if (centeredSlides && !isDesktop) {
               setEdges(this);
             }
 
@@ -53,7 +48,7 @@ if (portfolioGalleries.length > 0) {
               updateIntroImages();
             }
             if (isIncrementingIndent) {
-              initIncrementingIndent(this);
+              updateIncrementingIndent(this.activeIndex - initialSlide, portfolioGallery);
             }
           },
           resize: function() {
@@ -64,8 +59,36 @@ if (portfolioGalleries.length > 0) {
               initDuplicateImages(this);
             }, 500);
           }
+        },
+        breakpoints: {
+          1400: {
+            spaceBetween: spaceBetween,
+          },
+          1057: {
+            spaceBetween: spaceBetween * 0.8,
+          },
+          990: {
+            spaceBetween: spaceBetween * 0.7,
+          },
+          769: {
+            spaceBetween: spaceBetween * 0.6,
+          },
+          0: {
+            spaceBetween: 24
+          }
         }
       });
+
+      if (isIncrementingIndent) {
+        let lastWindowWidth = window.innerWidth;
+        window.addEventListener('resize', function() {
+          if (lastWindowWidth !== window.innerWidth) {
+            lastWindowWidth = window.innerWidth;
+            initIncrementingIndent(swiper, initialSlide);
+            updateIncrementingIndent(swiper.activeIndex - initialSlide, portfolioGallery);
+          }
+        });
+      }
     }, 0);
 
   }
@@ -112,29 +135,37 @@ if (portfolioGalleries.length > 0) {
     }, 0);
   }
 
-  function initIncrementingIndent(swiperState) {
-    const activeSlide = swiperState.slides[swiperState.activeIndex];
+  function initIncrementingIndent(swiperState, initial = swiperState.activeIndex) {
+    const initialSlide = swiperState.slides[initial];
     
-    const prevSlides = getAllBefore(swiperState.slides, activeSlide);
+    const prevSlides = getAllBefore(swiperState.slides, initialSlide);
     const reversedPrevSlides = [...prevSlides].reverse();
 
-    const nextSlides = getAllAfter(swiperState.slides, activeSlide);
+    const nextSlides = getAllAfter(swiperState.slides, initialSlide);
+
+    const indent = window.innerWidth > 768 ? 30 : 16;
 
     for (let i = 0; i < swiperState.slides.length; i++) {
       setTimeout(() => {
         const slide = swiperState.slides[i];
         if (reversedPrevSlides.indexOf(slide) !== -1) {
-          slide.style.transform = `translateY(-${(reversedPrevSlides.indexOf(slide) + 1) * 30}px)`;
+          slide.style.transform = `translateY(-${(reversedPrevSlides.indexOf(slide) + 1) * indent}px)`;
         } else
 
         if (nextSlides.indexOf(slide) !== -1) {
-          slide.style.transform = `translateY(${(nextSlides.indexOf(slide) + 1) * 30}px)`;
+          slide.style.transform = `translateY(${(nextSlides.indexOf(slide) + 1) * indent}px)`;
         } else
 
-        if (slide === activeSlide) {
+        if (slide === initialSlide) {
           slide.style.transform = `translateY(0px)`;
         }
       }, 0);
     }
+  }
+
+  function updateIncrementingIndent(indentLevel, portfolioGallery) {
+    const indent = window.innerWidth > 768 ? 30 : 16;
+
+    portfolioGallery.style.transform = `translateY(${-indent * indentLevel}px)`;
   }
 }

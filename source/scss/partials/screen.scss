@@ -7,3 +7,51 @@
   padding-bottom: 45px;
   // padding-bottom: #{"max(4.5vh, 35px)"};
 }
+
+@media (max-width: 1024px) {
+  .top-screen-offset {
+    padding-top: 6.3vw;
+  }
+  .bottom-screen-offset {
+    padding-bottom: 4.3vw;
+  }
+}
+
+@media (max-width: 826px) {
+  .top-screen-offset {
+    padding-top: 52px;
+  }
+}
+
+@media (max-width: 689px) {
+  .top-screen-offset {
+    padding-top: 7.5vw;
+  }
+  .bottom-screen-offset {
+    padding-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottom-screen-offset {
+    padding-bottom: 6.8vw;
+  }
+}
+
+@media (max-width: 440px) {
+  .bottom-screen-offset {
+    padding-bottom: 30px;
+  }
+}
+
+@media (max-width: 415px) {
+  .top-screen-offset {
+    padding-top: 34px;
+  }
+}
+
+@media (max-width: 380px) {
+  .top-screen-offset {
+    padding-top: 30px;
+  }
+}

@@ -9,13 +9,35 @@
               {{ lang 'site_focus' }}
             </div>
             <!-- /.subtitle -->
-            <h1 class="page-title page-title_separated-lines page-title-block__title">
-              <span class="page-title__line">{{ helloTitle.firstLine }} {{#ifEquals helloTitleVariant 0 }}<div class="page-title__arrow-block page-title__arrow-block_right"><img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_right js-right-arrow"></div>{{/ifEquals}}</span>
-              <span class="page-title__line page-title__line_accent">{{#ifEquals helloTitleVariant 0 }}<div class="page-title__arrow-block page-title__arrow-block_left"><img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_left js-left-arrow"></div>{{/ifEquals}} {{ helloTitle.secondLine }}</span>
+            <h1 class="page-title page-title_separated-lines page-title-block__title page-title_variant-{{ helloTitleVariant }}">
+              <span class="page-title__line">
+                {{ helloTitle.firstLine }}
+
+                {{#ifEquals helloTitleVariant 0 }}
+                  <div class="page-title__arrow-block page-title__arrow-block_right page-title__arrow-block_desktop">
+                    <img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_right js-right-arrow">
+                  </div>
+                {{/ifEquals}}
+              </span>
+              <span class="page-title__line page-title__line_accent">
+                {{#ifEquals helloTitleVariant 0 }}
+                  <div class="page-title__arrow-block page-title__arrow-block_left">
+                    <img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_left js-left-arrow">
+                  </div>
+                {{/ifEquals}}
+
+                {{ helloTitle.secondLine }}
+
+                {{#ifEquals helloTitleVariant 0 }}
+                  <div class="page-title__arrow-block page-title__arrow-block_right-to-left page-title__arrow-block_mobile">
+                    <img src="/img/right-arrow.svg" alt="" class="page-title__arrow page-title__arrow_right js-right-to-left-arrow">
+                  </div>
+                {{/ifEquals}}
+              </span>
             </h1>
             <!-- /.page-title -->
-            <button class="accent-button">
-              {{ lang 'cta_button' }}
+            <button class="accent-button" data-scroll-to="write-to-us" data-scroll-offset="60">
+              <span class="accent-button__text">{{ lang 'cta_button' }}</span>
             </button>
             <!-- /.accent-button -->
           </div>
@@ -43,7 +65,7 @@
   <!-- /.hello-section -->
   {{#if advantages.length}}
     <section id="why-us" class="advantages-section js-advantages-section">
-      <div class="containers-size">
+      <div class="container-size">
         <div class="advantages-section__wrap">
           {{#each advantages as |advantage|}}
             <div class="advantages-section__item-wrap js-advantage-item-wrap">
@@ -76,7 +98,7 @@
         </div>
         <!-- /.advantages-section__wrap -->
       </div>
-      <!-- /.containers-size -->
+      <!-- /.container-size -->
     </section>
     <!-- /.advantages-section -->
   {{/if}}
@@ -106,8 +128,8 @@
           <!-- /.home-page__header -->
         </div>
         <!-- /.container-size -->
-        <div class="portfolio-item__intro-images home-page__intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
-          <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals project.type_id 1 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery' }}" data-portfolio-gallery="{{ @index }}" data-space-between="{{iifEquals project.type_id 1 '67' '56' }}" data-increment-indent>
+        <div class="portfolio-item__intro-images home-page__intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop only-desktop' '' }}">
+          <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals project.type_id 1 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery js-dys-mobile-gallery-top-offset' }}" data-portfolio-gallery="{{ @index }}" data-space-between="{{iifEquals project.type_id 1 '67' '56' }}" data-increment-indent {{{iifEquals project.type_id 1 '' 'style="--margin-top: 2.1rem;"' }}}>
             <div class="swiper-wrapper">
               {{#each introImagesForFrontDesktop as |intro_image|}}
                 <div class="home-portfolio-images__slide swiper-slide">
@@ -121,10 +143,27 @@
           <!-- /.portfolio-item__intro-gallery -->
         </div>
         <!-- /.portfolio-item__intro-images -->
+        {{#ifEquals project.type_id 1}}
+          <div class="portfolio-item__intro-images home-page__intro-images only-mobile">
+            <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container home-portfolio-images_mobile mobile-gallery" data-portfolio-gallery="{{ @index }}_mobile" data-space-between="56" data-increment-indent>
+              <div class="swiper-wrapper">
+                {{#each ../introImagesForFrontMobile as |intro_image|}}
+                  <div class="home-portfolio-images__slide swiper-slide">
+                    <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow">
+                  </div>
+                  <!-- /.swiper-slide -->
+                {{/each}}
+              </div>
+              <!-- /.swiper-wrapper -->
+            </div>
+            <!-- /.portfolio-item__intro-gallery -->
+          </div>
+          <!-- /.portfolio-item__intro-images -->
+        {{/ifEquals}}
         <div class="container-size">
           <div class="container-center">
             <a href="/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
-              {{ ../lang 'view_in_portfolio' }}
+              <span class="accent-button__text">{{ ../lang 'view_in_portfolio' }}</span>
             </a>
             <!-- /.accent-button -->
           </div>
@@ -136,45 +175,12 @@
     {{/each}}
   </section>
   <!-- /.portfolio-section -->
-  <section class="write-to-us-section">
+  <section id="write-to-us" class="write-to-us-section home-page__write-to-us-section">
     <div class="container-size">
-      <div class="container-center">
-        <form action="/forms/lead" method="POST" class="form form_big js-write-to-us-form">
-          <div class="form__title">{{ writeToUs.title }}</div>
-          <!-- /.form__title -->
-          <div class="field field_big form__field js-field" data-field-require>
-            <label class="field__label" for="login-name">Email</label>
-            <input type="email" name="email" placeholder="name@example.com" class="field__input" id="login-name">
-          </div>
-          <!-- /.field -->
-          <div class="field field_big form__field js-field" data-field-require>
-            <label class="field__label" for="about-task">{{ lang 'what_do_you_want' }}?</label>
-            <textarea name="about_task" id="about-task" class="field__input field__textarea" rows="8" placeholder="{{ writeToUs.field_example }}"></textarea>
-          </div>
-          <!-- /.field -->
-          <div class="checkbox-field form__checkbox js-field" data-field-require>
-            <div class="checkbox checkbox-field__checkbox">
-              <input class="checkbox__input" type="checkbox" name="personal_data" id="personal-data">
-              <label for="personal-data" class="checkbox__view">
-                <img class="checkbox__arrow" src="/img/checked.svg" alt="">
-              </label>
-              <!-- /.checkbox__view -->
-            </div>
-            <!-- /.checkbox -->
-            <label for="personal-data" class="checkbox-field__label">{{ lang 'personal_data_text' }} <a href="/personal-data" class="checkbox-field__link" target="_blank" rel="noopener noreferrer">{{ lang 'personal_data_link' }}</a></label>
-          </div>
-          <!-- /.checkbox-field -->
-          <div class="form__button">
-            <button type="submit" class="accent-button accent-button_extra-wide accent-button_solid">
-              {{ lang 'write_to_alexko' }}
-            </button>
-            <!-- /.accent-button -->
-          </div>
-          <!-- /.form__button -->
-        </form>
-        <!-- /.form -->
+      <div class="home-page__write-to-us">
+        {{> write_to_us_form}}
       </div>
-      <!-- /.container-center -->
+      <!-- /.home-page__write-to-us -->
     </div>
     <!-- /.container-size -->
   </section>

@@ -8,3 +8,17 @@
   justify-content: center;
   align-items: flex-start;
 }
+
+@media (max-width: 1024px) {
+  .container-size {
+    margin-left: 6.8vw;
+    margin-right: 6.8vw;
+  }
+}
+
+@media (max-width: 330px) {
+  .container-size {
+    margin-left: 22px;
+    margin-right: 22px;
+  }
+}

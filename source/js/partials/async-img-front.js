@@ -1,4 +1,4 @@
-const removeWhitespaces = require("./remove-whitespaces");
+const removeWhitespaces = require("../../../libs/remove-whitespaces");
 
 const imagesElements = document.querySelectorAll('[data-async-images]');
 
@@ -37,56 +37,55 @@ function initAsyncImg(imageElement, manual = true) {
     }
   }
 
-  if (!linksProperties.isBackground && 'loading' in HTMLImageElement.prototype) {
-    setSrc();
-  } else {
-    const newImage = new Image();
-    newImage.src = linksProperties.images[0].webSrc;
-    newImage.onload = function() {
-      setSrc();
-    };
-  }
+  setSrc();
 }
 
 function setSrcForBackground(images, imageElement, className) {
-  console.log(imageElement);
-  imageElement.classList.add(className);
+  const newImage = new Image();
+  newImage.src = images[0].webSrc;
   
   let html = '';
   images = Array.from(images).sort((a, b) => {
     return a.minWindowWidth - b.minWindowWidth;
   });
-  for (let i = 0; i < images.length; i++) {
-    const image = images[i];
-    html = html + removeWhitespaces(`
-    @media (min-width: ${image.minWindowWidth}px) {
-      .${className} {
-        background-image: url("${image.webSrc}");
+  imageElement.classList.add(className);
+
+  newImage.onload = function() {
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      html = html + removeWhitespaces(`
+      @media (min-width: ${image.minWindowWidth}px) {
+        .${className} {
+          background-image: url("${image.webSrc}");
+        }
       }
+      `);
     }
-    `);
-  }
-  getAsyncBackgroundsOutput().innerHTML = (getAsyncBackgroundsOutput.innerHTML || '') + html;
+    getAsyncBackgroundsOutput().innerHTML = (getAsyncBackgroundsOutput.innerHTML || '') + html;
+  };
 }
 
 function setSrcForImg(images, imageElement) {
-  images = Array.from(images);
+  const newImage = new Image();
+  newImage.src = images[0].webSrc;
 
+  images = Array.from(images);
   let minSizes = images.map((image) => {
     return image.minWindowWidth;
   });
-
   minSizes.sort((a, b) => {
     return b - a;
   });
 
-  srcDependingOfTheWindowWidth();
-
-  if (images.length > 1) {
-    window.addEventListener('resize', () => {
-      srcDependingOfTheWindowWidth();
-    });
-  }
+  newImage.onload = function() {
+    srcDependingOfTheWindowWidth();
+  
+    if (images.length > 1) {
+      window.addEventListener('resize', () => {
+        srcDependingOfTheWindowWidth();
+      });
+    }
+  };
 
   function srcDependingOfTheWindowWidth() {
     for (let i = 0; i < minSizes.length; i++) {
