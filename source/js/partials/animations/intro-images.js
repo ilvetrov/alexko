@@ -1,4 +1,6 @@
-if (!checkMobile()) {
+const { checkMobileView } = require('../check-mobile');
+
+if (!checkMobileView()) {
   var introImages = document.getElementsByClassName('js-intro-image');
   
   var { gsap } = require('gsap/dist/gsap');
@@ -10,7 +12,7 @@ if (!checkMobile()) {
 const introImagesSelfTimelines = [];
 
 function initIntroImages() {
-  if (checkMobile()) return;
+  if (checkMobileView()) return;
   if (introImages.length === 0) return;
   const portfolioContents = document.getElementsByClassName('js-portfolio-content');
   if (!portfolioContents) return;
@@ -23,10 +25,7 @@ function initIntroImages() {
     const isDesktop = introImage.hasAttribute('data-intro-image-desktop');
 
     introImagesSelfTimelines.push(timeline.fromTo(slide, {
-      y: () => {
-        const calculated = getOffset(introImage, isDesktop) || 0;
-        return calculated;
-      }
+      y: () => getOffset(introImage, isDesktop) || 0
     }, {
       scrollTrigger: {
         trigger: triggerHeader,
@@ -51,7 +50,7 @@ function initIntroImages() {
 }
 
 function updateIntroImages() {
-  if (checkMobile()) return;
+  if (checkMobileView()) return;
   if (introImages.length === 0) return;
   const portfolioContents = document.getElementsByClassName('js-portfolio-content');
   if (!portfolioContents) return;
@@ -79,7 +78,7 @@ function checkEmptyTransform(introImage) {
   return (introImage.parentElement.style.transform == '' || introImage.parentElement.style.transform == 'translate(0px, 0px)');
 }
 
-if (!checkMobile()) {
+if (!checkMobileView()) {
   window.addEventListener('load', function() {
     if (introImages.length === 0) return;
     ScrollTrigger.refresh();
@@ -110,6 +109,23 @@ function getCenterImage(isDesktop) {
   return isDesktop ? 1 : 3;
 }
 
+let desktopOffset = getDesktopOffset();
+
+function getDesktopOffset() {
+  const windowWidth = window.innerWidth;
+  if (windowWidth <= 1460) return 56;
+  return 81;
+}
+
+let lastWindowWidth = window.innerWidth;
+window.addEventListener('resize', function() {
+  if (lastWindowWidth !== window.innerWidth) {
+    lastWindowWidth = window.innerWidth;
+    
+    desktopOffset = getDesktopOffset();
+  }
+});
+
 function getOffset(introImage, isDesktop = false) {
   const slide = introImage.parentElement;
   const slides = Array.from(introImages).map(introImageInArray => {
@@ -119,7 +135,7 @@ function getOffset(introImage, isDesktop = false) {
   if (isCenter(slide)) {
     return 0;
   }
-  if (isDesktop) return 56;
+  if (isDesktop) return desktopOffset;
   if (isAroundTheCenter(slide)) {
     return 56;
   }

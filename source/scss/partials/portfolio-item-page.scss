@@ -1,3 +1,39 @@
 .portfolio-item-page {
   margin-top: 13.63rem;
 }
+
+@media (max-width: 1023px) {
+  .portfolio-item-page {
+    margin-top: 21vw;
+  }
+}
+
+@media (max-width: 660px) {
+  .portfolio-item-page {
+    margin-top: 139px;
+  }
+}
+
+@media (max-width: 580px) {
+  .portfolio-item-page {
+    margin-top: 24vw;
+  }
+}
+
+@media (max-width: 515px) {
+  .portfolio-item-page {
+    margin-top: 123px;
+  }
+}
+
+@media (max-width: 450px) {
+  .portfolio-item-page {
+    margin-top: 27vw;
+  }
+}
+
+@media (max-width: 378px) {
+  .portfolio-item-page {
+    margin-top: 102px;
+  }
+}

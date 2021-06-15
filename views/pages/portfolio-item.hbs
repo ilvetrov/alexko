@@ -21,7 +21,7 @@
             <a href="{{ project.to_link }}" {{{iif project.to_link_is_external 'target="_blank"' '' }}} class="text-link text-link_independent portfolio-header__link">
               <span class="inline-click-extender">{{ project.to_link_text }}</span>
             </a>
-            <a href="#about-creating" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70">
+            <a href="#about-creating" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70" data-scroll-offset-media='{"550": 49}'>
               <span class="inline-click-extender">{{ project.creating_text }}</span>
             </a>
             {{#if project.demo_id}}
@@ -37,12 +37,12 @@
       <!-- /.portfolio-item__header -->
     </div>
     <!-- /.container-size -->
-    <div class="portfolio-item__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
-      <div class="portfolio-item__intro-gallery intro-images swiper-container {{iifEquals project.type_id 1 'intro-images_desktop desktop-gallery' 'intro-images_mobile mobile-gallery' }}" data-portfolio-gallery="1" data-centered-slides data-is-loop data-with-intro-images>
+    <div class="portfolio-item__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop only-desktop' '' }}">
+      <div class="portfolio-item__intro-gallery intro-images swiper-container {{iifEquals project.type_id 1 'intro-images_desktop desktop-gallery' 'intro-images_mobile mobile-gallery' }}" data-portfolio-gallery="1" data-centered-slides data-is-loop data-with-intro-images data-up-and-down>
         <div class="swiper-wrapper">
           {{#each project.introImagesForFrontDesktop as |intro_image|}}
             <div class="intro-images__slide swiper-slide">
-              <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow js-intro-image" {{iifEquals project.type_id 1 'data-intro-image-desktop' 'data-intro-image-mobile' }}>
+              <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow js-intro-image" {{iifEquals ../project.type_id 1 'data-intro-image-desktop' 'data-intro-image-mobile' }}>
             </div>
             <!-- /.swiper-slide -->
           {{/each}}
@@ -52,6 +52,23 @@
       <!-- /.portfolio-item__intro-gallery -->
     </div>
     <!-- /.portfolio-item__intro-images -->
+    {{#ifEquals project.type_id 1}}
+      <div class="portfolio-item__intro-images js-portfolio-intro-images only-mobile">
+        <div class="portfolio-item__intro-gallery intro-images swiper-container intro-images_mobile mobile-gallery" data-portfolio-gallery="1_mobile" data-centered-slides data-is-loop data-with-intro-images data-up-and-down>
+          <div class="swiper-wrapper">
+            {{#each ../project.introImagesForFrontMobile as |intro_image|}}
+              <div class="intro-images__slide swiper-slide">
+                <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow" data-intro-image-mobile>
+              </div>
+              <!-- /.swiper-slide -->
+            {{/each}}
+          </div>
+          <!-- /.swiper-wrapper -->
+        </div>
+        <!-- /.portfolio-item__intro-gallery -->
+      </div>
+      <!-- /.portfolio-item__intro-images -->
+    {{/ifEquals}}
   </div>
   <!-- /.portfolio-item__wrap -->
   <section id="about-creating" class="portfolio-item__content js-portfolio-content">
@@ -62,10 +79,7 @@
   <!-- /.portfolio-item__content -->
   <section class="write-to-us-section home-page__write-to-us-section">
     <div class="container-size">
-      <div class="container-center">
-        {{> write_to_us_form}}
-      </div>
-      <!-- /.container-center -->
+      {{> write_to_us_form}}
     </div>
     <!-- /.container-size -->
   </section>

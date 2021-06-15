@@ -20,6 +20,7 @@ require('./partials/async-img-front');
 require('./partials/scroll-to-anchor');
 require('./partials/pop-up');
 require('./partials/mobile-observer');
+require('./partials/image-expansion-shadow');
 
 if (checkPage('home')) {
   require('./partials/animations/arrows');

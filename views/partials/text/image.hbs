@@ -1,4 +1,8 @@
-<div class="text-img-wrap text-container {{iif desktopMode 'text-container_desktop' 'text-container_mobile' }} text-block-animation">
-  <img {{{published_image_src file.name }}} alt="{{ caption }}" class="text-img portfolio-shadow">
+<div class="text-img-wrap text-container {{iif desktopMode 'text-img-wrap_desktop' 'text-img-wrap_mobile' }} text-block-animation portfolio-shadow js-image-expansion-shadow-block">
+  <div class="text-img-wrap__content js-image-expansion-shadow-content">
+    <img {{{published_image_src file.name }}} alt="{{ caption }}" class="text-img">
+  </div>
+  <!-- /.text-img-wrap__content -->
+  <div class="text-img-wrap__expansion-shadow js-image-expansion-shadow"></div>
 </div>
 <!-- /.text-img-wrap-->

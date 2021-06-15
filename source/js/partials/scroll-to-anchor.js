@@ -1,4 +1,10 @@
+const getFromBreakpoints = require("./get-from-breakpoints");
 const { smoothScrollToElement } = require("./smooth-scroll");
+
+let windowWidth = window.innerWidth;
+window.addEventListener('resize', function() {
+  windowWidth = window.innerWidth;
+});
 
 const links = document.getElementsByTagName('a');
 for (let i = 0; i < links.length; i++) {
@@ -10,9 +16,14 @@ for (let i = 0; i < links.length; i++) {
       const anchorElement = document.querySelector(anchor);
   
       if (anchorElement) {
-        const offset = link.getAttribute('data-scroll-offset') || 0;
+        const getOffset = (function() {
+          const offset = link.getAttribute('data-scroll-offset') || 0;
+          const offsetMedia = JSON.parse(link.getAttribute('data-scroll-offset-media'));
+          if (!offsetMedia) return () => offset;
+          return () => getFromBreakpoints(offsetMedia, false, windowWidth) ?? offset;
+        }());
         link.onclick = () => {
-          return smoothScrollToElement(anchorElement, offset);
+          return smoothScrollToElement(anchorElement, getOffset());
         }
       }
     }

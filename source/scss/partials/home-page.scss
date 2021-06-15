@@ -118,24 +118,6 @@
   }
 }
 
-@media (min-width: 769px) {
-  .home-page {
-    &__intro-images {
-      &.only-mobile {
-        display: none;
-      }
-    }
-  }
-}
-
-@media (max-width: 700px) {
-  .home-page {
-    &__portfolio-item {
-      margin-bottom: 20vw;
-    }
-  }
-}
-
 @media (max-width: 800px) and (min-width: 769px) {
   .home-page {
     &__intro-gallery {
@@ -155,11 +137,6 @@
         margin-bottom: 11.7vw;
       }
     }
-    &__intro-images {
-      &.only-desktop {
-        display: none;
-      }
-    }
   }
 }
 
@@ -167,6 +144,14 @@
   .home-page {
     &__write-to-us-section {
       margin-bottom: 70px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .home-page {
+    &__portfolio-item {
+      margin-bottom: 20vw;
     }
   }
 }

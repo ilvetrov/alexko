@@ -40,8 +40,10 @@ function remove(name, allPlaces = true) {
 	document.cookie = name + "= ; expires = Thu, 01 Jan 1970 00:00:00 GMT" + path;
 }
 
-module.exports = {
+const cookies = {
 	get,
 	set,
 	remove
 }
+
+module.exports = cookies;

@@ -1,6 +1,8 @@
+const { checkMobileView } = require('../check-mobile');
+
 const screenScrollSelfTimelines = [];
 
-if (!checkMobile()) {
+if (!checkMobileView()) {
   const { gsap } = require('gsap/dist/gsap');
   
   const advantageItemWraps = document.getElementsByClassName('js-advantage-item-wrap');

@@ -20,7 +20,7 @@
   }
   .image-tool {
     @extend .text-container;
-    @extend .text-container_mobile;
+    @extend .text-img-wrap_mobile;
     @extend .text-img-wrap;
   
     &__image {
@@ -32,10 +32,10 @@
     }
     
     &--desktopMode {
-      @extend .text-container_desktop;
+      @extend .text-img-wrap_desktop;
     }
     &--stretched {
-      @extend .text-container_stretched;
+      @extend .text-img-wrap_stretched;
     }
   }
 

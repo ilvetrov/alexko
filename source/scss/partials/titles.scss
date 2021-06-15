@@ -169,6 +169,14 @@
   }
 }
 
+@media (max-width: 360px) {
+  .page-title {
+    @at-root h1#{&} {
+      font-size: 28px;
+    }
+  }
+}
+
 @media (max-width: 330px) {
   .page-title {
     font-size: 1.63rem;

@@ -2,7 +2,6 @@ const checkPage = require('../check-page');
 
 function disableScrollAnimations() {
   const { gsap } = require('gsap/dist/gsap');
-  const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
 
   let selfTimelines = [];
 

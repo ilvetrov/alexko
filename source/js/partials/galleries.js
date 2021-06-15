@@ -5,16 +5,19 @@ const { getAllBefore, getAllAfter } = require('./get-array-parts');
 const portfolioGalleries = document.querySelectorAll('[data-portfolio-gallery]');
 if (portfolioGalleries.length > 0) {
   const { Swiper } = require('swiper');
+  
+  let edgesExist = !checkMobile();
 
   for (let i = 0; i < portfolioGalleries.length; i++) {
     setTimeout(() => {
       const portfolioGallery = portfolioGalleries[i];
       const centeredSlides = portfolioGallery.hasAttribute('data-centered-slides');
+      const upAndDown = portfolioGallery.hasAttribute('data-up-and-down');
       const isDesktop = portfolioGallery.classList.contains('desktop-gallery');
       const isLoop = portfolioGallery.hasAttribute('data-is-loop');
       const isIncrementingIndent = portfolioGallery.hasAttribute('data-increment-indent');
       const withIntroImages = portfolioGallery.hasAttribute('data-with-intro-images');
-      const spaceBetween = Number(portfolioGallery.getAttribute('data-space-between') ?? 67);
+      const spaceBetween = Number(portfolioGallery.getAttribute('data-space-between') ?? 54);
       const initialSlide = getCenterImage(isDesktop);
 
       const swiper = new Swiper(portfolioGallery, {
@@ -27,11 +30,11 @@ if (portfolioGalleries.length > 0) {
         on: {
           init: function() {
             changeFloatPosition(this);
-            if (centeredSlides && !isDesktop) {
+            if (centeredSlides && !isDesktop && edgesExist) {
               setEdges(this);
             }
             
-            if (withIntroImages) {
+            if (withIntroImages && edgesExist) {
               initIntroImages();
             }
             if (isIncrementingIndent) {
@@ -40,11 +43,11 @@ if (portfolioGalleries.length > 0) {
           },
           slideChange: function() {
             changeFloatPosition(this);
-            if (centeredSlides && !isDesktop) {
+            if (centeredSlides && !isDesktop && edgesExist) {
               setEdges(this);
             }
 
-            if (withIntroImages) {
+            if (withIntroImages && edgesExist) {
               updateIntroImages();
             }
             if (isIncrementingIndent) {
@@ -60,7 +63,23 @@ if (portfolioGalleries.length > 0) {
             }, 500);
           }
         },
-        breakpoints: {
+        breakpoints: upAndDown ? {
+          1241: {
+            spaceBetween: spaceBetween
+          },
+          1024: {
+            spaceBetween: 36
+          },
+          551: {
+            spaceBetween: 24
+          },
+          356: {
+            spaceBetween: 0
+          },
+          0: {
+            spaceBetween: -5
+          }
+        } : {
           1400: {
             spaceBetween: spaceBetween,
           },
@@ -168,4 +187,8 @@ if (portfolioGalleries.length > 0) {
 
     portfolioGallery.style.transform = `translateY(${-indent * indentLevel}px)`;
   }
+
+  window.addEventListener('resize', function() {
+    edgesExist = !checkMobile();
+  });
 }
