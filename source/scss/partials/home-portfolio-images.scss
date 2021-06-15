@@ -54,6 +54,26 @@
   }
 }
 
+@media (max-width: 768px) {
+  .home-portfolio-images {
+    &_desktop & {
+      &__slide {
+        width: 94vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .home-portfolio-images {
+    &_desktop & {
+      &__slide {
+        width: 100vw;
+      }
+    }
+  }
+}
+
 @media (max-width: 430px) {
   .home-portfolio-images {
     &_mobile & {

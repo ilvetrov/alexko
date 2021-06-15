@@ -37,7 +37,7 @@
       <!-- /.portfolio-item__header -->
     </div>
     <!-- /.container-size -->
-    <div class="portfolio-item__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop only-desktop' '' }}">
+    <div class="portfolio-item__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
       <div class="portfolio-item__intro-gallery intro-images swiper-container {{iifEquals project.type_id 1 'intro-images_desktop desktop-gallery' 'intro-images_mobile mobile-gallery' }}" data-portfolio-gallery="1" data-centered-slides data-is-loop data-with-intro-images data-up-and-down>
         <div class="swiper-wrapper">
           {{#each project.introImagesForFrontDesktop as |intro_image|}}
@@ -52,26 +52,9 @@
       <!-- /.portfolio-item__intro-gallery -->
     </div>
     <!-- /.portfolio-item__intro-images -->
-    {{#ifEquals project.type_id 1}}
-      <div class="portfolio-item__intro-images js-portfolio-intro-images only-mobile">
-        <div class="portfolio-item__intro-gallery intro-images swiper-container intro-images_mobile mobile-gallery" data-portfolio-gallery="1_mobile" data-centered-slides data-is-loop data-with-intro-images data-up-and-down>
-          <div class="swiper-wrapper">
-            {{#each ../project.introImagesForFrontMobile as |intro_image|}}
-              <div class="intro-images__slide swiper-slide">
-                <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow" data-intro-image-mobile>
-              </div>
-              <!-- /.swiper-slide -->
-            {{/each}}
-          </div>
-          <!-- /.swiper-wrapper -->
-        </div>
-        <!-- /.portfolio-item__intro-gallery -->
-      </div>
-      <!-- /.portfolio-item__intro-images -->
-    {{/ifEquals}}
   </div>
   <!-- /.portfolio-item__wrap -->
-  <section id="about-creating" class="portfolio-item__content js-portfolio-content">
+  <section id="about-creating" class="portfolio-item__content portfolio-item__content_{{iifEquals project.type_id 1 'desktop' 'mobile' }} js-portfolio-content">
     {{#each project.text.blocks as |block|}}
       {{{textPartial block.type block.data }}}
     {{/each}}

@@ -2,6 +2,11 @@ const { initIntroImages, updateIntroImages, getCenterImage, isEdge, isEdge2 } = 
 const { initAsyncImg } = require('./async-img-front');
 const { getAllBefore, getAllAfter } = require('./get-array-parts');
 
+let windowWidth = window.innerWidth;
+window.addEventListener('resize', function() {
+  windowWidth = window.innerWidth;
+});
+
 const portfolioGalleries = document.querySelectorAll('[data-portfolio-gallery]');
 if (portfolioGalleries.length > 0) {
   const { Swiper } = require('swiper');
@@ -73,11 +78,29 @@ if (portfolioGalleries.length > 0) {
           551: {
             spaceBetween: 24
           },
+          496: {
+            spaceBetween: isDesktop ? -60 : 0
+          },
+          465: {
+            spaceBetween: isDesktop ? -55 : 0
+          },
+          441: {
+            spaceBetween: isDesktop ? -52 : 0
+          },
+          418: {
+            spaceBetween: isDesktop ? -49 : 0
+          },
+          376: {
+            spaceBetween: isDesktop ? -46 : 0
+          },
           356: {
-            spaceBetween: 0
+            spaceBetween: isDesktop ? -43 : 0
+          },
+          336: {
+            spaceBetween: isDesktop ? -40 : -5
           },
           0: {
-            spaceBetween: -5
+            spaceBetween: isDesktop ? -38 : -5
           }
         } : {
           1400: {
@@ -91,6 +114,9 @@ if (portfolioGalleries.length > 0) {
           },
           769: {
             spaceBetween: spaceBetween * 0.6,
+          },
+          561: {
+            spaceBetween: isDesktop ? 14 : 24
           },
           0: {
             spaceBetween: 24

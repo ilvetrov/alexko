@@ -70,23 +70,8 @@
   }
 }
 
-@media (min-width: 769px) {
-  .portfolio-item {
-    &__intro-images {
-      &.only-mobile {
-        display: none;
-      }
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .portfolio-item {
-    &__intro-images {
-      &.only-desktop {
-        display: none;
-      }
-    }
     &__content {
       margin-top: 15vw;
     }
@@ -116,6 +101,36 @@
   .portfolio-item {
     &__content {
       margin-top: 78px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-item {
+    &__content {
+      &_desktop {
+        margin-top: 72px;
+      }
+    }
+  }
+}
+
+@media (max-width: 470px) {
+  .portfolio-item {
+    &__content {
+      &_desktop {
+        margin-top: 13.8vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 405px) {
+  .portfolio-item {
+    &__content {
+      &_desktop {
+        margin-top: 56px;
+      }
     }
   }
 }

@@ -44,7 +44,7 @@
           <div class="editor-intro-images__content">
             <div class="editor-intro-images__sections">
               
-              <div class="editor-intro-images__section">
+              <div class="editor-intro-images__section {{iif hideMobileImages 'disabled' '' }}" data-hide-on-project-types="{{ hideMobileImagesForTypes }}">
                 <h2 class="editor-intro-images__title">{{ lang 'mobile_images' }}</h2>
                 <!-- /.editor-intro-images__title -->
                 <input type="hidden" name="intro_images" value="{{toString introImages.mobile }}" data-send-to-cloud-name="intro_images" data-send-to-cloud-group="edit_project">

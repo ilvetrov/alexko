@@ -85,6 +85,10 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         3
       ];
   
+      const hideMobileImagesForTypes = [
+        1
+      ];
+  
       const introImages = project.intro_images ? project.intro_images : {
         mobile: {},
         desktop: {}
@@ -163,7 +167,6 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         },
         introImagesAmount: introImagesAmount,
         introImagesDraftsStart: introImagesDraftsStart,
-        hideDesktopImages: project.type_id && hideDesktopImagesForTypes.indexOf(activeProjectType.id) != -1,
         toLinkText: project.type_id && project.to_link_text,
         multilingual: {
           title: project.allTitles,
@@ -229,7 +232,10 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         ],
         creatingText: project.creating_text,
         creatingVariations: JSON.stringify(project.creating_variations),
+        hideDesktopImages: project.type_id && hideDesktopImagesForTypes.indexOf(activeProjectType.id) != -1,
         hideDesktopImagesForTypes: JSON.stringify(hideDesktopImagesForTypes),
+        hideMobileImages: project.type_id && hideMobileImagesForTypes.indexOf(activeProjectType.id) != -1,
+        hideMobileImagesForTypes: JSON.stringify(hideMobileImagesForTypes),
       });
     });
   })

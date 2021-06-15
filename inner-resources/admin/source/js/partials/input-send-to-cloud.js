@@ -78,7 +78,8 @@ function initButton(button) {
           const projectType = document.getElementsByClassName('js-project-type-output')[0]?.getAttribute('data-project-type');
     
           if (
-            !(
+            Number(projectType) !== 1
+            && !(
               introImages
               && introImages['0']
               && introImages['1']

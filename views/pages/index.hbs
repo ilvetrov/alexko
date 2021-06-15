@@ -128,38 +128,7 @@
           <!-- /.home-page__header -->
         </div>
         <!-- /.container-size -->
-        <div class="portfolio-item__intro-images home-page__intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop only-desktop' '' }}">
-          <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals project.type_id 1 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery js-dys-mobile-gallery-top-offset' }}" data-portfolio-gallery="{{ @index }}" data-space-between="{{iifEquals project.type_id 1 '67' '56' }}" data-increment-indent {{{iifEquals project.type_id 1 '' 'style="--margin-top: 2.1rem;"' }}}>
-            <div class="swiper-wrapper">
-              {{#each introImagesForFrontDesktop as |intro_image|}}
-                <div class="home-portfolio-images__slide swiper-slide">
-                  <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow">
-                </div>
-                <!-- /.swiper-slide -->
-              {{/each}}
-            </div>
-            <!-- /.swiper-wrapper -->
-          </div>
-          <!-- /.portfolio-item__intro-gallery -->
-        </div>
-        <!-- /.portfolio-item__intro-images -->
-        {{#ifEquals project.type_id 1}}
-          <div class="portfolio-item__intro-images home-page__intro-images only-mobile">
-            <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container home-portfolio-images_mobile mobile-gallery" data-portfolio-gallery="{{ @index }}_mobile" data-space-between="56" data-increment-indent>
-              <div class="swiper-wrapper">
-                {{#each ../introImagesForFrontMobile as |intro_image|}}
-                  <div class="home-portfolio-images__slide swiper-slide">
-                    <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow">
-                  </div>
-                  <!-- /.swiper-slide -->
-                {{/each}}
-              </div>
-              <!-- /.swiper-wrapper -->
-            </div>
-            <!-- /.portfolio-item__intro-gallery -->
-          </div>
-          <!-- /.portfolio-item__intro-images -->
-        {{/ifEquals}}
+        {{> portfolio_home_gallery project}}
         <div class="container-size">
           <div class="container-center">
             <a href="/portfolio/{{ project.slug }}" class="accent-button accent-button_big">

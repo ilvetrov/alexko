@@ -155,6 +155,20 @@
         }
       }
     }
+    &_desktop & {
+      &__slide {
+        width: 92vw;
+        transform-origin: bottom;
+        transform: translateY(0px) scale(.7);
+
+        &.swiper-slide-prev, &.swiper-slide-duplicate-prev, &.swiper-slide-next, &.swiper-slide-duplicate-next {
+          transform: translateY(0px) scale(.7);
+        }
+        &.swiper-slide-active, &.swiper-slide-duplicate-active {
+          transform: translateY(0px);
+        }
+      }
+    }
   }
 }
 
@@ -163,6 +177,11 @@
     &_mobile & {
       &__slide {
         width: 70vw;
+      }
+    }
+    &_desktop & {
+      &__slide {
+        width: 92vw;
       }
     }
   }

@@ -26,21 +26,7 @@
             <!-- /.home-page__header -->
           </div>
           <!-- /.container-size -->
-          <div class="portfolio-item__intro-images home-page__intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
-            <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals project.type_id 1 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery' }}" data-portfolio-gallery="{{ @index }}" data-space-between="{{iifEquals project.type_id 1 '67' '56' }}" data-increment-indent>
-              <div class="swiper-wrapper">
-                {{#each introImagesForFrontDesktop as |intro_image|}}
-                  <div class="home-portfolio-images__slide swiper-slide">
-                    <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow">
-                  </div>
-                  <!-- /.swiper-slide -->
-                {{/each}}
-              </div>
-              <!-- /.swiper-wrapper -->
-            </div>
-            <!-- /.portfolio-item__intro-gallery -->
-          </div>
-          <!-- /.portfolio-item__intro-images -->
+          {{> portfolio_home_gallery}}
           <div class="container-size">
             <div class="container-center">
               <a href="/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
