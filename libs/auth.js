@@ -1,5 +1,6 @@
 const db = require("../db");
 const { getRandomHash } = require("./random");
+const sha1 = require("./sha1");
 const { getTimeForPrevDaysInISO } = require("./time");
 
 class LoginSystem {
@@ -13,7 +14,7 @@ class LoginSystem {
     if (name && name.trim() !== '' && password && password.trim() !== '') {
       return new Promise((resolve, reject) => {
 
-        this.getUserViaCredentials(name, password)
+        this.getUserViaCredentials(name, sha1(password))
         .then((user) => {
           if (user) {
             
