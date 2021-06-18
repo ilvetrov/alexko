@@ -22,7 +22,7 @@ function getOrSet(cacheName, getValueFunction, msToClear = defaultMsToClear) {
   const cached = get(cacheName);
   if (cached) {
 
-    if (getValueFunction.constructor.name === 'AsyncFunction') {
+    if (getValueFunction.constructor.name === 'AsyncFunction' || getValueFunction.constructor.name === 'Promise') {
       return new Promise(function(resolve, reject) {
         resolve(cached);
       });
@@ -32,7 +32,7 @@ function getOrSet(cacheName, getValueFunction, msToClear = defaultMsToClear) {
     
   } else {
 
-    if (getValueFunction.constructor.name === 'AsyncFunction') {
+    if (getValueFunction.constructor.name === 'AsyncFunction' || getValueFunction.constructor.name === 'Promise') {
       return new Promise(function(resolve, reject) {
         getValueFunction().then(function(newValue) {
           set(cacheName, newValue, msToClear);
