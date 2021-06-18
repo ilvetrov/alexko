@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production node ./bin/www",
+    "log_start": "NODE_ENV=production node ./bin/www",
+    "start": "NODE_ENV=production pm2 start ./bin/www -l logs.txt -i max",
+    "restart": "NODE_ENV=production pm2 restart ./bin/www",
+    "stop": "pm2 stop ./bin/www",
     "dev": "NODE_ENV=development nodemon --trace-warnings ./bin/www",
     "build": "gulp prod"
   },
@@ -34,7 +37,10 @@
     "imagemin-webp": "^5.1.0",
     "morgan": "~1.9.1",
     "pg-promise": "^10.10.1",
-    "swiper": "^6.5.6"
+    "pm2": "^5.1.0",
+    "swiper": "^6.5.6",
+    "imagemin-jpeg-recompress": "^7.0.0",
+    "imagemin-pngquant": "^9.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
@@ -55,8 +61,6 @@
     "gulp-uglify-es": "^1.0.4",
     "gulp-webp": "^4.0.1",
     "gulplog": "^1.0.0",
-    "imagemin-jpeg-recompress": "^7.0.0",
-    "imagemin-pngquant": "^9.0.2",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.7",
     "pumpify": "^2.0.1",
