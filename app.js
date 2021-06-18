@@ -18,6 +18,7 @@ const globalRouter = require('./routes/_global');
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const servicesRouter = require('./routes/services');
+const { langConstructor } = require('./libs/user-language');
 
 const app = express();
 
@@ -62,10 +63,16 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.showError = req.app.get('env') === 'development';
 
+  const lang = langConstructor(req);
   // render the error page
   res.status(err.status || 500);
-  res.render('pages/error');
+  res.renderMin('pages/error', {
+    title: lang('page_not_found') + ' – AlexKo',
+    layout: 'layouts/mini',
+    links: lang('404_links')
+  });
 });
 
 module.exports = app;

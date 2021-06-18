@@ -66,6 +66,8 @@
     "personal_data_text": "I agree to the processing of",
     "personal_data_link": "personal data",
     "site_in_development": "Site in development",
+    "page_not_found": "Page not found",
+    "we_recommend": "We recommend",
 
     "advantages": [
       {
@@ -104,6 +106,16 @@
         "subtitle": [
           "How we work, admin panel, etc."
         ]
+      }
+    ],
+    "404_links": [
+      {
+        "text": "Home",
+        "url": "/"
+      },
+      {
+        "text": "Portfolio",
+        "url": "/portfolio"
       }
     ],
 

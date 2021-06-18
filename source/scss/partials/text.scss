@@ -70,7 +70,7 @@
     height: 1px;
     width: 100%;
     left: 0;
-    bottom: -1px;
+    bottom: -8px;
     pointer-events: none;
     background-color: $accent-color;
     opacity: 0;
@@ -93,7 +93,18 @@
 
   &:hover, &:focus {
     &::after {
-      opacity: 1;
+      opacity: .5;
+    }
+  }
+  &_simple-effects {
+    transition: color .2s;
+
+    &:hover, &:focus {
+      color: lighten($color: $accent-color, $amount: 10) !important;
+    }
+
+    &::after {
+      display: none;
     }
   }
 }

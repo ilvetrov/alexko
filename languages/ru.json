@@ -66,6 +66,8 @@
     "personal_data_text": "Я согласен на обработку",
     "personal_data_link": "персональных данных",
     "site_in_development": "Сайт в разработке",
+    "page_not_found": "Страница не найдена",
+    "we_recommend": "Рекомендуем",
 
     "advantages": [
       {
@@ -104,6 +106,16 @@
         "subtitle": [
           "Как работаем, админ-панель и т.д."
         ]
+      }
+    ],
+    "404_links": [
+      {
+        "text": "Главная",
+        "url": "/"
+      },
+      {
+        "text": "Портфолио",
+        "url": "/portfolio"
       }
     ],
 

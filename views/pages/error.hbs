@@ -1,3 +1,40 @@
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+<main class="notify-page">
+  <div class="container-size">
+    <div class="notify-page__content">
+      <h2 class="notify-page__subtitle">
+        {{error.status}}
+      </h2>
+      <!-- /.notify-page__subtitle -->
+      <h1 class="notify-page__title page-title page-title_free-transform page-title_inner">
+        {{ lang 'page_not_found' }}
+      </h1>
+      <!-- /.notify-page__title -->
+      <div class="notify-page__list-title">
+        {{ lang 'we_recommend' }}:
+      </div>
+      <!-- /.notify-page__list-title -->
+      <ul class="notify-page__list">
+        {{#each links as |link|}}
+          <li class="notify-page__list-element">
+            <a href="{{ link.url }}" class="notify-page__link text-link text-link_simple-effects inline-click-extender">{{ link.text }}</a>
+          </li>
+          <!-- /.notify-page__list-element -->
+        {{/each}}
+      </ul>
+      <!-- /.notify-page__list -->
+      {{#if showError}}
+        <div class="notify-page__error-message">
+          {{message}}
+        </div>
+        <!-- /.notify-page__error-message -->
+        <div class="notify-page__error-stack">
+          <pre>{{error.stack}}</pre>
+        </div>
+        <!-- /.notify-page__error-stack -->
+      {{/if}}
+    </div>
+    <!-- /.notify-page__content -->
+  </div>
+  <!-- /.container-size -->
+</main>
+<!-- /.notify-page -->
