@@ -1,6 +1,8 @@
 const removeWhitespaces = require("../../../libs/remove-whitespaces");
+const { checkThatElementIsNear } = require("./check-scroll");
 
 const imagesElements = document.querySelectorAll('[data-async-images]');
+const loadingLazySupport = "loading" in HTMLImageElement.prototype;
 
 function getAsyncBackgroundsOutput() {
   return document.getElementsByClassName('js-async-backgrounds')[0];
@@ -9,9 +11,7 @@ function getAsyncBackgroundsOutput() {
 function initAllNotManualAsyncImg() {
   for (let elementIteration = 0; elementIteration < imagesElements.length; elementIteration++) {
     const imageElement = imagesElements[elementIteration];
-    setTimeout(() => {
-      initAsyncImg(imageElement, false);
-    }, 0);
+    initAsyncImg(imageElement, false);
   }
 }
 
@@ -27,7 +27,7 @@ function initAsyncImg(imageElement, manual = true) {
   let setSrc;
   if (!linksProperties.isBackground) {
     setSrc = () => {
-      setSrcForImg(linksProperties.images, imageElement);
+      setSrcForImg(linksProperties.images, linksProperties.scroll, imageElement);
     }
   } else {
     const imageNumber = Math.round(Math.random() * 99999);
@@ -37,75 +37,82 @@ function initAsyncImg(imageElement, manual = true) {
     }
   }
 
-  setSrc();
+  window.addEventListener('load', function() {
+    setSrc();
+  });
 }
 
 function setSrcForBackground(images, imageElement, className) {
+  const image = images[0];
   const newImage = new Image();
-  newImage.src = images[0].webSrc;
+  newImage.src = image.webSrc;
   
   let html = '';
-  images = Array.from(images).sort((a, b) => {
-    return a.minWindowWidth - b.minWindowWidth;
-  });
   imageElement.classList.add(className);
 
   newImage.onload = function() {
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i];
-      html = html + removeWhitespaces(`
-      @media (min-width: ${image.minWindowWidth}px) {
-        .${className} {
-          background-image: url("${image.webSrc}");
-        }
+    html = html + removeWhitespaces(`
+    @media (min-width: ${image.minWindowWidth}px) {
+      .${className} {
+        background-image: url("${image.webSrc}");
       }
-      `);
     }
-    getAsyncBackgroundsOutput().innerHTML = (getAsyncBackgroundsOutput.innerHTML || '') + html;
+    `);
+    getAsyncBackgroundsOutput().innerHTML = (getAsyncBackgroundsOutput().innerHTML || '') + html;
   };
 }
 
-function setSrcForImg(images, imageElement) {
-  const newImage = new Image();
-  newImage.src = images[0].webSrc;
+function setSrcForImg(images, isScroll = true, imageElement) {
+  const image = images[0];
 
-  images = Array.from(images);
-  let minSizes = images.map((image) => {
-    return image.minWindowWidth;
-  });
-  minSizes.sort((a, b) => {
-    return b - a;
-  });
+  if (loadingLazySupport) {
+    setNow();
+  } else {
+    if (!isScroll) return setAfterLoad();
 
-  newImage.onload = function() {
-    srcDependingOfTheWindowWidth();
-  
-    if (images.length > 1) {
-      window.addEventListener('resize', () => {
-        srcDependingOfTheWindowWidth();
+    if (checkThatElementIsNear(imageElement, 800)) {
+      setAfterLoad();
+    } else {
+      let didScroll = false;
+      const scrollHandler = function() {
+        didScroll = true;
+      };
+      window.addEventListener('scroll', scrollHandler, {
+        passive: true
       });
-    }
-  };
 
-  function srcDependingOfTheWindowWidth() {
-    for (let i = 0; i < minSizes.length; i++) {
-      const minSize = minSizes[i];
-      if (window.innerWidth >= minSize) {
-        setTimeout(() => {
-          const neededImage = images.find((image) => {
-            return image.minWindowWidth === minSize;
-          });
-          
-          if (imageElement.src !== neededImage.webSrc) {
-            requestAnimationFrame(function() {
-              imageElement.src = neededImage.webSrc;
-            });
+      let finished = false;
+      const interval = setInterval(() => {
+        if (didScroll && !finished) {
+          didScroll = false;
+          if (checkThatElementIsNear(imageElement, 800)) {
+            finished = true;
+            setAfterLoad();
+
+            setTimeout(() => {
+              window.removeEventListener('scroll', scrollHandler, {
+                passive: true
+              });
+              clearInterval(interval);
+            }, 200);
           }
-        }, 0);
-  
-        break;
-      }
+        }
+      }, 300);
     }
+  }
+  
+  function setAfterLoad() {
+    var newImage = new Image();
+    newImage.src = image.webSrc;
+  
+    newImage.onload = function() {
+      setNow();
+    };
+  }
+  function setNow() {
+    requestAnimationFrame(function() {
+      imageElement.src = image.webSrc;
+    });
   }
 }
 
