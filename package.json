@@ -5,7 +5,7 @@
   "scripts": {
     "log_start": "NODE_ENV=production node ./bin/www",
     "start": "NODE_ENV=production pm2 start ./bin/www -l logs.txt -i max",
-    "restart": "NODE_ENV=production pm2 restart ./bin/www",
+    "restart": "NODE_ENV=production pm2 reload ./bin/www",
     "stop": "pm2 stop ./bin/www",
     "dev": "NODE_ENV=development nodemon --trace-warnings ./bin/www",
     "build": "gulp prod"

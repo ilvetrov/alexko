@@ -92,8 +92,8 @@ class LoginSystem {
       maxAge: 1000 * 60 * 60 * 24 * 365,
       httpOnly: true,
       sameSite: true,
-      // domain: '.alexko.ltd',
-      // secure: true,
+      domain: res.locals.isDevelopment ? undefined : '.alexko.ltd',
+      secure: res.locals.isDevelopment ? undefined : true,
     });
   }
 
