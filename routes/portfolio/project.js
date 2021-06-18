@@ -1,6 +1,5 @@
 const createError = require('http-errors');
 var express = require('express');
-const { asyncImg } = require('../../libs/async-img-loader');
 const db = require('../../db');
 const { PortfolioProject } = require('../../models/portfolio');
 const { getUserLanguage } = require('../../libs/user-language');
