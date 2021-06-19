@@ -37,6 +37,7 @@ function initAsyncImg(imageElement, manual = true) {
     }
   }
 
+  if (manual) setSrc();
   window.addEventListener('load', function() {
     setSrc();
   });
