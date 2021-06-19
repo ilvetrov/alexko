@@ -1,4 +1,4 @@
-const filesVersion = '0.0.3';
+const filesVersion = '0.0.4';
 
 const insertingFileVersion = '?ver=' + filesVersion;
 
