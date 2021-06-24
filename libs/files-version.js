@@ -1,4 +1,4 @@
-const filesVersion = '0.0.4';
+const filesVersion = require('../package.json').version;
 
 const insertingFileVersion = '?ver=' + filesVersion;
 
