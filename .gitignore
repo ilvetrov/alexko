@@ -4,3 +4,4 @@ tmp/*
 inner-resources/drafts/*
 logs.txt
 public/content/*
+package-lock.json
