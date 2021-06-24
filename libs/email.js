@@ -3,10 +3,8 @@ const isDevelopment = require('./is-development');
 
 class Email {
   static #secureOptions = !isDevelopment ? {
-    port: 465,
-    secure: true
+    secure: false
   } : {
-    port: 587,
     tls: {
       rejectUnauthorized: false
     }
@@ -16,6 +14,7 @@ class Email {
     this.email = email;
 
     this.transport = nodemailer.createTransport({ ...Email.#secureOptions, ...{
+      port: 587,
       host: 'alexko.ltd',
       auth: {
         user: email,
