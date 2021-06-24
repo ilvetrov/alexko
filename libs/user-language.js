@@ -68,7 +68,7 @@ function setUserLanguage(req, res) {
     res.cookie('lang', userLanguage.code_name, {
       maxAge: 1000 * 60 * 60 * 24 * 365,
       sameSite: true,
-      domain: isDevelopment ? undefined : '.alexko.ltd',
+      domain: isDevelopment ? undefined : 'alexko.ltd',
     });
     return userLanguage;
   }
