@@ -9,8 +9,10 @@ class CSRF {
   }
 
   constructor(secret) {
-    this.secret = secret;
+    this.#secret = secret;
   }
+
+  #secret;
 
   createNewToken() {
     return this.createTokenViaKey(getRandomHash(4));
@@ -21,7 +23,7 @@ class CSRF {
   }
   
   createTokenViaKey(key) {
-    const secret = this.secret;
+    const secret = this.#secret;
     return key + ':' + sha1(key + secret + sha1(key));
   }
   
