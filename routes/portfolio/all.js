@@ -1,10 +1,10 @@
 const createError = require('http-errors');
 var express = require('express');
-const { asyncImg } = require('../../libs/async-img-loader');
 const db = require('../../db');
 const { PortfolioProject } = require('../../models/portfolio');
 const { getUserLanguage, langConstructor } = require('../../libs/user-language');
 const redirectTo = require('../../libs/redirect-to');
+const isDevelopment = require('../../libs/is-development');
 
 var router = express.Router();
 
@@ -64,7 +64,7 @@ function processPortfolioListRoute(req, res, next, offset) {
     });
   })
   .catch(function(reason) {
-    console.error(reason); // for dev
+    isDevelopment && console.error(reason);
     next(createError(404));
   });
 }

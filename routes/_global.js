@@ -3,6 +3,7 @@ const { admin } = require('../libs/auth');
 const bodyViewClassSetter = require('../libs/body-view-class-setter');
 const { CSRF } = require('../libs/csrf');
 const { insertingFileVersion } = require('../libs/files-version');
+const isDevelopment = require('../libs/is-development');
 var router = express.Router();
 const { setUserLanguage, langConstructor, langPropConstructor, getLanguagesList, getLanguagesNames, getUserLanguage } = require('../libs/user-language');
 
@@ -30,8 +31,8 @@ router.use(async function(req, res, next) {
     res.locals.currentLang = getUserLanguage(req);
     res.locals.langsList = getLanguagesList(req);
     res.locals.fileVersion = insertingFileVersion;
-    res.locals.isDevelopment = process.env.NODE_ENV === 'development';
-    res.locals.accessToDebugScripts = res.locals.isDevelopment && !!res.locals.admin;
+    res.locals.isDevelopment = isDevelopment;
+    res.locals.accessToDebugScripts = isDevelopment && !!res.locals.admin;
     res.locals.bodyViewClassSetter = bodyViewClassSetter;
 
     res.locals.frontVariables = {

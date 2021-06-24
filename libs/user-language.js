@@ -1,6 +1,7 @@
 const fs = require('fs');
 const languages = getAllLanguagesFromFiles();
 const userLocale = require('get-user-locale');
+const isDevelopment = require('./is-development');
 
 function getAllLanguagesFromFiles() {
   const languageFiles = fs.readdirSync('languages');
@@ -64,7 +65,11 @@ function setUserLanguage(req, res) {
   if (!(req.cookies && req.cookies.lang)) {
     const userLanguage = getUserLanguage(req);
     req.userLang = userLanguage;
-    res.cookie('lang', userLanguage.code_name, {maxAge: 1000 * 60 * 60 * 24 * 365});
+    res.cookie('lang', userLanguage.code_name, {
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+      sameSite: true,
+      domain: isDevelopment ? undefined : '.alexko.ltd',
+    });
     return userLanguage;
   }
   if (!req.userLang) {

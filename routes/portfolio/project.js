@@ -3,6 +3,7 @@ var express = require('express');
 const db = require('../../db');
 const { PortfolioProject } = require('../../models/portfolio');
 const { getUserLanguage } = require('../../libs/user-language');
+const isDevelopment = require('../../libs/is-development');
 
 var router = express.Router();
 
@@ -25,7 +26,7 @@ router.get('/portfolio/:slug', function(req, res, next) {
     });
   })
   .catch(function(reason) {
-    console.log(reason); // for dev
+    isDevelopment && console.error(reason);
     next(createError(404));
   });
 

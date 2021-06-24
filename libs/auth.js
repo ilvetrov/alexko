@@ -1,4 +1,5 @@
 const db = require("../db");
+const isDevelopment = require("./is-development");
 const { getRandomHash } = require("./random");
 const sha1 = require("./sha1");
 const { getTimeForPrevDaysInISO } = require("./time");
@@ -92,8 +93,8 @@ class LoginSystem {
       maxAge: 1000 * 60 * 60 * 24 * 365,
       httpOnly: true,
       sameSite: true,
-      domain: res.locals.isDevelopment ? undefined : '.alexko.ltd',
-      secure: res.locals.isDevelopment ? undefined : true,
+      domain: isDevelopment ? undefined : '.alexko.ltd',
+      secure: isDevelopment ? undefined : true,
     });
   }
 

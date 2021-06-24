@@ -8,6 +8,7 @@ const db = require('../../../db');
 const redirectTo = require('../../../libs/redirect-to');
 const { PortfolioProject } = require('../../../models/portfolio');
 const getImgSrc = require('../../../libs/get-img-src');
+const isDevelopment = require('../../../libs/is-development');
 
 var router = express.Router();
 
@@ -240,8 +241,8 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
     });
   })
   .catch((reason) => {
-    console.log(reason); //for dev
-    // return next(createError(404));
+    isDevelopment && console.error(reason);
+    return next(createError(404));
   });
 });
 
