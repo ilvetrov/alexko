@@ -14,7 +14,7 @@ var router = express.Router();
 
 router.get('/portfolio/edit/:id', function(req, res, next) {
   const id = Number(req.params.id);
-  if (!id) return redirectTo('/portfolio');
+  if (!id) return redirectTo(res, '/admin/portfolio');
 
   db.oneOrNone('SELECT * FROM portfolio WHERE id=$(id)', {
     id: id

@@ -4,11 +4,13 @@ const bodyViewClassSetter = require('../libs/body-view-class-setter');
 const { CSRF } = require('../libs/csrf');
 const { insertingFileVersion } = require('../libs/files-version');
 const isDevelopment = require('../libs/is-development');
+const nonAuthCsrf = require('../libs/non-auth-csrf');
 var router = express.Router();
 const { setUserLanguage, langConstructor, langPropConstructor, getLanguagesList, getLanguagesNames, getUserLanguage } = require('../libs/user-language');
 
 router.use(async function(req, res, next) {
   setUserLanguage(req, res);
+  nonAuthCsrf.init(req, res);
 
   const languagesNames = getLanguagesNames(req);
 
@@ -34,6 +36,7 @@ router.use(async function(req, res, next) {
     res.locals.isDevelopment = isDevelopment;
     res.locals.accessToDebugScripts = isDevelopment && !!res.locals.admin;
     res.locals.bodyViewClassSetter = bodyViewClassSetter;
+    res.locals.nonAuthCsrf = nonAuthCsrf.get(req);
 
     res.locals.frontVariables = {
       currentLang: getUserLanguage(req).code_name,
@@ -79,6 +82,12 @@ router.use(async function(req, res, next) {
         }())
       }
     ];
+
+    res.locals.writeToUsAcceptedNotification = {
+      name: 'write_to_us_accepted',
+      title: res.locals.lang('accepted'),
+      text: res.locals.lang('we_will_answer_within_24_hours'),
+    }
   
     next();
   });

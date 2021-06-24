@@ -1,0 +1,29 @@
+<main class="portfolio-item portfolio-item-page">
+  <div class="portfolio-item__wrap">
+    <div class="container-size">
+
+      <section class="info-page">
+        <h1 class="info-page__title page-title page-title_free-transform page-title_inner-page">
+          <a class="info-page__title-link inline-click-extender" href="mailto:{{ letter.email }}" target="_blank" rel="noopener noreferrer">{{ letter.email }}</a>
+        </h1>
+        <!-- /.info-page__title -->
+        <div class="info-page__text">
+          {{ letter.text }}
+        </div>
+        <!-- /.info-page__text -->
+        <div class="info-page__final-button">
+          <a href="/admin/letters/{{ letter.id }}/toggle-mark?token={{ adminCsrf.newToken }}" type="submit" class="accent-button accent-button_extra-wide {{iif letter.new 'accent-button_solid' '' }} ">
+            <span class="accent-button__text" data-reversed="{{#if letter.new}} {{ lang 'mark_as_unread' }} {{else}} {{ lang 'mark_as_read' }}? {{/if}}">{{#if letter.new}} {{ lang 'mark_as_read' }}? {{else}} {{ lang 'mark_as_unread' }} {{/if}}</span>
+          </a>
+          <!-- /.accent-button -->
+        </div>
+        <!-- /.info-page__final-button -->
+      </section>
+      <!-- /.info-page -->
+
+    </div>
+    <!-- /.container-size -->
+  </div>
+  <!-- /.portfolio-item__wrap -->
+</main>
+<!-- /.portfolio-item -->

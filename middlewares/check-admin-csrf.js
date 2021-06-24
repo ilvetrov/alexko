@@ -29,4 +29,6 @@ function ifTokenIsWrong(req, res) {
   }
 }
 
-module.exports = router;
+const checkAdminCsrf = router;
+
+module.exports = checkAdminCsrf;

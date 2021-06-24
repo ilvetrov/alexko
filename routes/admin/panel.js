@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const { langConstructor } = require('../../libs/user-language');
 const { asyncImg } = require('../../libs/async-img-loader');
@@ -12,20 +11,20 @@ router.get('/', function(req, res, next) {
 
   Promise.all([
 
-    new Promise((resolve, reject) =>
-      db.query(`
-        SELECT status FROM portfolio
-        ${!res.locals.admin.can_edit_all ? 'WHERE (admin_id = $<adminId> OR common = true)' : ''}
-      `, {
-        adminId: res.locals.admin.id
-      })
-      .then(projects => resolve(projects))
-    ),
+    db.query(`
+      SELECT status FROM portfolio
+      ${!res.locals.admin.can_edit_all ? 'WHERE (admin_id = $<adminId> OR common = true)' : ''}
+    `, {
+      adminId: res.locals.admin.id
+    }),
+
+    db.query(`SELECT COUNT(*) FROM letters WHERE new=true`),
 
   ])
-  .then(function(
-    [ projectsFromDb ]
-  ) {
+  .then(function([
+    projectsFromDb,
+    letters
+  ]) {
     const projects = projectsFromDb.map(projectFromDb => new PortfolioProject(projectFromDb));
     const numberOfPublished = projects.filter(project => project.status === 'published').length;
     const numberOfAwaitingApproval = projects.filter(project => project.status === 'awaiting_approval').length;
@@ -39,6 +38,7 @@ router.get('/', function(req, res, next) {
         awaitingApproval: numberOfAwaitingApproval,
         draft: numberOfDrafts
       },
+      newLettersAmount: Number(letters[0].count),
       images: {
         status_items: {
           done: asyncImg([
@@ -65,7 +65,13 @@ router.get('/', function(req, res, next) {
               serverSrc: 'public/img/plus.svg'
             }
           ])
-        }
+        },
+        important: asyncImg([
+          {
+            webSrc: '/admin/resources/admin/public/img/important.svg',
+            serverSrc: 'inner-resources/admin/public/img/important.svg'
+          }
+        ])
       }
     });
   });

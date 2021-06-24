@@ -1,4 +1,4 @@
-<form action="/forms/lead" method="POST" class="form form_big js-write-to-us-form">
+<form action="/forms/new-client" method="POST" class="form form_big js-write-to-us-form">
   <div class="form__title">{{ writeToUs.title }}</div>
   <!-- /.form__title -->
   <div class="form__content">
@@ -24,6 +24,7 @@
       <label for="personal-data" class="checkbox-field__label">{{ lang 'personal_data_text' }} <a href="/personal-data" class="checkbox-field__link" target="_blank" rel="noopener noreferrer">{{ lang 'personal_data_link' }}</a></label>
     </div>
     <!-- /.checkbox-field -->
+    <input type="hidden" name="token" value="{{ nonAuthCsrf.newToken }}">
   </div>
   <!-- /.form__content -->
   <div class="form__button">

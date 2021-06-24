@@ -17,9 +17,12 @@
     padding: 1em 2.63em;
     box-sizing: content-box;
     white-space: nowrap;
+    text-align: center;
+    line-height: 1.2;
   }
   
   &[href] {
+    display: inline-block;
     text-decoration: none;
     outline: none !important;
     color: inherit;
@@ -54,6 +57,9 @@
       color: #fff;
       background-color: #2d7eff;
     }
+  }
+  &_solid[href] {
+    color: #fff;
   }
 }
 

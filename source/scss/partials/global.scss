@@ -23,3 +23,8 @@ strong {
 .disabled {
   display: none;
 }
+.no-link-style {
+  text-decoration: none;
+  outline: none !important;
+  color: inherit;
+}

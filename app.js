@@ -1,7 +1,12 @@
+"use strict";
 require('./libs/process-start-end-operation');
 require('dotenv').config({
   path: __dirname + '/.env'
 });
+
+const { initRoot } = require('./libs/get-root');
+initRoot(__dirname);
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -11,14 +16,12 @@ const hbs = require('hbs');
 const fileUpload = require('express-fileupload');
 const minifyHTML = require('./libs/minify-html');
 const db = require('./db');
-const { initRoot } = require('./libs/get-root');
-initRoot(__dirname);
 
 const globalRouter = require('./routes/_global');
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const servicesRouter = require('./routes/services');
-const { langConstructor } = require('./libs/user-language');
+const formsRouter = require('./routes/forms');
 
 const app = express();
 
@@ -48,10 +51,13 @@ app.use(globalRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use(indexRouter);
 app.use('/admin', adminRouter);
+app.use(formsRouter);
 
 require('./libs/empty-tmp');
+
+const { langConstructor } = require('./libs/user-language');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

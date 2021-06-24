@@ -68,6 +68,17 @@
     "site_in_development": "Site in development",
     "page_not_found": "Page not found",
     "we_recommend": "We recommend",
+    "accepted": "Accepted",
+    "we_will_answer_within_24_hours": "We'll answer today or tomorrow",
+    "close_anywhere_message": "Tap anywhere to close the notification",
+    "letter": "Letter",
+    "letters": "Letters",
+    "new_letters": "New letters",
+    "text": "Text",
+    "new": "New",
+    "pages": "Pages",
+    "mark_as_read": "Read",
+    "mark_as_unread": "Mark as unread",
 
     "advantages": [
       {
@@ -122,11 +133,11 @@
     "form_text": [
       {
         "title": "Site, app or game?",
-        "field_example": "Game, online store, app, landing..."
+        "field_example": "Game, online store, app, landing, something special..."
       },
       {
         "title": "App, site or game?",
-        "field_example": "Game, online store, app, landing..."
+        "field_example": "Game, online store, app, landing, something special..."
       }
     ]
   }

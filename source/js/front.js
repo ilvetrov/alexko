@@ -29,11 +29,12 @@ if (checkPage('home')) {
 if (checkPage('login')) {
   const loginForm = document.getElementsByClassName('js-login-form')[0];
   const redirectLink = (new URLSearchParams(window.location.search)).get('to') || getDefaultPath();
-  initRequestForm(loginForm, (result) => {
+  initRequestForm(loginForm, true, (result) => {
     if (result.success) {
       window.location.href = redirectLink;
     } else {
       lookAtMeAnimation(loginForm);
+      return true;
     }
   });
 

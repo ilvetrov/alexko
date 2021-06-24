@@ -1,10 +1,6 @@
 node_modules
 *.env
 tmp/*
-inner-resources/admin/public/js/*
-inner-resources/admin/public/css/*
 inner-resources/drafts/*
 logs.txt
-public/js/*
-public/css/*
 public/content/*

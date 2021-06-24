@@ -40,10 +40,12 @@
 @import './partials/home-page.scss';
 @import './partials/home-portfolio-images.scss';
 @import './partials/notify-page.scss';
+@import './partials/screen-notification.scss';
 
 @import './partials/form.scss';
 @import './partials/login.scss';
 @import './partials/field.scss';
+@import './partials/info-page.scss';;
 
 @import './partials/editor-text.scss';
 @import './partials/footer.scss';
@@ -54,7 +56,7 @@
   bottom: 10px;
   left: 10px;
   font-size: 1rem;
-  z-index: 99999;
+  z-index: 99;
   user-select: none;
   cursor: pointer;
   background-color: #fff;

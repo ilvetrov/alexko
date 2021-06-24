@@ -1,0 +1,55 @@
+.screen-notification {
+  background-color: rgba(255, 255, 255, .95);
+  transition: opacity .4s;
+
+  &__wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  &__content {
+    margin-top: 43vh;
+    transform-origin: center;
+    transform: scale(1);
+    transition: transform .4s;
+  }
+  &__title {
+    color: $accent-color;
+    margin-bottom: .72em;
+    line-height: 1.135;
+  }
+  &__text {
+    line-height: 1.9;
+  }
+  &__bottom {
+    max-width: 15.6rem;
+    color: #8E8E8E;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    opacity: 0;
+    transform: scale(.9);
+    transition: transform .4s, opacity .4s;
+  }
+
+  &.ready-to-close {
+    cursor: pointer;
+  }
+  &.ready-to-close & {
+    &__bottom {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  &.hidden {
+    transition: opacity .3s;
+  }
+  &.hidden & {
+    &__content {
+      transform: scale(.9);
+    }
+  }
+}

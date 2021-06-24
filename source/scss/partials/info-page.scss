@@ -1,0 +1,33 @@
+.info-page {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+
+  &__title {
+    margin-bottom: 1.13em;
+  }
+  &__title-link {
+    text-decoration: none;
+    outline: none !important;
+    color: inherit;
+    transition: color .2s;
+
+    &:hover, &:focus {
+      color: $accent-color;
+    }
+  }
+  &__text {
+    line-height: 1.9;
+  }
+  &__final-button {
+    margin-top: 4rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .info-page {
+    &__final-button {
+      margin-top: 3rem;
+    }
+  }
+}

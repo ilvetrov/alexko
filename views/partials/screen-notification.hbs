@@ -1,0 +1,21 @@
+<div class="pop-up screen-notification hidden disabled" data-pop-up="{{ notification.name }}" data-pop-up-close-anywhere>
+  <div class="screen-notification__wrap">
+    <div class="screen-notification__content">
+      <div class="screen-notification__title page-title page-title_free-transform">
+        {{ notification.title }}
+      </div>
+      <!-- /.screen-notification__title -->
+      <div class="screen-notification__text">
+        {{ notification.text }}
+      </div>
+      <!-- /.screen-notification__text -->
+    </div>
+    <!-- /.screen-notification__content -->
+    <div class="screen-notification__bottom">
+      {{ lang 'close_anywhere_message' }}
+    </div>
+    <!-- /.screen-notification__bottom -->
+  </div>
+  <!-- /.screen-notification__wrap -->
+</div>
+<!-- /.pop-up -->

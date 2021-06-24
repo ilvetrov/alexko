@@ -2,7 +2,7 @@ const { smoothScrollToElement } = require("./smooth-scroll");
 const { checkElementVisibilityForInteractions } = require("./check-scroll");
 const { lookAtMeAnimation } = require("./look-at-me");
 
-function initRequestForm(form, callback) {
+function initRequestForm(form, acceptJson = true, callback) {
   const url = form.getAttribute('action');
 
   let canProcess = true;
@@ -15,17 +15,26 @@ function initRequestForm(form, callback) {
         fetch(url, {
           method: 'POST',
           headers: {
-            'Accept': 'application/json',
+            'Accept': acceptJson ? 'application/json' : undefined,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(getFormData(form))
         })
         .then((response) => {
-          return response.json();
+          return acceptJson ? response.json() : response;
         })
         .then((result) => {
+          if (!acceptJson && result.status !== 200) {
+            canProcess = true;
+          }
+          if (callback(result)) {
+            hideProcessFromForm(form);
+          }
+          canProcess = true;
+        })
+        .catch((reason) => {
+          console.error(reason);
           hideProcessFromForm(form);
-          callback(result);
           canProcess = true;
         });
       } else {
@@ -92,7 +101,13 @@ function clearFormData(form) {
   let inputs = form.querySelectorAll('[name]')
   for (let i = 0; i < inputs.length; i++) {
     const input = inputs[i];
-    input.value = '';
+    if (input.getAttribute('type') === 'hidden') continue;
+
+    if (input.getAttribute('type') === 'checkbox') {
+      input.checked = false;
+    } else {
+      input.value = '';
+    }
   }
 }
 
@@ -117,5 +132,6 @@ for (let i = 0; i < fields.length; i++) {
 
 module.exports = {
   initRequestForm,
-  clearFormData
+  clearFormData,
+  hideProcessFromForm
 }

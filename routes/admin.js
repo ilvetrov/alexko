@@ -5,11 +5,8 @@ var router = express.Router();
 
 router.use(checkAdmin);
 router.use(require('./admin/panel'));
-router.use(require('./admin/portfolio/list-page'));
-router.use(require('./admin/portfolio/add'));
-router.use(require('./admin/portfolio/edit-page'));
-router.use(require('./admin/portfolio/edit'));
-router.use(require('./admin/portfolio/image-preview'));
+router.use(require('./admin/portfolio'));
+router.use(require('./admin/letters'));
 router.use(require('./admin/resources'));
 router.use(require('./admin/upload'));
 

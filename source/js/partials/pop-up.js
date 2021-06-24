@@ -14,6 +14,7 @@ for (let i = 0; i < popUps.length; i++) {
   const popUpContent = popUp.querySelector('[data-pop-up-content]') || popUp;
   const popUpActiveAfterOutClick = popUp.hasAttribute('data-pop-up-active-after-out-click');
   const popUpNeedSetPositionToButton = popUp.hasAttribute('data-pop-up-set-position-to-button');
+  const closeAnywhere = popUp.hasAttribute('data-pop-up-close-anywhere');
   const eventName = popUp.getAttribute('data-pop-up-event');
   
   for (let buttonIteration = 0; buttonIteration < popUpButtons.length; buttonIteration++) {
@@ -71,6 +72,13 @@ for (let i = 0; i < popUps.length; i++) {
       hidePopUp(popUp);
     }
   });
+  if (closeAnywhere) {
+    popUp.addEventListener('click', function() {
+      if (!popUp.classList.contains('hidden') && popUp.classList.contains('ready-to-close')) {
+        hidePopUp(popUp);
+      }
+    });
+  }
 }
 
 function showPopUp(popUp) {
@@ -82,7 +90,16 @@ function showPopUp(popUp) {
   setTimeout(() => {
     popUp.classList.remove('hidden');
   }, 20);
+  
+  const closeAnywhere = popUp.hasAttribute('data-pop-up-close-anywhere');
+  if (closeAnywhere) {
+    setTimeout(() => {
+      popUp.classList.add('ready-to-close');
+    }, 1500);
+  }
 }
+
+window.showPopUp = showPopUp;
 
 function hidePopUp(popUp) {
   popUp = detectPopUpInVariable(popUp);
@@ -100,6 +117,13 @@ function hidePopUp(popUp) {
       const callback = callbacks[callbackIteration];
       callback(popUp);
     }
+  }
+
+  const closeAnywhere = popUp.hasAttribute('data-pop-up-close-anywhere');
+  if (closeAnywhere) {
+    setTimeout(() => {
+      popUp.classList.remove('ready-to-close');
+    }, 100);
   }
 }
 

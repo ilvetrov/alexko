@@ -38,7 +38,7 @@ router.get('/portfolio', async function(req, res, next) {
         projects: projects
       });
     } else {
-      res.renderMin('list-is-empty', {
+      res.renderMin('pages/list-is-empty', {
         title: lang('portfolio') + ' – ' + lang('admin_panel'),
         layout: 'layouts/mini',
       });
