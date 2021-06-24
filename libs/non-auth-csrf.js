@@ -10,7 +10,6 @@ function publicSecretToCookie(res, secretForPublic) {
     maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
     sameSite: true,
-    domain: isDevelopment ? undefined : '.alexko.ltd',
     secure: isDevelopment ? undefined : true,
   });
 }
