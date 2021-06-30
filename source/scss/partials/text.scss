@@ -21,6 +21,8 @@
   position: relative;
   margin-top: 4rem;
   margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
 
   &__expansion-shadow {
     position: absolute;
@@ -36,6 +38,8 @@
     transition: transform .1s;
   }
   &__content {
+    display: inline-block;
+
     &::-webkit-scrollbar {
       display: none;
     }

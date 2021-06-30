@@ -5,6 +5,30 @@
   min-height: 100vh;
 
   &__content {
-    margin-bottom: 100px;
+    margin-bottom: 10rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .page {
+    &__content {
+      margin-bottom: 90px;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .page {
+    &__content {
+      margin-bottom: 70px;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .page {
+    &__content {
+      margin-bottom: 60px;
+    }
   }
 }

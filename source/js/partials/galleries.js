@@ -115,11 +115,11 @@ if (portfolioGalleries.length > 0) {
           769: {
             spaceBetween: spaceBetween * 0.6,
           },
-          561: {
+          481: {
             spaceBetween: isDesktop ? 14 : 24
           },
           0: {
-            spaceBetween: 24
+            spaceBetween: isDesktop ? 10 : 24
           }
         }
       });

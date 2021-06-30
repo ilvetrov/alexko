@@ -1,15 +1,14 @@
 'use strict';
 
 require('./partials/dynamic-styles');
+require('./partials/true-vh');
 require('./partials/controls/change-language');
-if (!checkMobile()) {
-  const { gsap } = require('gsap/dist/gsap');
-  const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
-  gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.defaults({
-    toggleActions: "play reverse play reverse"
-  });
-}
+const { gsap } = require('gsap/dist/gsap');
+const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
+gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.defaults({
+  toggleActions: "play reverse play reverse"
+});
 const { initRequestForm } = require('./partials/form');
 
 const checkPage = require('./partials/check-page');

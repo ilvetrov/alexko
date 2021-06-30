@@ -64,11 +64,11 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 650px) {
   .home-portfolio-images {
     &_desktop & {
       &__slide {
-        width: 100vw;
+        width: 92vw;
       }
     }
   }
@@ -79,6 +79,16 @@
     &_mobile & {
       &__slide {
         width: 70vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .home-portfolio-images {
+    &_desktop & {
+      &__slide {
+        width: 90vw;
       }
     }
   }

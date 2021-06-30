@@ -1,5 +1,5 @@
-<div class="text-img-wrap text-container {{iif desktopMode 'text-img-wrap_desktop' 'text-img-wrap_mobile' }} text-block-animation portfolio-shadow js-image-expansion-shadow-block">
-  <div class="text-img-wrap__content js-image-expansion-shadow-content">
+<div class="text-img-wrap text-container {{iif desktopMode 'text-img-wrap_desktop' 'text-img-wrap_mobile' }} {{iif stretched 'text-img-wrap_stretched' '' }} text-block-animation js-image-expansion-shadow-block">
+  <div class="text-img-wrap__content js-image-expansion-shadow-content portfolio-shadow">
     <img {{{published_image_src file.name }}} alt="{{ caption }}" class="text-img">
   </div>
   <!-- /.text-img-wrap__content -->

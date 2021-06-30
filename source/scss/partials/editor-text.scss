@@ -22,6 +22,9 @@
     @extend .text-container;
     @extend .text-img-wrap_mobile;
     @extend .text-img-wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   
     &__image {
       @extend .text-img;

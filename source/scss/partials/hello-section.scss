@@ -11,10 +11,26 @@
   }
 }
 
+.mobile-view {
+  .hello-section {
+    &__wrap {
+      height: calc(var(--vh, 1vh) * 100);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .hello-section {
+    &__wrap {
+      height: calc(var(--vh, 1vh) * 100);
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .hello-section {
     &__wrap {
-      height: 520px;
+      transition: height .15s;
     }
   }
 }
@@ -31,7 +47,6 @@
   .hello-section {
     &__wrap {
       min-height: 132vw;
-      max-height: 700px;
     }
   }
 }
@@ -40,7 +55,6 @@
   .hello-section {
     &__wrap {
       min-height: 500px;
-      max-height: 620px;
     }
   }
 }
