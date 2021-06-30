@@ -114,12 +114,14 @@ if (portfolioGalleries.length > 0) {
           },
           769: {
             spaceBetween: spaceBetween * 0.6,
+            speed: 300
           },
           481: {
             spaceBetween: isDesktop ? 14 : 24
           },
           0: {
-            spaceBetween: isDesktop ? 10 : 24
+            spaceBetween: isDesktop ? 10 : 24,
+            speed: isDesktop ? 500 : 350
           }
         }
       });
