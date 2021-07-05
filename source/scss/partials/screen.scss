@@ -1,11 +1,15 @@
 .top-screen-offset {
   padding-top: 65px;
-  // padding-top: #{"max(6.5vh, 45px)"};
 }
 
 .bottom-screen-offset {
   padding-bottom: 45px;
-  // padding-bottom: #{"max(4.5vh, 35px)"};
+
+  transition: transform .15s;
+}
+
+.header-offset {
+  padding-top: 5.13rem;
 }
 
 @media (max-width: 1023px) {
@@ -14,6 +18,16 @@
   }
   .bottom-screen-offset {
     padding-bottom: 4.3vw;
+  }
+  .header-offset {
+    padding-top: 8vw;
+    // padding-top: calc();
+  }
+}
+
+@media (max-width: 850px) {
+  .header-offset {
+    padding-top: 68px;
   }
 }
 
@@ -29,6 +43,9 @@
   }
   .bottom-screen-offset {
     padding-bottom: 30px;
+  }
+  .header-offset {
+    padding-top: 11vw;
   }
 }
 
@@ -48,10 +65,16 @@
   .top-screen-offset {
     padding-top: 34px;
   }
+  .header-offset {
+    padding-top: 51px;
+  }
 }
 
 @media (max-width: 380px) {
   .top-screen-offset {
     padding-top: 30px;
+  }
+  .header-offset {
+    padding-top: 47px;
   }
 }

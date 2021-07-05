@@ -1,5 +1,6 @@
 <main class="home-page js-home-page">
-  <section class="hello-section">
+  <section class="hello-section js-hello-section">
+    <div class="hello-section__mobile-background js-hello-section-mobile-background"></div>
     <div class="container-size">
       <div class="hello-section__wrap header-offset js-hello-section-wrap">
         <div class="void"></div>
@@ -65,10 +66,10 @@
   <!-- /.hello-section -->
   {{#if advantages.length}}
     <section id="why-us" class="advantages-section js-advantages-section">
-      <div class="container-size">
-        <div class="advantages-section__wrap">
-          {{#each advantages as |advantage|}}
-            <div class="advantages-section__item-wrap js-advantage-item-wrap">
+      <div class="advantages-section__wrap">
+        {{#each advantages as |advantage|}}
+          <div class="advantages-section__item-wrap js-advantage-item-wrap">
+            <div class="container-size">
               <div class="advantage advantages-section__item js-advantage-item {{#if advantage.accent }} advantage_accent {{/if}}">
                 <h2 class="advantage__title">
                   {{#each advantage.title as |titleLine|}}
@@ -93,12 +94,12 @@
               </div>
               <!-- /.advantage -->
             </div>
-            <!-- /.advantages-section__item-wrap -->
-          {{/each}}
-        </div>
-        <!-- /.advantages-section__wrap -->
+            <!-- /.container-size -->
+          </div>
+          <!-- /.advantages-section__item-wrap -->
+        {{/each}}
       </div>
-      <!-- /.container-size -->
+      <!-- /.advantages-section__wrap -->
     </section>
     <!-- /.advantages-section -->
   {{/if}}

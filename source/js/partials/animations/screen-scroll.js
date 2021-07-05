@@ -4,56 +4,56 @@ const screenScrollSelfTimelines = [];
 
 const { gsap } = require('gsap/dist/gsap');
 
+const helloSection = document.getElementsByClassName('js-hello-section')[0];
+const helloSectionWrap = document.getElementsByClassName('js-hello-section-wrap')[0];
+const helloSectionMobileBackground = document.getElementsByClassName('js-hello-section-mobile-background')[0];
 const advantageItemWraps = document.getElementsByClassName('js-advantage-item-wrap');
 const advantageItems = document.getElementsByClassName('js-advantage-item');
 const lastAdvantageItem = advantageItems[advantageItems.length - 1];
 const lastAdvantageItemWrap = advantageItemWraps[advantageItemWraps.length - 1];
 
-let aspectRatio = window.innerWidth / window.innerHeight;
 let windowHeight = window.innerHeight;
 let isMobile = checkMobileView();
+let mobileAnimationsExist = false;
 
 const timeline = gsap.timeline();
 
-timeline.to('.js-hello-section-wrap', {
-  scrollTrigger: {
-    trigger: advantageItems[0],
-    start: () => {
-      if (isMobile && aspectRatio < 1) return 'top bottom';
-      return 'center bottom';
+function mobileAnimations() {
+  timeline.to(helloSectionMobileBackground, {
+    scrollTrigger: {
+      trigger: helloSection,
+      start: 'bottom 95%',
+      end: 'bottom center',
+      scrub: true
     },
-    end: () => {
-      if (isMobile && aspectRatio < 1) return 'top 5%';
-      if (isMobile) return 'top 25%';
-      return 'top center';
-    },
-    scrub: true
-  },
-  y: -15,
-  opacity: 0
-});
-
-timeline.to('.js-hello-section-page-menu', {
-  scrollTrigger: {
-    trigger: advantageItems[0],
-    start: () => {
-      if (isMobile && aspectRatio < 1) return 'top bottom';
-      return 'center bottom';
-    },
-    end: () => {
-      if (isMobile && aspectRatio < 1) return 'top 5%';
-      if (isMobile) return 'top 25%';
-      return 'top center';
-    },
-    scrub: true
-  },
-  y: () => {
-    if (isMobile && aspectRatio < 1) return -.04 * windowHeight;
-    return -.022 * windowHeight;
-  }
-});
+    opacity: 1
+  });
+}
+if (!mobileAnimationsExist && isMobile) {
+  mobileAnimationsExist = true;
+  mobileAnimations();
+}
 
 if (!checkMobileView()) {
+  screenScrollSelfTimelines.push(timeline.to(helloSectionWrap, {
+    scrollTrigger: {
+      trigger: advantageItems[0],
+      start: 'center bottom',
+      end: 'top center',
+      scrub: true
+    },
+    y: -15,
+    opacity: 0
+  }));
+  screenScrollSelfTimelines.push(timeline.to('.js-hello-section-page-menu', {
+    scrollTrigger: {
+      trigger: advantageItems[0],
+      start: 'center bottom',
+      end: 'top center',
+      scrub: true
+    },
+    y: -.022 * windowHeight
+  }));
   for (let i = 0; i < advantageItemWraps.length; i++) {
     const advantageItemWrap = advantageItemWraps[i];
     screenScrollSelfTimelines.push(timeline.to(advantageItemWrap, {
@@ -96,10 +96,20 @@ if (!checkMobileView()) {
   }));
 }
 
+let lastWindowWidth = window.innerWidth;
 window.addEventListener('resize', function() {
-  aspectRatio = window.innerWidth / window.innerHeight;
-  windowHeight = window.innerHeight;
+  if (lastWindowWidth !== window.innerWidth) {
+    lastWindowWidth = window.innerWidth;
+    
+    windowHeight = window.innerHeight;
+  }
   isMobile = checkMobileView();
+
+  if (isMobile && !mobileAnimationsExist) {
+    mobileAnimationsExist = true;
+
+    mobileAnimations();
+  }
 });
 
 module.exports = {
