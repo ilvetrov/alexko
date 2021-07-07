@@ -50,15 +50,3 @@
 @import './partials/editor-text.scss';
 @import './partials/footer.scss';
 @import './partials/copyright.scss';
-
-.site-in-development {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  font-size: 1rem;
-  z-index: 99;
-  user-select: none;
-  cursor: pointer;
-  background-color: #fff;
-  border-radius: 4px;
-}
