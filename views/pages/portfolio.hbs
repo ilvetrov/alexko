@@ -1,4 +1,4 @@
-<main class="portfolio-item-page portfolio-item">
+<main class="portfolio-item-page portfolio-page portfolio-item {{iif navigationExists '' 'portfolio-page_without-navigation'}}">
   <div class="portfolio-item__wrap">
     <section id="portfolio" class="portfolio-section js-portfolio-section">
       {{#each projects as |project|}}
@@ -6,8 +6,8 @@
           <div class="container-size">
             <div class="home-page__header">
               <div class="portfolio-header">
-                <a href="/portfolio/{{ project.slug }}" class="subtitle portfolio-header__subtitle">
-                  {{ ../lang 'portfolio' }}
+                <a href="/{{{project.type_plural_raw_name}}}" class="subtitle portfolio-header__subtitle">
+                  {{ project.type_plural_name }}
                   <span class="accent-slash">/</span>
                 </a>
                 <!-- /.subtitle -->
@@ -16,7 +16,6 @@
                 </a>
                 <!-- /.page-title -->
                 <div class="portfolio-descr">
-                  <strong class="portfolio-descr__type">{{ ../lang project.type_name }}.</strong>
                   <span class="portfolio-descr__main-text">{{ project.descr }}</span>
                 </div>
                 <!-- /.portfolio-descr -->
@@ -42,6 +41,38 @@
       {{/each}}
     </section>
     <!-- /.portfolio-section -->
+
+    {{#if navigationExists}}
+      <div class="portfolio-page__navigation portfolio-navigation">
+        <div class="container-size">
+          <div class="portfolio-navigation__content">
+            {{#if thereAreLastProjects}}
+              <div class="portfolio-navigation__link">
+                <a href="/{{{iif onlyOneType currentOneRawType 'portfolio' }}}/page/{{ lastOffset }}" class="accent-button accent-button_secondary">
+                  <span class="accent-button__text">{{ lang 'show_last' }}</span>
+                </a>
+                <!-- /.accent-button -->
+              </div>
+              <!-- /.portfolio-navigation__link -->
+            {{else}}
+              <div class="void"></div>
+            {{/if}}
+            {{#if thereAreMoreProjects}}
+              <div class="portfolio-navigation__link">
+                <a href="/{{{iif onlyOneType currentOneRawType 'portfolio' }}}/page/{{ nextOffset }}" class="accent-button accent-button_secondary">
+                  <span class="accent-button__text">{{ lang 'show_next' }}</span>
+                </a>
+                <!-- /.accent-button -->
+              </div>
+              <!-- /.portfolio-navigation__link -->
+            {{/if}}
+          </div>
+          <!-- /.portfolio-navigation -->
+        </div>
+        <!-- /.container-size -->
+      </div>
+      <!-- /.portfolio-page__navigation -->
+    {{/if}}
   </div>
   <!-- /.portfolio-item__wrap -->
 </main>

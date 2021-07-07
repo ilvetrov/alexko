@@ -1,4 +1,4 @@
-<main class="home-page js-home-page">
+<main class="home-page js-home-page page-bottom-offset">
   <section class="hello-section js-hello-section">
     <div class="hello-section__mobile-background js-hello-section-mobile-background"></div>
     <div class="container-size">
@@ -109,8 +109,8 @@
         <div class="container-size">
           <div class="home-page__header">
             <div class="portfolio-header">
-              <a href="/portfolio" class="subtitle portfolio-header__subtitle">
-                {{ ../lang 'last_projects' }}
+              <a href="/{{ project.type_plural_raw_name }}" class="subtitle portfolio-header__subtitle">
+                {{ project.type_plural_name }}
                 <span class="accent-slash">/</span>
               </a>
               <!-- /.subtitle -->
@@ -119,7 +119,6 @@
               </a>
               <!-- /.page-title -->
               <div class="portfolio-descr">
-                <strong class="portfolio-descr__type">{{ ../lang project.type_name }}.</strong>
                 <span class="portfolio-descr__main-text">{{ project.descr }}</span>
               </div>
               <!-- /.portfolio-descr -->
