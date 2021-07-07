@@ -1,6 +1,10 @@
 .home-page {
   &__portfolio-item {
     margin-bottom: 10rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   &__intro-gallery {
     max-width: 1620px;
@@ -19,6 +23,9 @@
   }
   &__write-to-us {
     width: 100%;
+  }
+  &__write-to-us-section {
+    margin-top: 10rem;
   }
 }
 
@@ -109,6 +116,9 @@
     &__portfolio-item {
       margin-bottom: 140px;
     }
+    &__write-to-us-section {
+      margin-top: 140px;
+    }
   }
 }
 
@@ -148,6 +158,9 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+    &__write-to-us-section {
+      margin-top: 0;
     }
   }
 }

@@ -1,0 +1,19 @@
+.portfolio-page {
+  &__navigation {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &_without-navigation {
+    @extend .page-bottom-offset;
+  }
+}
+
+@media (max-width: 678px) {
+  .portfolio-page {
+    &__navigation {
+      margin-top: 1.4rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

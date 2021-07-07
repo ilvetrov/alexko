@@ -11,7 +11,7 @@ router.get('/portfolio/:slug', function(req, res, next) {
   const slug = req.params.slug;
   if (!slug) return next(createError(404));
 
-  db.oneOrNone('SELECT portfolio.*, project_types.singular_name as type_name FROM portfolio LEFT JOIN project_types ON portfolio.type_id = project_types.id WHERE status = $<status> AND slug = $<slug>', {
+  db.oneOrNone('SELECT portfolio.*, project_types.singular_name as type_name, project_types.plural_name as type_plural_name FROM portfolio LEFT JOIN project_types ON portfolio.type_id = project_types.id WHERE status = $<status> AND slug = $<slug>', {
     status: 'published',
     slug: slug
   })

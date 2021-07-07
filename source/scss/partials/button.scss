@@ -61,6 +61,15 @@
   &_solid[href] {
     color: #fff;
   }
+  &_secondary {
+    border: none;
+  }
+  &_secondary & {
+    &__text {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
 }
 
 @media (max-width: 380px) {

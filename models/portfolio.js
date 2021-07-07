@@ -73,6 +73,10 @@ class PortfolioProject {
     if (projectFromDB.type_name) {
       this.type_name = lang(projectFromDB.type_name);
     }
+    if (projectFromDB.type_plural_name) {
+      this.type_plural_raw_name = projectFromDB.type_plural_name;
+      this.type_plural_name = lang(projectFromDB.type_plural_name);
+    }
     if (projectFromDB.admin_name) {
       this.admin_name = projectFromDB.admin_name;
     }
