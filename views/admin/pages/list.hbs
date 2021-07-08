@@ -1,0 +1,58 @@
+<div class="portfolio-item portfolio-item-page page-bottom-offset">
+  <div class="portfolio-item__wrap">
+    <div class="container-size">
+      <div class="portfolio-item__header portfolio-header">
+        <h1 class="page-title page-title_free-transform">
+          {{ lang 'pages' }}
+        </h1>
+        <!-- /.page-title -->
+      </div>
+      <!-- /.portfolio-item__header -->
+      <div class="portfolio-item__list">
+        <table class="table">
+          <tr class="table__row">
+            <th class="table__header table__cell">
+              {{ lang 'title' }}
+            </th>
+            <!-- /.table__header -->
+            <th class="table__header table__cell">
+              {{ lang 'status' }}
+            </th>
+            <!-- /.table__header -->
+          </tr>
+          <!-- /.table__row -->
+          <tr class="table__delimiter">
+            <td class="table__void" colspan="7"></td>
+          </tr>
+          <!-- /.table__delimiter -->
+          <tr class="table__delimiter-spacer"></tr>
+          {{#each pages as |page|}}
+            <tr class="table__row">
+              <td class="table__cell table__cell_accent {{iif page.title '' 'table__cell_inactive'}}">
+                <a href="/admin/pages/edit/{{ page.id }}" class="table__link">
+                  {{#if page.title}}
+                    {{ page.title }}
+                  {{else}}
+                    *{{ ../lang 'not_specified' }}*
+                  {{/if}}
+                </a>
+                <!-- /.table__link -->
+              </td>
+              <!-- /.table__cell -->
+              <td class="table__cell table__cell_{{ page.status }}">
+                {{ ../lang page.status }}
+              </td>
+              <!-- /.table__cell -->
+            </tr>
+            <!-- /.table__row -->
+          {{/each}}
+        </table>
+        <!-- /.table -->
+      </div>
+      <!-- /.portfolio-item__list -->
+    </div>
+    <!-- /.container-size -->
+  </div>
+  <!-- /.portfolio-item__wrap -->
+</div>
+<!-- /.portfolio-item -->

@@ -35,7 +35,7 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
     },
     to_link: data.to_link || null,
     demo_id: data.demo_id,
-    slug: encodeURIComponent(data.slug) || null
+    slug: encodeURIComponent(data.slug.replace(/^\//, '')) || null
   }
 
   if (data.editors_images) {

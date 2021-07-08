@@ -174,11 +174,18 @@
     &_inner-page {
       font-size: 28px;
     }
+    &_info-page {
+      font-size: 26px;
+    }
   }
 }
 
 @media (max-width: 330px) {
   .page-title {
     font-size: 1.63rem;
+
+    &_info-page {
+      font-size: 1.6rem;
+    }
   }
 }

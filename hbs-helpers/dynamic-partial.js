@@ -16,3 +16,7 @@ hbs.registerHelper('dPartial', (path, options) => {
 hbs.registerHelper('textPartial', (path, options) => {
   return dynamicPartial(`text/${path}`, options);
 });
+
+hbs.registerHelper('listPartial', (path, options) => {
+  return dynamicPartial(`text/list-${path}`, {items: options});
+});

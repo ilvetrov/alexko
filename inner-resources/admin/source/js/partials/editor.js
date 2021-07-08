@@ -1,7 +1,8 @@
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
-import List from '@editorjs/list';
+import List from '@editorjs/nested-list';
 import { getEditorImages } from '../../../../../libs/converters/get-editor-images';
+import checkPage from '../../../../../source/js/partials/check-page';
 import ImageTool from './tools/image'
 import NonBreakingSpace from './tools/non-breaking-space';
 
@@ -14,7 +15,7 @@ for (let i = 0; i < editorsElements.length; i++) {
   
   const editor = new EditorJS({
     holder: editorElement,
-    placeholder: 'Project text...',
+    placeholder: 'Text...',
     tools: {
       header: Header,
       list: List,
@@ -27,7 +28,8 @@ for (let i = 0; i < editorsElements.length; i++) {
             uploadByFile(file) {
               const formData = new FormData();
               formData.append('files[]', file);
-              formData.append('project_id', frontVariables.projectId);
+              formData.append('project_id', checkPage('edit-page') ? frontVariables.pageId : frontVariables.projectId);
+              formData.append('is_page', checkPage('edit-page'));
               formData.append('token', frontVariables.adminToken);
               return fetch('/admin/upload', {
                 headers: {

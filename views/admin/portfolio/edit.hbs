@@ -53,7 +53,7 @@
                     <div class="upload-file upload-file_mobile-image editor-intro-images__item {{iifEquals @index 3 'center' ''}} {{iifBigger @index introImagesDraftsStart.mobile 'disabled js-sample' ''}} {{iifInArray introImagesForOutput.mobile @index 'uploaded' ''}}" data-upload-file-preview="intro_images_{{ @index }}" data-group-file-previews="intro_images">
                       <div class="upload-file__content">
                         <input type="file" id="intro_images_{{ @index }}" class="disabled js-upload-files" data-project-id="{{ project.id }}" data-group-file="intro_images">
-                        <label for="intro_images_{{ @index }}" class="upload-file__label portfolio-shadow {{iifBigger @index 6 'upload-file__label_additional' ''}}" title="{{ lang 'add' }}" data-upload-file-label>
+                        <label for="intro_images_{{ @index }}" class="upload-file__label portfolio-shadow {{iifBigger @index 8 'upload-file__label_additional' ''}}" title="{{ lang 'add' }}" data-upload-file-label>
                           <svg class="upload-file__plus" shape-rendering="crispEdges" viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 0v16M0 8h16" stroke="#126DFF" stroke-width="2"/></svg>
                           {{#ifInArray introImagesForOutput.mobile @index}}
                             <img {{{inArray ../introImagesForOutput.mobile @index }}} alt="" class="upload-file__img img-cover">
@@ -116,6 +116,6 @@
     <!-- /.editor-intro-images -->
   </div>
   <!-- /.portfolio-item__wrap -->
-  <div id="about-creating" class="portfolio-item__content js-portfolio-content" data-editorjs="project_text" data-multilingual="{{toString multilingual.text }}"></div>
+  <div id="about-creating" class="portfolio-item__content text-with-lists js-portfolio-content" data-editorjs="project_text" data-multilingual="{{toString multilingual.text }}"></div>
 </main>
 <!-- /.portfolio-item -->

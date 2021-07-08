@@ -122,7 +122,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
       };
   
       const introImagesAmount = {
-        mobile: Math.max(uploadedIntroImagesAmount.mobile + 2, 8),
+        mobile: Math.max(uploadedIntroImagesAmount.mobile + 2, 10),
         desktop: Math.max(uploadedIntroImagesAmount.desktop + 2, 4)
       };
   
@@ -184,6 +184,64 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
           link: '/admin/portfolio/edit',
           values: {
             project_id: project.id,
+          },
+          required: {
+            'title': {
+              checker: function(value) {
+                return value !== '';
+              },
+              explanation: 'Заполните название на всех языках',
+              multilingual: true,
+              isDisplayBlock: true,
+              accentElementsClass: undefined,
+            },
+            'type_id': {
+              checker: function(value) {
+                return value !== null && value !== '';
+              },
+              explanation: 'Укажите тип проекта',
+              multilingual: false,
+              isDisplayBlock: false,
+              accentElementsClass: undefined,
+            },
+            'descr': {
+              checker: function(value) {
+                return value !== '';
+              },
+              explanation: 'Заполните описание на всех языках',
+              multilingual: true,
+              isDisplayBlock: false,
+              accentElementsClass: undefined,
+            },
+            'to_link': {
+              checker: function(value) {
+                return value !== '';
+              },
+              explanation: 'Укажите ссылку',
+              multilingual: false,
+              isDisplayBlock: true,
+              accentElementsClass: undefined,
+              ownAnimation: '.js-to-link-button',
+            },
+            'slug': {
+              checker: function(value) {
+                return value !== '';
+              },
+              explanation: 'Укажите адрес URI',
+              multilingual: false,
+              isDisplayBlock: true,
+              accentElementsClass: undefined,
+              ownAnimation: '[data-pop-up-button="project_settings_panel"]',
+            },
+            'project_text': {
+              checker: function(value) {
+                return value.blocks?.length > 0;
+              },
+              explanation: 'Опишите страницу на всех языках',
+              multilingual: true,
+              isDisplayBlock: true,
+              accentElementsClass: 'js-portfolio-content',
+            },
           }
         },
         editorProperties: JSON.stringify({

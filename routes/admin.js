@@ -9,5 +9,6 @@ router.use(require('./admin/portfolio'));
 router.use(require('./admin/letters'));
 router.use(require('./admin/resources'));
 router.use(require('./admin/upload'));
+router.use(require('./admin/pages'));
 
 module.exports = router;

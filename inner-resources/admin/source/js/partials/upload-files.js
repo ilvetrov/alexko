@@ -1,5 +1,6 @@
 const checkImg = require("../../../../../libs/check-img");
 const getImgSrc = require("../../../../../libs/get-img-src");
+const checkPage = require("../../../../../source/js/partials/check-page");
 
 const callbacks = {};
 const groupCallbacks = {};
@@ -98,6 +99,7 @@ function getInputData(input, dataOutput) {
 function uploadFiles(files, projectId, successCallback, errorCallback) {
   const formData = new FormData();
   formData.append('project_id', projectId);
+  formData.append('is_page', checkPage('edit-page'));
   formData.append('token', frontVariables.adminToken);
   for (let i = 0; i < files.length; i++) {
     const file = files[i];

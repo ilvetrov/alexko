@@ -1,0 +1,28 @@
+{{> side_edit_panel_of_page}}
+{{> page_settings_panel}}
+
+<main class="portfolio-item portfolio-item-page page-editing-page js-edit-page-page">
+  <div class="portfolio-item__wrap">
+
+    <section class="info-page">
+      <div class="container-size">
+        <div class="info-page__header">
+          <div class="info-page__content">
+            <h1 class="info-page__title page-title page-title_free-transform page-title_info-page js-editor-field" contenteditable="true" data-placeholder="{{ lang 'title' }}" data-send-to-cloud-name="title" data-send-to-cloud-group="edit_page" data-multilingual="{{toString multilingual.title }}">
+              {{ page.title }}
+            </h1>
+            <!-- /.info-page__title -->
+          </div>
+          <!-- /.info-page__content -->
+        </div>
+        <!-- /.info-page__header -->
+      </div>
+      <!-- /.container-size -->
+      <div id="page-text" class="info-page__text text-with-lists js-page-content" data-editorjs="page_text" data-multilingual="{{toString multilingual.text }}"></div>
+    </section>
+    <!-- /.info-page -->
+
+  </div>
+  <!-- /.portfolio-item__wrap -->
+</main>
+<!-- /.portfolio-item -->

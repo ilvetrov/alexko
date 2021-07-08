@@ -56,6 +56,7 @@ function changesNamesToMultilingual(input, codeName) {
 }
 
 function setValueToDuplicate(duplicate, value) {
+  if (duplicate.tagName === 'TEXTAREA') return duplicate.value = value;
   if (!duplicate.hasAttribute('data-editorjs')) {
     duplicate.innerText = value;
   }

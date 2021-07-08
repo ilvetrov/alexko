@@ -20,10 +20,25 @@ router.get('/', function(req, res, next) {
 
     db.query(`SELECT COUNT(*) FROM letters WHERE new=true`),
 
+    db.query('SELECT COUNT(*) FROM pages WHERE status = $<status>', {
+      status: 'published'
+    }),
+
+    db.query('SELECT COUNT(*) FROM pages WHERE status = $<status>', {
+      status: 'awaiting_approval'
+    }),
+
+    db.query('SELECT COUNT(*) FROM pages WHERE status = $<status>', {
+      status: 'draft'
+    }),
+
   ])
   .then(function([
     projectsFromDb,
-    letters
+    letters,
+    [{count: publishedPagesAmount}],
+    [{count: awaitingApprovalPagesAmount}],
+    [{count: draftPagesAmount}],
   ]) {
     const projects = projectsFromDb.map(projectFromDb => new PortfolioProject(projectFromDb));
     const numberOfPublished = projects.filter(project => project.status === 'published').length;
@@ -39,6 +54,11 @@ router.get('/', function(req, res, next) {
         draft: numberOfDrafts
       },
       newLettersAmount: Number(letters[0].count),
+      pagesAmount: {
+        published: Number(publishedPagesAmount),
+        awaitingApproval: Number(awaitingApprovalPagesAmount),
+        draft: Number(draftPagesAmount)
+      },
       images: {
         status_items: {
           done: asyncImg([

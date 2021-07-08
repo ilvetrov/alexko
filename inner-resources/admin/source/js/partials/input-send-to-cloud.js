@@ -1,5 +1,6 @@
 const checkJson = require("../../../../../libs/check-json");
 const { multilingualToArray } = require("../../../../../libs/converters/multilingual-front");
+const { rawStringToObject } = require("../../../../../libs/converters/object-to-raw-string");
 const { lookAtMeAnimation, lookAtMeInlineAnimation } = require("../../../../../source/js/partials/look-at-me");
 const { getEditorsData, getEditorsImages } = require("./editor");
 const { editorIntroImagesElement, editorIntroDesktopImagesElement } = require('./get-intro-images');
@@ -17,7 +18,7 @@ function initButton(button) {
     if (button.classList.contains('process')) return;
 
     button.classList.add('process');
-    const data = JSON.parse(button.getAttribute('data-send-to-cloud-properties'));
+    const data = rawStringToObject(button.getAttribute('data-send-to-cloud-properties'));
     const groupName = button.getAttribute('data-send-to-cloud-button');
     const inputs = document.querySelectorAll(`[data-send-to-cloud-group="${groupName}"]`);
     const link = data.link;
@@ -36,40 +37,30 @@ function initButton(button) {
 
       if (values.status !== 'draft') {
 
-        if (!checkExistenceOfEditorValueAndAccentIfNot('title', values, (value) => value !== '')) {
-          disableButtonProcessWithError(button, 'Заполните название на всех языках');
-          lookAtMeAnimation(button);
-          return;
-        }
+        for (const fieldName in data.required) {
+          if (Object.hasOwnProperty.call(data.required, fieldName)) {
+            const fieldData = data.required[fieldName];
+            
+            if (
+              (fieldData.multilingual && !checkExistenceOfEditorValueAndAccentIfNot(fieldName, values, fieldData.checker, fieldData.isDisplayBlock, fieldData.accentElementsClass))
+              || (!fieldData.multilingual && !fieldData.checker(values[fieldName]))
+            ) {
+              disableButtonProcessWithError(button, fieldData.explanation);
+              lookAtMeAnimation(button);
 
-        if (values.type_id === null) {
-          disableButtonProcessWithError(button, 'Укажите тип проекта');
-          lookAtMeAnimation(button);
-
-          lookAtMeInlineAnimation(document.querySelector('[data-send-to-cloud-name="type_id"]'));
-          return;
-        }
-
-        if (!checkExistenceOfEditorValueAndAccentIfNot('descr', values, (value) => value !== '', false)) {
-          disableButtonProcessWithError(button, 'Заполните описание на всех языках');
-          lookAtMeAnimation(button);
-          return;
-        }
-
-        if (values.to_link === '') {
-          disableButtonProcessWithError(button, 'Укажите ссылку');
-          lookAtMeAnimation(button);
-
-          lookAtMeAnimation(document.getElementsByClassName('js-to-link-button')[0]);
-          return;
-        }
-
-        if (values.slug === '') {
-          disableButtonProcessWithError(button, 'Укажите адрес URI');
-          lookAtMeAnimation(button);
-
-          lookAtMeAnimation(document.querySelector('[data-pop-up-button="project_settings_panel"]'));
-          return;
+              if (fieldData.ownAnimation) {
+                if (fieldData.isDisplayBlock) {
+                  lookAtMeAnimation(document.querySelector(fieldData.ownAnimation));
+                } else {
+                  lookAtMeInlineAnimation(document.querySelector(fieldData.ownAnimation));
+                }
+              } else if (!fieldData.multilingual) {
+                const animatedElement = document.querySelector(`[data-send-to-cloud-name="${fieldName}"]`);
+                animatedElement && lookAtMeInlineAnimation(animatedElement);
+              }
+              return;
+            }
+          }
         }
 
         if (button.hasAttribute('data-with-intro-images')) {
@@ -88,9 +79,11 @@ function initButton(button) {
               && introImages['4']
               && introImages['5']
               && introImages['6']
+              && introImages['7']
+              && introImages['8']
             )
           ) {
-            disableButtonProcessWithError(button, 'Нужно минимум 7 мобильных изображений');
+            disableButtonProcessWithError(button, 'Нужно минимум 9 мобильных изображений');
             lookAtMeAnimation(button);
             lookAtMeAnimation(editorIntroImagesElement);
             return;
@@ -111,12 +104,6 @@ function initButton(button) {
             lookAtMeAnimation(editorIntroDesktopImagesElement);
             return;
           }
-        }
-
-        if (!checkExistenceOfEditorValueAndAccentIfNot('project_text', values, (value) => value.blocks?.length > 0, true, document.getElementsByClassName('js-portfolio-content'))) {
-          disableButtonProcessWithError(button, 'Опишите проект на всех языках');
-          lookAtMeAnimation(button);
-          return;
         }
       }
     }
@@ -141,9 +128,10 @@ function initButton(button) {
   });
 }
 
-function checkExistenceOfEditorValueAndAccentIfNot(name, allValues, existenceChecker, isDisplayBlock = true, accentElements = undefined) {
+function checkExistenceOfEditorValueAndAccentIfNot(name, allValues, existenceChecker, isDisplayBlock = true, accentElementsClass = undefined) {
   if (multilingualToArray(name, allValues).find(value => !existenceChecker(value)) !== undefined) {
-    if (accentElements) {
+    const accentElements = document.getElementsByClassName(accentElementsClass);
+    if (accentElementsClass) {
       for (let i = 0; i < accentElements.length; i++) {
         const accentElement = accentElements[i];
         if (isDisplayBlock) {
@@ -235,11 +223,15 @@ function getInputValueFromElement(input) {
   let value = undefined;
   switch (inputType) {
     case 'INPUT':
-      value = input.value || '';
+      value = input.value.trim() || '';
+      break;
+  
+    case 'TEXTAREA':
+      value = input.value.trim() || '';
       break;
   
     case 'SELECT':
-      value = input.value || '';
+      value = input.value.trim() || '';
       break;
   
     default:

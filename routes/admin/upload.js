@@ -10,9 +10,12 @@ router.post('/upload', checkAdminCsrf, async function(req, res, next) {
   const files = req.files['files[]'];
   const projectId = Number(req.body.project_id);
 
-  if (!projectId) return next(createError(404));
+  const isPage = String(req.body.is_page) === 'true';
+  const table = isPage ? 'pages' : 'portfolio';
 
-  const project = await db.oneOrNone('SELECT * FROM portfolio WHERE id=$(id)', {
+  if (!projectId) return next(createError(400));
+
+  const project = await db.oneOrNone(`SELECT * FROM ${table} WHERE id=$(id)`, {
     id: projectId
   });
 
@@ -26,8 +29,9 @@ router.post('/upload', checkAdminCsrf, async function(req, res, next) {
 
   const draft = Number(project.status !== 'published');
 
+  const projectIdForFile = projectId + (isPage ? '-page' : '');
   if (files.length === undefined) {
-    uploadFile(files, projectId, draft)
+    uploadFile(files, projectIdForFile, draft)
     .then((webPath) => {
       res.send(JSON.stringify([webPath]));
     })
@@ -39,7 +43,7 @@ router.post('/upload', checkAdminCsrf, async function(req, res, next) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       uploadFilesFunctions.push(new Promise((resolve, reject) => {
-        uploadFile(file, projectId, draft)
+        uploadFile(file, projectIdForFile, draft)
         .then((webPath) => {
           resolve(webPath);
         })

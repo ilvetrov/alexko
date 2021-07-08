@@ -22,6 +22,7 @@ const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const servicesRouter = require('./routes/services');
 const formsRouter = require('./routes/forms');
+const pagesRouter = require('./routes/pages');
 
 const app = express();
 
@@ -54,6 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(indexRouter);
 app.use('/admin', adminRouter);
 app.use(formsRouter);
+app.use(pagesRouter);
 
 require('./libs/empty-tmp');
 

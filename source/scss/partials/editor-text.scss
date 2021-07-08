@@ -41,5 +41,33 @@
       @extend .text-img-wrap_stretched;
     }
   }
+  .cdx-nested-list {
+    padding-top: 0;
+    padding-bottom: 0;
+    list-style: none;
+    @extend .text-container;
 
+    &__item {
+      padding: 0;
+      line-height: inherit;
+      display: block;
+    }
+    &__item-body {
+      display: inline;
+    }
+    &__item-content {
+      display: inline;
+    }
+  }
+  ul.cdx-nested-list {
+    list-style: disc;
+  }
+
+}
+.page-editing-page {
+  .codex-editor__redactor {
+    .ce-block:first-child * {
+      margin-top: 0;
+    }
+  }
 }

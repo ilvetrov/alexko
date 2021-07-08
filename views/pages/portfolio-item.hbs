@@ -53,7 +53,7 @@
     <!-- /.portfolio-item__intro-images -->
   </div>
   <!-- /.portfolio-item__wrap -->
-  <section id="about-creating" class="portfolio-item__content portfolio-item__content_{{iifEquals project.type_id 1 'desktop' 'mobile' }} js-portfolio-content">
+  <section id="about-creating" class="portfolio-item__content portfolio-item__content_{{iifEquals project.type_id 1 'desktop' 'mobile' }} text-with-lists js-portfolio-content">
     {{#each project.text.blocks as |block|}}
       {{{textPartial block.type block.data }}}
     {{/each}}

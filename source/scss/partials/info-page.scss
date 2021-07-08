@@ -1,8 +1,16 @@
 .info-page {
   margin-left: auto;
   margin-right: auto;
-  max-width: 600px;
-
+  
+  &__content {
+    max-width: 38rem;
+  }
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
   &__title {
     margin-bottom: 1.13em;
   }
@@ -17,7 +25,11 @@
     }
   }
   &__text {
-    line-height: 1.9;
+    .text-p-wrap:first-child {
+      .text-p {
+        margin-top: 0;
+      }
+    }
   }
   &__final-button {
     margin-top: 4rem;

@@ -1,0 +1,10 @@
+{{#each items as |item|}}
+  <li class="text-block-animation">
+    <span class="text-list-content">{{{ item.content }}}</span>
+    {{#if item.items}}
+      <ul>
+        {{{listPartial 'unordered' item.items}}}
+      </ul>
+    {{/if}}
+  </li>
+{{/each}}
