@@ -1,7 +1,7 @@
-<div class="portfolio-item__intro-images home-page__intro-images {{iifEquals type_id 1 'portfolio-item__intro-images_desktop' '' }}">
-  <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals type_id 1 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery js-dys-mobile-gallery-top-offset' }}" data-portfolio-gallery="p_{{ id }}" data-space-between="{{iifEquals type_id 1 '67' '56' }}" data-increment-indent {{{iifEquals type_id 1 '' 'style="--margin-top: 2.1rem;"' }}}>
+<div class="portfolio-item__intro-images home-page__intro-images {{iifEquals imagesView 'horizontal' 'portfolio-item__intro-images_desktop' '' }}">
+  <div class="portfolio-item__intro-gallery home-page__intro-gallery home-portfolio-images swiper-container {{iifEquals imagesView 'horizontal' 'home-portfolio-images_desktop desktop-gallery' 'home-portfolio-images_mobile mobile-gallery js-dys-mobile-gallery-top-offset' }}" data-portfolio-gallery="p_{{ id }}" data-space-between="{{iifEquals imagesView 'horizontal' '67' '56' }}" data-increment-indent {{{iifEquals imagesView 'horizontal' '' 'style="--margin-top: 2.1rem;"' }}}>
     <div class="swiper-wrapper">
-      {{#each introImagesForFrontDesktop as |intro_image|}}
+      {{#each introImagesForFront as |intro_image|}}
         <div class="home-portfolio-images__slide swiper-slide">
           <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow">
         </div>

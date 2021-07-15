@@ -47,6 +47,12 @@
     font-weight: 700;
     font-size: 1rem;
     margin-bottom: 1.94em;
+    cursor: pointer;
+    transition: color .2s;
+
+    &:hover, &:focus {
+      color: $accent-color;
+    }
   }
   &__items {
     position: relative;

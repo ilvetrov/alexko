@@ -23,7 +23,7 @@ for (let i = 0; i < imageExpansionShadowBlocks.length; i++) {
     }
   }
   resizeHandler(initialWindowWidth);
-  window.addEventListener('resize', () => resizeHandler());
+  window.addEventListener('resize-width', () => resizeHandler());
 
   content.addEventListener('scroll', function() {
     shadow.style.transform = `translateX(${Math.round((content.scrollLeft / difference) * 100)}%)`;

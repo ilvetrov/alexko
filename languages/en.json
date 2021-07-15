@@ -11,7 +11,30 @@
     "apps": "Apps",
     "game": "Game",
     "games": "Games",
-    "site_focus": "We create apps and sites",
+    "site_focus": "We create apps, sites, games",
+    "site_focus_complex": [
+      {
+        "text": "We create "
+      },
+      {
+        "text": "apps",
+        "link": "/apps"
+      },
+      {
+        "text": ", "
+      },
+      {
+        "text": "sites",
+        "link": "/sites"
+      },
+      {
+        "text": ", "
+      },
+      {
+        "text": "games",
+        "link": "/games"
+      }
+    ],
     "site_tagline_first_line": "Idea from you",
     "site_tagline_second_line": "Project from us",
     "cta_button": "Write to us",
@@ -34,16 +57,16 @@
     "edit_project": "Edit project",
     "open": "Open",
     "download": "Download",
-    "site_creation": "Site creation",
-    "app_creation": "App creation",
-    "game_creation": "Game creation",
+    "site_creation": "About",
+    "app_creation": "About",
+    "game_creation": "About",
     "demo": "Demo",
     "title": "Title",
     "short_descr": "Short description",
     "enter_here": "Enter here",
     "link": "Link",
-    "mobile_images": "Mobile Images",
-    "desktop_images": "Desktop Images",
+    "mobile_images": "Vertical Images",
+    "desktop_images": "Horizontal Images",
     "save": "Save",
     "other_languages": "Other languages",
     "remove": "Remove",
@@ -83,6 +106,38 @@
     "edit_page": "Edit page",
     "show_next": "Next",
     "show_last": "Last",
+    "demo_site": "Demo-site",
+    "demo_text": [
+      {
+        "text": "Here is only what we have created."
+      },
+      {
+        "text": "You can see the site «after us» by ",
+        "link": "the link"
+      }
+    ],
+    "demo_error_text": [
+      {
+        "text": "You cannot submit a form here. This is a demo site."
+      },
+      {
+        "text": "To submit the form, go to ",
+        "link": "real site"
+      }
+    ],
+    "hide_notification": "Hide notification",
+    "enable_js": "And enable JavaScript here",
+    "stop": "Stop",
+    "we_recommend_demo": "Client changed site",
+    "open_demo": "Go to demo",
+    "open_site": "Open site",
+    "we_recommend_demo_text": [
+      {
+        "text": "To show only our work, we uploaded it to the demo site:"
+      }
+    ],
+    "close": "Close",
+    "project_type": "Project type",
 
     "advantages": [
       {
@@ -106,7 +161,7 @@
       },
       {
         "title": [
-          "Free edits"
+          "Free fixes"
         ],
         "subtitle": [
           "The first round of edits",

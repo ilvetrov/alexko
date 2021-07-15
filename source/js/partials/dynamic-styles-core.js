@@ -13,11 +13,8 @@ function initStyles(className, varName, breakpoints) {
     const defaultValue = element.style.getPropertyValue(varName) || getFromBreakpoints(breakpoints, true, windowWidth)(windowWidth);
     updateStyles(element, varName, getFromBreakpoints(breakpoints, true, windowWidth)(windowWidth) || defaultValue);
 
-    let lastWidth = windowWidth;
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize-width', function() {
       const newWindowWidth = window.innerWidth;
-      if (lastWidth === newWindowWidth) return;
-      lastWidth = newWindowWidth;
   
       updateStyles(element, varName, getFromBreakpoints(breakpoints, true, newWindowWidth)(newWindowWidth) || defaultValue);
     });

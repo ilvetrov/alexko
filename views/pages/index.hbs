@@ -6,8 +6,18 @@
         <div class="void"></div>
         <div class="hello-section__content">
           <div class="page-title-block">
-            <div class="subtitle page-title-block__subtitle">
-              {{ lang 'site_focus' }}
+            <div class="subtitle subtitle_links-inside page-title-block__subtitle">
+              {{#removeWhitespaces}}
+                {{#each ../siteFocus as |wordsBlock|}}
+                  {{#if wordsBlock.link}}
+                    <a class="subtitle__inner-link {{iifEquals ../../helloTitleVariant 1 'js-subtitle-link-accent' ''}}" href="{{ wordsBlock.link }}">
+                  {{/if}}
+                  {{ wordsBlock.text }}
+                  {{#if wordsBlock.link}}
+                    </a>
+                  {{/if}}
+                {{/each}}
+              {{/removeWhitespaces}}
             </div>
             <!-- /.subtitle -->
             <h1 class="page-title page-title_separated-lines page-title-block__title page-title_variant-{{ helloTitleVariant }}">

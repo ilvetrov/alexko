@@ -3,7 +3,7 @@ const { initAsyncImg } = require('./async-img-front');
 const { getAllBefore, getAllAfter } = require('./get-array-parts');
 
 let windowWidth = window.innerWidth;
-window.addEventListener('resize', function() {
+window.addEventListener('resize-width', function() {
   windowWidth = window.innerWidth;
 });
 
@@ -127,13 +127,9 @@ if (portfolioGalleries.length > 0) {
       });
 
       if (isIncrementingIndent) {
-        let lastWindowWidth = window.innerWidth;
-        window.addEventListener('resize', function() {
-          if (lastWindowWidth !== window.innerWidth) {
-            lastWindowWidth = window.innerWidth;
-            initIncrementingIndent(swiper, initialSlide);
-            updateIncrementingIndent(swiper.activeIndex - initialSlide, portfolioGallery);
-          }
+        window.addEventListener('resize-width', function() {
+          initIncrementingIndent(swiper, initialSlide);
+          updateIncrementingIndent(swiper.activeIndex - initialSlide, portfolioGallery);
         });
       }
     }, 0);
@@ -216,7 +212,7 @@ if (portfolioGalleries.length > 0) {
     portfolioGallery.style.transform = `translateY(${-indent * indentLevel}px)`;
   }
 
-  window.addEventListener('resize', function() {
+  window.addEventListener('resize-width', function() {
     edgesExist = !checkMobile();
   });
 }

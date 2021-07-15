@@ -1,4 +1,4 @@
-const { checkMobile } = require('../source/js/partials/check-mobile');
+const { checkMobile, checkMobileAgent } = require('../source/js/partials/check-mobile');
 const removeWhitespaces = require("./remove-whitespaces");
 
 function sbcn() {
@@ -7,6 +7,7 @@ function sbcn() {
 
 function getBodyViewClassSetter() {
   return removeWhitespaces(`
+    ${checkMobileAgent.toString()}
     ${checkMobile.toString()}
     ${sbcn.toString()}
 

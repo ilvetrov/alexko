@@ -117,13 +117,8 @@ function getDesktopOffset() {
   return 81;
 }
 
-let lastWindowWidth = window.innerWidth;
-window.addEventListener('resize', function() {
-  if (lastWindowWidth !== window.innerWidth) {
-    lastWindowWidth = window.innerWidth;
-    
-    desktopOffset = getDesktopOffset();
-  }
+window.addEventListener('resize-width', function() {
+  desktopOffset = getDesktopOffset();
 });
 
 function getOffset(introImage, isDesktop = false) {

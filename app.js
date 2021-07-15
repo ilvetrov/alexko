@@ -7,8 +7,10 @@ require('dotenv').config({
 const { initRoot } = require('./libs/get-root');
 initRoot(__dirname);
 
+const isDevelopment = require('./libs/is-development');
 const createError = require('http-errors');
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -30,6 +32,13 @@ app.use(minifyHTML());
 app.use(fileUpload({
   useTempFiles: true,
   tempFileDir: __dirname + '/tmp/files/'
+}));
+
+app.use(cors({
+  origin: !isDevelopment ? [
+    'https://alexko.ltd',
+    /\.alexko\.ltd$/,
+  ] : '*'
 }));
 
 // view engine setup
@@ -58,6 +67,8 @@ app.use(formsRouter);
 app.use(pagesRouter);
 
 require('./libs/empty-tmp');
+
+require('./demo-domains');
 
 const { langConstructor } = require('./libs/user-language');
 

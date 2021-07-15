@@ -29,20 +29,13 @@ router.get('/', function(req, res, next) {
 
     res.renderMin('pages/index', {
       title: 'AlexKo – ' + lang('site_focus'),
-      helloTitle: getVariant(req, res, 'ht', [
-        {
-          firstLine: lang('site_tagline_first_line'),
-          secondLine: lang('site_tagline_second_line')
-        },
-        {
-          firstLine: lang('advantages')[0].title[0],
-          secondLine: lang('advantages')[0].title[1]
-        },
-      ]),
-      helloTitleVariant: getNumberOf(req, 'ht'),
+      siteFocus: lang('site_focus_complex'),
+      helloTitle: {
+        firstLine: lang('advantages')[0].title[0],
+        secondLine: lang('advantages')[0].title[1]
+      },
+      helloTitleVariant: 1,
       advantages: (function() {
-        if (getNumberOf(req, 'ht') !== 1) return lang('advantages');
-
         const advantages = [...lang('advantages')];
         delete advantages[0];
         return advantages;

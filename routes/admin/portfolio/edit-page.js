@@ -159,6 +159,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         layout: 'layouts/admin',
         project: project,
         projectType: activeProjectType,
+        projectTypePlaceholder: lang('project_type'),
         draft: draft,
         introImages: introImages,
         introImagesForOutput: introImagesForOutput,
@@ -168,7 +169,7 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
         },
         introImagesAmount: introImagesAmount,
         introImagesDraftsStart: introImagesDraftsStart,
-        toLinkText: project.type_id && project.to_link_text,
+        toLinkText: project.to_link_text,
         multilingual: {
           title: project.allTitles,
           descr: project.allDescrs,
@@ -212,16 +213,6 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
               multilingual: true,
               isDisplayBlock: false,
               accentElementsClass: undefined,
-            },
-            'to_link': {
-              checker: function(value) {
-                return value !== '';
-              },
-              explanation: 'Укажите ссылку',
-              multilingual: false,
-              isDisplayBlock: true,
-              accentElementsClass: undefined,
-              ownAnimation: '.js-to-link-button',
             },
             'slug': {
               checker: function(value) {
@@ -287,14 +278,26 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
               name: 'to_link',
               group: 'edit_project'
             }
-          }
+          },
+          {
+            name: 'demo_url',
+            event: 'writeDemoUrl',
+            modClass: 'demo-url',
+            humanName: lang('demo'),
+            defaultValue: project.demo_url || '',
+            sendToCloud: {
+              name: 'demo_url',
+              group: 'edit_project'
+            }
+          },
         ],
         creatingText: project.creating_text,
         creatingVariations: JSON.stringify(project.creating_variations),
-        hideDesktopImages: project.type_id && hideDesktopImagesForTypes.indexOf(activeProjectType.id) != -1,
+        hideDesktopImages: project.imagesView !== 'horizontal',
         hideDesktopImagesForTypes: JSON.stringify(hideDesktopImagesForTypes),
-        hideMobileImages: project.type_id && hideMobileImagesForTypes.indexOf(activeProjectType.id) != -1,
+        hideMobileImages: project.imagesView !== 'vertical',
         hideMobileImagesForTypes: JSON.stringify(hideMobileImagesForTypes),
+        imagesViewForInput: projectFromDb.images_view
       });
     });
   })

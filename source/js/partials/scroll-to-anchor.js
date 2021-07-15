@@ -2,7 +2,7 @@ const getFromBreakpoints = require("./get-from-breakpoints");
 const { smoothScrollToElement } = require("./smooth-scroll");
 
 let windowWidth = window.innerWidth;
-window.addEventListener('resize', function() {
+window.addEventListener('resize-width', function() {
   windowWidth = window.innerWidth;
 });
 

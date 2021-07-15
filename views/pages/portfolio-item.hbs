@@ -1,3 +1,7 @@
+{{#if project.demo_url}}
+  {{> demo_pop_up demoPopUp}}
+{{/if}}
+
 <main class="portfolio-item portfolio-item-page page-bottom-offset">
   <div class="portfolio-item__wrap">
     <div class="container-size">
@@ -17,14 +21,16 @@
           </div>
           <!-- /.portfolio-descr -->
           <div class="portfolio-header__links">
-            <a href="{{ project.to_link }}" {{{iif project.to_link_is_external 'target="_blank"' '' }}} class="text-link text-link_independent portfolio-header__link">
-              <span class="inline-click-extender">{{ project.to_link_text }}</span>
-            </a>
-            <a href="#about-creating" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70" data-scroll-offset-media='{"550": 49}'>
+            {{#if project.to_link}}
+              <a href="{{ project.to_link }}" target="_blank" class="text-link text-link_independent portfolio-header__link" {{#if project.demo_url}} onclick="return notifyAboutTheExistenceOfDemo();" {{/if}}>
+                <span class="inline-click-extender">{{ project.to_link_text }}</span>
+              </a>
+            {{/if}}
+            <a href="#about-project" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70" data-scroll-offset-media='{"550": 49}'>
               <span class="inline-click-extender">{{ project.creating_text }}</span>
             </a>
-            {{#if project.demo_id}}
-              <a href="#" class="text-link text-link_independent portfolio-header__link">
+            {{#if project.demo_url}}
+              <a href="{{ project.demo_url }}?demo_lang={{ currentLang.code_name }}" target="_blank" class="text-link text-link_independent portfolio-header__link">
                 <span class="inline-click-extender">{{ lang 'demo' }}</span>
               </a>
             {{/if}}
@@ -36,12 +42,12 @@
       <!-- /.portfolio-item__header -->
     </div>
     <!-- /.container-size -->
-    <div class="portfolio-item__intro-images js-portfolio-intro-images {{iifEquals project.type_id 1 'portfolio-item__intro-images_desktop' '' }}">
-      <div class="portfolio-item__intro-gallery intro-images swiper-container {{iifEquals project.type_id 1 'intro-images_desktop desktop-gallery' 'intro-images_mobile mobile-gallery' }}" data-portfolio-gallery="1" data-centered-slides data-is-loop data-with-intro-images data-up-and-down>
+    <div class="portfolio-item__intro-images js-portfolio-intro-images {{iifEquals project.imagesView 'horizontal' 'portfolio-item__intro-images_desktop' '' }}">
+      <div class="portfolio-item__intro-gallery intro-images swiper-container {{iifEquals project.imagesView 'horizontal' 'intro-images_desktop desktop-gallery' 'intro-images_mobile mobile-gallery' }}" data-portfolio-gallery="1" data-centered-slides data-is-loop data-with-intro-images data-up-and-down>
         <div class="swiper-wrapper">
-          {{#each project.introImagesForFrontDesktop as |intro_image|}}
+          {{#each project.introImagesForFront as |intro_image|}}
             <div class="intro-images__slide swiper-slide">
-              <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow js-intro-image" {{iifEquals ../project.type_id 1 'data-intro-image-desktop' 'data-intro-image-mobile' }}>
+              <img {{{ intro_image }}} alt="" class="intro-images__image portfolio-shadow js-intro-image" {{iifEquals ../project.imagesView 'horizontal' 'data-intro-image-desktop' 'data-intro-image-mobile' }}>
             </div>
             <!-- /.swiper-slide -->
           {{/each}}
@@ -53,7 +59,7 @@
     <!-- /.portfolio-item__intro-images -->
   </div>
   <!-- /.portfolio-item__wrap -->
-  <section id="about-creating" class="portfolio-item__content portfolio-item__content_{{iifEquals project.type_id 1 'desktop' 'mobile' }} text-with-lists js-portfolio-content">
+  <section id="about-project" class="portfolio-item__content portfolio-item__content_{{iifEquals project.imagesView 'horizontal' 'desktop' 'mobile' }} text-with-lists js-portfolio-content">
     {{#each project.text.blocks as |block|}}
       {{{textPartial block.type block.data }}}
     {{/each}}

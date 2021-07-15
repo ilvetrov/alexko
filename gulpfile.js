@@ -24,15 +24,19 @@ sass.compiler = require('node-sass');
 
 //Tasks
 
-gulp.task('default', function (done) {
+exports.default = function (done) {
 	console.log('Hello, Gulp!');
 	done();
-});
+}
 
 class SourceToPublic {
+	static cssRoutes = [];
+
 	constructor(pathPrefix = '', name = 'default') {
 		this.pathPrefix = pathPrefix;
 		this.name = name;
+
+		SourceToPublic.cssRoutes.push(this.pathPrefix + 'source/scss/**/*.scss');
 	}
 
 	css = () => {
@@ -49,6 +53,7 @@ class SourceToPublic {
 
 		for (let i = 0; i < entries.length; i++) {
 			const entryPath = entries[i];
+			const entryName = entryPath.split('/')[entryPath.split('/').length - 1];
 			
 			const watchifyBuild = watchify(browserify({
 				entries: entryPath,
@@ -76,7 +81,7 @@ class SourceToPublic {
 
 			watchifyBuild.on('update', watchifyBundle);
 			watchifyBuild.on('log', (data) => {
-				log.info(`Finished '${color.fgCyan}jsDev of ${this.name}${color.reset}': ` + data);
+				log.info(`Finished '${color.fgCyan}jsDev of ${this.name} - ${entryName}${color.reset}': ` + data);
 			});
 
 
@@ -199,7 +204,7 @@ class SourceToPublic {
 		gulp.parallel(this.css, this.syncImages)();
 	
 		this.jsDev();
-		gulp.watch(this.pathPrefix + 'source/**/*.scss').on('change', gulp.series(this.css));
+		gulp.watch(SourceToPublic.cssRoutes).on('change', gulp.series(this.css));
 	
 		gulp.watch(this.pathPrefix + 'source/img-entry/**').on('add', (path, stats) => {
 			this.minifyImg(path, () => {
@@ -212,21 +217,24 @@ class SourceToPublic {
 
 const front = new SourceToPublic('', 'front');
 const admin = new SourceToPublic('inner-resources/admin/', 'admin');
+const demoDomains = new SourceToPublic('demo-domains/helper/files/', 'demoDomains');
 
-gulp.task('prod', function(done) {
+exports.prod = function(done) {
 	Promise.all([
 		front.prod(),
-		admin.prod()
+		admin.prod(),
+		demoDomains.prod(),
 	])
 	.then(() => {
 		done();
-	})
-});
+	});
+}
 
-gulp.task('watch', function() {
+exports.watch = function() {
 	front.watch();
 	admin.watch();
-});
+	demoDomains.watch();
+}
 
 // Functions
 function removeImg(path) {

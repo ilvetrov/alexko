@@ -68,6 +68,21 @@
       color: $accent-color;
     }
   }
+  
+  &__inner-link {
+    text-decoration: none;
+    outline: none !important;
+    color: inherit;
+    transition: color .2s;
+
+    &_accent {
+      color: $accent-color;
+    }
+    
+    &:hover, &:focus {
+      color: $accent-color;
+    }
+  }
 }
 
 .page-title-block {
@@ -176,6 +191,16 @@
     }
     &_info-page {
       font-size: 26px;
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .lang-en {
+    .page-title {
+      &_variant-1 {
+        font-size: 27px;
+      }
     }
   }
 }

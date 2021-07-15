@@ -22,6 +22,15 @@ addActionToEvent('selectProjectType', function(selectedElement) {
   const hidingElements = document.querySelectorAll('[data-hide-on-project-types]');
   for (let i = 0; i < hidingElements.length; i++) {
     const hidingElement = hidingElements[i];
+    const doNotHide = (function() {
+      const inputClassName = hidingElement.getAttribute('data-do-not-hide-if');
+      if (!inputClassName) return false;
+      const input = document.getElementsByClassName(inputClassName)[0];
+      if (!input) return false;
+      return input.value.trim() !== '';
+    }());
+    if (doNotHide) continue;
+
     const variations = JSON.parse(hidingElement.getAttribute('data-hide-on-project-types'));
 
     if (variations.indexOf(newOptionId) > -1) {

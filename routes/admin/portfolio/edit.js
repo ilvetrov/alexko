@@ -34,8 +34,9 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
       desktop: normalizeIntroImages(data.intro_desktop_images) || oldData.intro_images.desktop
     },
     to_link: data.to_link || null,
-    demo_id: data.demo_id,
-    slug: encodeURIComponent(data.slug.replace(/^\//, '')) || null
+    demo_url: data.demo_url,
+    slug: encodeURIComponent(data.slug.replace(/^\//, '')) || null,
+    images_view: data.images_view || null
   }
 
   if (data.editors_images) {
@@ -57,8 +58,9 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
     type_id = $(type_id),
     intro_images = $(intro_images),
     to_link = $(to_link),
-    demo_id = $(demo_id),
-    slug = $(slug)
+    demo_url = $(demo_url),
+    slug = $(slug),
+    images_view = $(images_view)
   WHERE id=$(id)
   `, newData)
   .then((result) => {

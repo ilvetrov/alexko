@@ -79,7 +79,7 @@
 @media (max-width: 430px) {
   .home-portfolio-images {
     &_desktop {
-      transition: transform .6s;
+      transition: transform .5s;
     }
     &_mobile & {
       &__slide {

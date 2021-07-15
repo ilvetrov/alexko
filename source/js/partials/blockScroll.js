@@ -1,4 +1,9 @@
+const { checkMobile, checkMobileAgent } = require("./check-mobile");
+
 let advancedElementsForScrollBlocking = document.getElementsByClassName('js-for-replace-scrollbar');
+
+const bodyPaddingClass = 'js-body-padding-instead-of-scrollbar';
+const paddingClass = 'js-padding-instead-of-scrollbar';
 
 function blockScroll() {
   if (checkScrollbar()) {
@@ -13,17 +18,17 @@ function unblockScroll() {
 
 function blockScrollBar() {
   document.body.style.paddingRight = getScrollBarWidth() + 'px';
+  document.body.classList.add(bodyPaddingClass);
   for (let i = 0; i < advancedElementsForScrollBlocking.length; i++) {
     const advancedElementForScrollBlocking = advancedElementsForScrollBlocking[i];
     advancedElementForScrollBlocking.style.paddingRight = getScrollBarWidth() + 'px';
   }
 }
 function unblockScrollBar() {
-  if (document.body.style.paddingRight != '') {
-    document.body.style.paddingRight = '';
-  }
-  for (let i = 0; i < [...advancedElementsForScrollBlocking, ...document.getElementsByClassName('js-padding-instead-of-scrollbar')].length; i++) {
-    const advancedElementForScrollBlocking = [...advancedElementsForScrollBlocking, ...document.getElementsByClassName('js-padding-instead-of-scrollbar')][i];
+  document.body.style.paddingRight = '';
+  document.body.classList.remove(bodyPaddingClass);
+  for (let i = 0; i < [...advancedElementsForScrollBlocking, ...document.getElementsByClassName(paddingClass)].length; i++) {
+    const advancedElementForScrollBlocking = [...advancedElementsForScrollBlocking, ...document.getElementsByClassName(paddingClass)][i];
     if (advancedElementForScrollBlocking.style.paddingRight != '') {
       advancedElementForScrollBlocking.style.paddingRight = '';
     }
@@ -35,7 +40,7 @@ function blockScrollBarIn(element, cached = false) {
   } else {
     element.style.paddingRight = getScrollBarWidthFrom(element) + 'px';
   }
-  element.classList.add('js-padding-instead-of-scrollbar');
+  element.classList.add(paddingClass);
 }
 function checkScrollbar() {
   return window.innerWidth > document.body.clientWidth;
@@ -50,6 +55,14 @@ function checkScrollbarIn(element) {
 function getScrollBarWidthFrom(element) {
   return element.offsetWidth - element.clientWidth;
 }
+
+window.addEventListener('resize-width', function() {
+  if (checkMobileAgent()) {
+    if (document.body.classList.contains(bodyPaddingClass)) {
+      unblockScroll();
+    }
+  }
+});
 
 module.exports = {
   blockScroll,

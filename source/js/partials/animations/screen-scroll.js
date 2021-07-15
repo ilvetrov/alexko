@@ -96,13 +96,10 @@ if (!checkMobileView()) {
   }));
 }
 
-let lastWindowWidth = window.innerWidth;
+window.addEventListener('resize-width', function() {
+  windowHeight = window.innerHeight;
+});
 window.addEventListener('resize', function() {
-  if (lastWindowWidth !== window.innerWidth) {
-    lastWindowWidth = window.innerWidth;
-    
-    windowHeight = window.innerHeight;
-  }
   isMobile = checkMobileView();
 
   if (isMobile && !mobileAnimationsExist) {

@@ -68,8 +68,10 @@ class PortfolioProject {
     this.to_link_is_external = !!projectFromDB.to_link?.match(/^http/);
     this.creating_text = creatingVariations[projectFromDB.type_id ?? 2];
     this.creating_variations = creatingVariations;
-    this.demo_id = projectFromDB.demo_id;
+    this.demo_url = projectFromDB.demo_url;
+    this.demo_url_is_external = !!projectFromDB.demo_url?.match(/^http/);
     this.slug = projectFromDB.slug;
+    this.imagesView = projectFromDB.images_view || (this.type_id === 1 ? 'horizontal' : 'vertical');
     if (projectFromDB.type_name) {
       this.type_name = lang(projectFromDB.type_name);
     }
@@ -155,12 +157,8 @@ class PortfolioProject {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
 
-  get introImagesForFrontDesktop() {
-    return PortfolioProject.#processIntroImagesForFront(this.type_id == 1 ? this.intro_images.desktop : this.intro_images.mobile);
-  }
-
-  get introImagesForFrontMobile() {
-    return PortfolioProject.#processIntroImagesForFront(this.intro_images.mobile);
+  get introImagesForFront() {
+    return PortfolioProject.#processIntroImagesForFront(this.imagesView == 'horizontal' ? this.intro_images.desktop : this.intro_images.mobile);
   }
 }
 

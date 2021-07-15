@@ -1,0 +1,161 @@
+.demo-pop-up {
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: -30vh;
+    background-color: rgba(255, 255, 255, 0.98);
+  }
+  &__wrap {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__content {
+    max-width: 19.2rem;
+    transform: scale(1);
+    transition: transform .4s;
+    position: relative;
+  }
+  &__logo-block {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+  &__logo {
+    vertical-align: middle;
+  }
+  &__title {
+    display: block;
+    margin-top: 1.5rem;
+    margin-bottom: 2.1rem;
+    text-align: center;
+  }
+  &__p {
+    display: block;
+    line-height: 1.9;
+    margin-top: .75em;
+    margin-bottom: .75em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__link {
+    cursor: pointer;
+    text-decoration: none;
+    color: $accent-color;
+    transition: color .15s;
+
+    &:hover {
+      color: darken($accent-color, 15%);
+    }
+  }
+  &__button-block {
+    margin-top: 2.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &__button {
+    box-shadow: none !important;
+  }
+  &__button + &__button {
+    margin-top: .4rem;
+  }
+  &__noscript {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 700;
+    color: red;
+  }
+  &__closing-cross-button {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+    width: 1rem;
+    border: none;
+    background: none;
+    box-sizing: content-box;
+    user-select: none;
+    cursor: pointer;
+    padding: 0;
+    opacity: .2;
+    transition: opacity .2s ease-in-out;
+
+    &:hover, &:focus {
+      opacity: .4;
+    }
+  }
+  &__closing-cross-wrap {
+    transform-origin: bottom center;
+    transform: scale(1) translateY(0%);
+    transition: opacity .3s .4s, transform .35s .35s;
+  }
+  &__closing-cross {
+    width: 100%;
+    height: auto;
+    transform-origin: center;
+    transform: scale(1);
+    transition: transform .2s ease-in-out;
+  }
+  &__closing-cross-button:hover &__closing-cross,
+  &__closing-cross-button:focus &__closing-cross {
+    transform: scale(1.15);
+  }
+
+  &_shimmering .demo-pop-up {
+    &__background {
+      animation: shimmeringPopUp 5s infinite alternate ease-in-out;
+    }
+  }
+
+  &.hidden {
+    transition: opacity .3s;
+  }
+  &.hidden .demo-pop-up {
+    &__content {
+      transform: scale(.9);
+    }
+    &__closing-cross-wrap {
+      opacity: 0;
+      transition-delay: 0s;
+      transform: scale(.7) translateY(-20%);
+      transition: opacity .2s, transform .2s;
+    }
+  }
+  
+  @media (max-height: 540px) {
+    &__wrap {
+      justify-content: flex-start;
+      padding-top: 22vh;
+      padding-bottom: 2rem;
+      overflow-y: auto;
+    }
+  }
+  @media (max-width: 380px) {
+    &__closing-cross-button {
+      right: 0;
+      top: -1.5rem;
+    }
+  }
+}
+
+@keyframes shimmeringPopUp {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .95;
+  }
+}

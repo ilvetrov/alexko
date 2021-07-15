@@ -6,6 +6,7 @@ if (checkPage('edit-portfolio')) {
   require('./partials/editing-fields');
   require('./partials/add-intro-images');
   require('./partials/input-send-to-cloud').init();
+  require('./partials/change-images-view');
 }
 
 if (checkPage('edit-page')) {

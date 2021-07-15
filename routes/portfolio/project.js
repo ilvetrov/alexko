@@ -22,7 +22,30 @@ router.get('/portfolio/:slug', function(req, res, next) {
 
     res.renderMin('pages/portfolio-item', {
       title: project.title + ' – AlexKo',
-      project: project
+      project: project,
+      demoPopUp: project.demo_url && {
+        popUpName: 'demo-exists',
+        title: res.locals.lang('we_recommend_demo'),
+        demoText: res.locals.lang('we_recommend_demo_text'),
+        langName: getUserLanguage(req).code_name,
+        withLogo: false,
+        hidden: true,
+        lang: res.locals.lang,
+        closingCross: true,
+        buttons: [
+          {
+            isLink: true,
+            link: project.demo_url + `?demo_lang=${getUserLanguage(req).code_name}`,
+            isSolid: true,
+            text: res.locals.lang('open_demo'),
+          },
+          {
+            isLink: true,
+            link: project.to_link,
+            text: res.locals.lang('open_site'),
+          }
+        ]
+      }
     });
   })
   .catch(function(reason) {

@@ -1,5 +1,9 @@
 function checkMobile() {
-  return window.innerWidth < 1024 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return window.innerWidth < 1024 || checkMobileAgent();
+}
+
+function checkMobileAgent() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 function checkMobileView() {
@@ -8,5 +12,6 @@ function checkMobileView() {
 
 module.exports = {
   checkMobile,
+  checkMobileAgent,
   checkMobileView
 }

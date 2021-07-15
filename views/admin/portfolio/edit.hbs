@@ -16,7 +16,7 @@
           </h1>
           <!-- /.page-title -->
           <div class="portfolio-descr portfolio-header__descr">
-            <strong class="portfolio-descr__type"><span class="editor-inline-button js-project-type-output" data-pop-up-button="project_types" {{#if projectType}} data-project-type="{{ projectType.id }}" {{/if}} data-send-to-cloud-name="type_id" data-send-to-cloud-group="edit_project" data-send-to-cloud-attribute="data-project-type">{{iif projectType projectType.singular_name 'Тип проекта' }}</span>.</strong>
+            <strong class="portfolio-descr__type"><span class="editor-inline-button js-project-type-output" data-pop-up-button="project_types" {{#if projectType}} data-project-type="{{ projectType.id }}" {{/if}} data-send-to-cloud-name="type_id" data-send-to-cloud-group="edit_project" data-send-to-cloud-attribute="data-project-type">{{iif projectType projectType.singular_name projectTypePlaceholder }}</span>.</strong>
             <span class="portfolio-descr__main-text js-editor-field" contenteditable="true" data-placeholder="{{ lang 'short_descr' }}" data-send-to-cloud-name="descr" data-send-to-cloud-group="edit_project" data-multilingual="{{toString multilingual.descr }}">{{ project.descr }}</span>
           </div>
           <!-- /.portfolio-descr -->
@@ -24,10 +24,10 @@
             <div class="text-link text-link_independent portfolio-header__link editor-pop-up-input-caller {{iif project.to_link '' 'editor-pop-up-input-caller_empty'}} js-to-link-button" data-pop-up-button="to_link">
               <span class="inline-click-extender" data-variations="{{ toLinkVariations }}">{{ toLinkText }}</span>
             </div>
-            <a href="#about-creating" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70">
+            <a href="#about-project" class="text-link text-link_independent portfolio-header__link" data-scroll-offset="70">
               <span class="inline-click-extender" data-variations="{{ creatingVariations }}">{{ creatingText }}</span>
             </a>
-            <div class="text-link text-link_independent portfolio-header__link">
+            <div class="text-link text-link_independent portfolio-header__link editor-pop-up-input-caller {{iif project.demo_url '' 'editor-pop-up-input-caller_empty'}} js-demo-url-button" data-pop-up-button="demo_url">
               <span class="inline-click-extender">{{ lang 'demo' }}</span>
             </div>
           </div>
@@ -42,10 +42,11 @@
       <div class="container-size">
         <div class="editor-intro-images__wrap">
           <div class="editor-intro-images__content">
+            <input type="hidden" name="images_view" class="js-images-view-output" data-send-to-cloud-name="images_view" data-send-to-cloud-group="edit_project" value="{{ imagesViewForInput }}">
             <div class="editor-intro-images__sections">
               
-              <div class="editor-intro-images__section {{iif hideMobileImages 'disabled' '' }}" data-hide-on-project-types="{{ hideMobileImagesForTypes }}">
-                <h2 class="editor-intro-images__title">{{ lang 'mobile_images' }}</h2>
+              <div class="editor-intro-images__section {{iif hideMobileImages 'disabled' '' }}" data-hide-on-project-types="{{ hideMobileImagesForTypes }}" data-do-not-hide-if="js-images-view-output">
+                <h2 class="editor-intro-images__title" data-change-images-view="vertical">{{ lang 'mobile_images' }}</h2>
                 <!-- /.editor-intro-images__title -->
                 <input type="hidden" name="intro_images" value="{{toString introImages.mobile }}" data-send-to-cloud-name="intro_images" data-send-to-cloud-group="edit_project">
                 <div class="editor-intro-images__items js-editor-intro-images">
@@ -74,8 +75,8 @@
               </div>
               <!-- /.editor-intro-images__section -->
 
-              <div class="editor-intro-images__section {{iif hideDesktopImages 'disabled' '' }}" data-hide-on-project-types="{{ hideDesktopImagesForTypes }}">
-                <h2 class="editor-intro-images__title">{{ lang 'desktop_images' }}</h2>
+              <div class="editor-intro-images__section {{iif hideDesktopImages 'disabled' '' }}" data-hide-on-project-types="{{ hideDesktopImagesForTypes }}" data-do-not-hide-if="js-images-view-output">
+                <h2 class="editor-intro-images__title" data-change-images-view="horizontal">{{ lang 'desktop_images' }}</h2>
                 <!-- /.editor-intro-images__title -->
                 <input type="hidden" name="intro_desktop_images" value="{{toString introImages.desktop }}" data-send-to-cloud-name="intro_desktop_images" data-send-to-cloud-group="edit_project">
                 <div class="editor-intro-images__items js-editor-intro-desktop-images">
@@ -116,6 +117,6 @@
     <!-- /.editor-intro-images -->
   </div>
   <!-- /.portfolio-item__wrap -->
-  <div id="about-creating" class="portfolio-item__content text-with-lists js-portfolio-content" data-editorjs="project_text" data-multilingual="{{toString multilingual.text }}"></div>
+  <div id="about-project" class="portfolio-item__content text-with-lists js-portfolio-content" data-editorjs="project_text" data-multilingual="{{toString multilingual.text }}"></div>
 </main>
 <!-- /.portfolio-item -->

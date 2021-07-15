@@ -66,10 +66,14 @@ function initButton(button) {
         if (button.hasAttribute('data-with-intro-images')) {
           const introImages = values.intro_images;
           const introDesktopImages = values.intro_desktop_images;
+          const manualImagesView = document.getElementsByClassName('js-images-view-output')[0].value;
           const projectType = document.getElementsByClassName('js-project-type-output')[0]?.getAttribute('data-project-type');
     
           if (
-            Number(projectType) !== 1
+            (
+              (!manualImagesView && Number(projectType) !== 1)
+              || (manualImagesView === 'vertical')
+            )
             && !(
               introImages
               && introImages['0']
@@ -83,14 +87,17 @@ function initButton(button) {
               && introImages['8']
             )
           ) {
-            disableButtonProcessWithError(button, 'Нужно минимум 9 мобильных изображений');
+            disableButtonProcessWithError(button, 'Нужно минимум 9 вертикальных изображений');
             lookAtMeAnimation(button);
             lookAtMeAnimation(editorIntroImagesElement);
             return;
           }
     
           if (
-            Number(projectType) === 1
+            (
+              (!manualImagesView && Number(projectType) === 1)
+              || (manualImagesView === 'horizontal')
+            )
             && !(
               introDesktopImages
               && introDesktopImages['0']
@@ -98,7 +105,7 @@ function initButton(button) {
               && introDesktopImages['2']
             )
           ) {
-            disableButtonProcessWithError(button, 'Нужно минимум 3 десктопных изображений');
+            disableButtonProcessWithError(button, 'Нужно минимум 3 горизонтальных изображений');
             lookAtMeAnimation(button);
 
             lookAtMeAnimation(editorIntroDesktopImagesElement);

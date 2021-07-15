@@ -28,3 +28,9 @@ strong {
   outline: none !important;
   color: inherit;
 }
+
+@media (max-width: 341px) {
+  html {
+    font-size: 14px;
+  }
+}

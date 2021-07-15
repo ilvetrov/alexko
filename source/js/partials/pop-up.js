@@ -81,6 +81,13 @@ for (let i = 0; i < popUps.length; i++) {
   }
 }
 
+function checkPopUp(popUp) {
+  popUp = detectPopUpInVariable(popUp);
+  if (!popUp) return false;
+  
+  return !popUp.classList.contains('disabled');
+}
+
 function showPopUp(popUp) {
   popUp = detectPopUpInVariable(popUp);
   if (!popUp) return false;
@@ -108,7 +115,9 @@ function hidePopUp(popUp) {
   popUp.classList.add('hidden');
   setTimeout(() => {
     popUp.classList.add('disabled');
-    unblockScroll();
+    if (!popUp.hasAttribute('data-pop-up-do-not-show-scroll-bar-on-hide')) {
+      unblockScroll();
+    }
   }, 220);
 
   const callbacks = callbacksOfHiding[popUp.getAttribute('data-pop-up')];
@@ -125,6 +134,14 @@ function hidePopUp(popUp) {
       popUp.classList.remove('ready-to-close');
     }, 100);
   }
+}
+
+function forceHidePopUp(popUp) {
+  popUp = detectPopUpInVariable(popUp);
+  if (!popUp) return false;
+
+  popUp.classList.add('disabled');
+  hidePopUp(popUp);
 }
 
 function setPositionTo(element, toElement) {
@@ -197,8 +214,10 @@ function detectPopUpInVariable(popUp) {
 }
 
 module.exports = {
+  checkPopUp,
   showPopUp,
   hidePopUp,
+  forceHidePopUp,
   addCallbackToHideOfPopUp,
   addActionToEvent
 }

@@ -10,6 +10,7 @@
   padding: 0;
   justify-content: center;
   max-width: 100%;
+  cursor: pointer;
 
   &__text {
     font-size: inherit;
@@ -19,6 +20,7 @@
     white-space: nowrap;
     text-align: center;
     line-height: 1.2;
+    user-select: none;
   }
   
   &[href] {
@@ -32,17 +34,17 @@
     color: $accent-color;
   }
   
-  &_wide & {
+  &_wide .accent-button {
     &__text {
       min-width: 9em;
     }
   }
-  &_extra-wide & {
+  &_extra-wide .accent-button {
     &__text {
       min-width: 12.4em;
     }
   }
-  &_big & {
+  &_big .accent-button {
     &__text {
       padding: 1.2em 3.7em;
     }
@@ -64,10 +66,15 @@
   &_secondary {
     border: none;
   }
-  &_secondary & {
+  &_secondary .accent-button {
     &__text {
       padding-right: 0;
       padding-left: 0;
+    }
+  }
+  &_regular .accent-button {
+    &__text {
+      font-weight: 400;
     }
   }
 }

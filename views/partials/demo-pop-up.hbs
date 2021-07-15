@@ -1,0 +1,63 @@
+<div class="pop-up demo-pop-up demo-pop-up_{{ langName }} {{iif shimmering 'demo-pop-up_shimmering' ''}} {{iif hidden 'hidden disabled' ''}}" data-pop-up="{{ popUpName }}" {{iif dataPopUpDoNotShowScrollBarOnHide 'data-pop-up-do-not-show-scroll-bar-on-hide' ''}}>
+  <div class="demo-pop-up__background"></div>
+  <div class="demo-pop-up__wrap">
+
+    <div class="demo-pop-up__content container-size">
+      {{#if closingCross}}
+        <button class="demo-pop-up__closing-cross-button" data-pop-up-close-button="{{ popUpName }}">
+          <div class="demo-pop-up__closing-cross-wrap">
+            <img src="/img/close.svg" alt="{{ lang 'close' }}" class="demo-pop-up__closing-cross click-extender">
+          </div>
+          <!-- /.demo-pop-up__closing-cross-wrap -->
+        </button>
+        <!-- /.demo-pop-up__closing-cross-button -->
+      {{/if}}
+      {{#if withLogo}}
+        <div class="demo-pop-up__logo-block">
+          <a href="https://alexko.ltd" class="logo demo-pop-up__logo-block click-extender" target="_blank">
+            <img src="{{ mainDomain }}/img/alexko-line-logo.svg" alt="alexko" class="logo__img demo-pop-up__logo">
+          </a>
+          <!-- /.logo -->
+        </div>
+        <!-- /.demo-pop-up__logo-block -->
+      {{/if}}
+      <div class="demo-pop-up__title page-title page-title_free-transform page-title_mini">
+        {{ title }}
+      </div>
+      <!-- /.demo-pop-up__title -->
+      <div class="demo-pop-up__text">
+        {{#each demoText as |paragraph|}}
+          <p class="demo-pop-up__p">
+            {{{ paragraph.text }}}{{#if paragraph.link }}<a href="{{ ../link }}" target="_blank" class="demo-pop-up__link" rel="noopener noreferrer">{{{ paragraph.link }}}</a>.{{/if}}
+          </p>
+          <!-- /.demo-pop-up__p -->
+        {{/each}}
+      </div>
+      <!-- /.demo-pop-up__text -->
+      <div class="demo-pop-up__button-block">
+        {{#if buttons}}
+          {{#each buttons as |button|}}
+            <{{#if button.isLink}}a href="{{ button.link }}" target="_blank"{{else}}div{{/if}} class="accent-button accent-button_extra-wide {{iif button.isSolid 'accent-button_solid' 'accent-button_secondary accent-button_regular'}} demo-pop-up__button" {{#if button.close}}data-pop-up-close-button="{{ popUpName }}"{{/if}}>
+              <span class="accent-button__text">{{ button.text }}</span>
+            </{{#if button.isLink}}a{{else}}div{{/if}}>
+            <!-- /.accent-button -->
+          {{/each}}
+        {{else}}
+          <button class="accent-button accent-button_extra-wide accent-button_solid demo-pop-up__button" data-pop-up-close-button="{{ popUpName }}">
+            <span class="accent-button__text">{{ lang 'hide_notification' }}</span>
+          </button>
+          <!-- /.accent-button -->
+        {{/if}}
+      </div>
+      <!-- /.demo-pop-up__button-block -->
+      <noscript class="demo-pop-up__noscript">
+        {{ lang 'enable_js' }}
+      </noscript>
+      <!-- /.demo-pop-up__noscript -->
+    </div>
+    <!-- /.demo-pop-up__content -->
+
+  </div>
+  <!-- /.demo-pop-up__wrap -->
+</div>
+<!-- /.pop-up -->

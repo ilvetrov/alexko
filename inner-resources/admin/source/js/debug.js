@@ -1,4 +1,4 @@
-window.checkTimeSync = function (action, amount = 1) {
+function checkTimeSync(action, amount = 1) {
   const startTime = Date.now();
   for (let i = 0; i < amount; i++) {
     action();
@@ -6,7 +6,7 @@ window.checkTimeSync = function (action, amount = 1) {
   console.log(`syncTime: ${Date.now() - startTime}ms`);
 }
 
-window.checkTimeAsync = function (action, amount = 1) {
+function checkTimeAsync(action, amount = 1) {
   if (amount === 1) {
     var startTime = Date.now();
     action(sendEndTime);
@@ -21,4 +21,14 @@ window.checkTimeAsync = function (action, amount = 1) {
   function sendEndTime() {
     console.log(`asyncTime: ${Date.now() - startTime}ms`);
   }
+}
+
+if (typeof window !== 'undefined') {
+  window.checkTimeSync = checkTimeSync;
+  window.checkTimeAsync = checkTimeAsync;
+}
+
+module.exports = {
+  checkTimeSync,
+  checkTimeAsync
 }

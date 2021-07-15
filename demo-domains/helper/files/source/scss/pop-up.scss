@@ -1,0 +1,33 @@
+@import "./partials/fonts.scss";
+
+.alexko {
+  * {
+    all: unset;
+  }
+}
+
+.alexko {
+  @import "../../../../../source/scss/partials/reset.scss";
+  @import "../../../../../source/scss/partials/variables";
+  @import "../../../../../source/scss/partials/global";
+
+  @import "../../../../../source/scss/partials/container-size.scss";
+  @import "../../../../../source/scss/partials/click-extender.scss";
+  @import "../../../../../source/scss/partials/titles.scss";
+
+  @import "../../../../../source/scss/partials/pop-up.scss";
+  @import "../../../../../source/scss/partials/button.scss";
+
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+  font-feature-settings: 'lnum';
+  font-weight: 400;
+  color: $default-color;
+  box-sizing: border-box;
+
+  @import "../../../../../source/scss/partials/demo-pop-up.scss";
+  
+  .demo-pop-up {
+    z-index: 99999;
+  }
+}

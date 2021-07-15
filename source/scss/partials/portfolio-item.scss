@@ -125,6 +125,14 @@
   }
 }
 
+@media (max-width: 425px) {
+  .portfolio-header {
+    &__link {
+      margin-right: 1.3rem;
+    }
+  }
+}
+
 @media (max-width: 405px) {
   .portfolio-item {
     &__content {

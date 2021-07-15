@@ -1,7 +1,6 @@
 const fs = require('fs');
 const languages = getAllLanguagesFromFiles();
 const userLocale = require('get-user-locale');
-const isDevelopment = require('./is-development');
 
 function getAllLanguagesFromFiles() {
   const languageFiles = fs.readdirSync('languages');
@@ -48,17 +47,23 @@ function getLanguagesNames(req = undefined) {
   return outputLanguages;
 }
 
-function getLanguage(name) {
+function getLanguage(rawName) {
+  const name = String(rawName).trim();
+
   for (const key in languages) {
     if (Object.hasOwnProperty.call(languages, key)) {
       const language = languages[key];
-      if (key == name || language.aliases.indexOf(name) != -1) {
+      if (key === name || language.aliases.indexOf(name) !== -1) {
         return language;
       }
     }
   }
 
   return languages['en'];
+}
+
+function validateLangName(langName) {
+  return getLanguage(langName).code_name;
 }
 
 function setUserLanguage(req, res) {
@@ -121,5 +126,6 @@ module.exports = {
   langPropConstructor,
   getLanguagesList,
   getLanguagesNames,
-  getUserLanguage
+  getUserLanguage,
+  validateLangName
 }

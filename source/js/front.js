@@ -1,5 +1,6 @@
 'use strict';
 
+require('./partials/width-resize-event');
 require('./partials/dynamic-styles');
 require('./partials/true-vh');
 require('./partials/controls/change-language');
@@ -22,6 +23,7 @@ require('./partials/mobile-observer');
 require('./partials/image-expansion-shadow');
 
 if (checkPage('home')) {
+  require('./partials/animations/subtitle-links');
   require('./partials/animations/arrows');
   require('./partials/animations/screen-scroll');
 }
@@ -52,5 +54,6 @@ require('./partials/controls/pop-up-inputs');
 require('./partials/controls/multilingual-inputs').init();
 require('./partials/controls/change-editing-language');
 require('./partials/write-to-us');
+require('./partials/notify-about-the-existence-of-demo');
 
 smoothHoverAnimation('plus-button', 'hover');
