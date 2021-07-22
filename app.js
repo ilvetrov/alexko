@@ -19,12 +19,7 @@ const fileUpload = require('express-fileupload');
 const minifyHTML = require('./libs/minify-html');
 const db = require('./db');
 
-const globalRouter = require('./routes/_global');
-const indexRouter = require('./routes/index');
-const adminRouter = require('./routes/admin');
-const servicesRouter = require('./routes/services');
-const formsRouter = require('./routes/forms');
-const pagesRouter = require('./routes/pages');
+const routes = require('./routes');
 
 const app = express();
 
@@ -56,21 +51,18 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
-app.use('/services', servicesRouter);
-app.use(globalRouter);
-
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(indexRouter);
-app.use('/admin', adminRouter);
-app.use(formsRouter);
-app.use(pagesRouter);
+app.use(routes);
 
 require('./libs/empty-tmp');
 
 require('./demo-domains');
 
+require('./libs/get-metrics-for-manual-installation');
+
 const { langConstructor } = require('./libs/user-language');
+const defaultResLocals = require('./libs/default-res-locals');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -79,6 +71,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  defaultResLocals(req, res);
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -90,7 +83,11 @@ app.use(function(err, req, res, next) {
   res.renderMin('pages/error', {
     title: lang('page_not_found') + ' – AlexKo',
     layout: 'layouts/mini',
-    links: lang('404_links')
+    links: Array.from(lang('404_links')).map(link => {
+      return {...link, ...{
+        url: (link.url === '/' ? res.locals.linkPrefixOfHome : res.locals.linkPrefix) + link.url
+      }};
+    })
   });
 });
 

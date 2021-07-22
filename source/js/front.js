@@ -19,6 +19,7 @@ const smoothHoverAnimation = require('./partials/smooth-hover-animation');
 require('./partials/async-img-front');
 require('./partials/scroll-to-anchor');
 require('./partials/pop-up');
+require('./partials/action-cloud');
 require('./partials/mobile-observer');
 require('./partials/image-expansion-shadow');
 
@@ -53,6 +54,8 @@ require('./partials/controls/select-project-type');
 require('./partials/controls/pop-up-inputs');
 require('./partials/controls/multilingual-inputs').init();
 require('./partials/controls/change-editing-language');
+require('./partials/controls/proposal-to-change-language');
+require('./partials/controls/set-cookies-after-consent');
 require('./partials/write-to-us');
 require('./partials/notify-about-the-existence-of-demo');
 

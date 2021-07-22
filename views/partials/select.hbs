@@ -2,9 +2,9 @@
   <div class="select-pop-up__content" data-pop-up-content>
     {{#each selectData.items as |item|}}
       <div class="select-pop-up__item-wrap">
-        <div class="select-pop-up__item click-extender {{iif item.active 'active' ''}}" data-option-id="{{ item.id }}" data-event-button>
+        <{{#if item.link}}a href="{{ item.link }}"{{else}}div{{/if}} class="select-pop-up__item click-extender {{iif item.active 'active' ''}}" data-option-id="{{ item.id }}" data-event-button>
           {{ item.content }}
-        </div>
+        </{{#if item.link}}a{{else}}div{{/if}}>
         <!-- /.select-pop-up__item -->
       </div>
       <!-- /.select-pop-up__item-wrap -->

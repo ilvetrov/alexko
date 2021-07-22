@@ -1,8 +1,8 @@
-function redirectTo(res, to = undefined, defaultPath = '/') {
+function redirectTo(res, to = undefined, defaultPath = '/', permanent = false) {
   if (to) {
-    res.redirect(to);
+    res.redirect(permanent ? 301 : 302, to);
   } else {
-    res.redirect(defaultPath);
+    res.redirect(permanent ? 301 : 302, defaultPath);
   }
 }
 

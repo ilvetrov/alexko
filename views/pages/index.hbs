@@ -10,7 +10,7 @@
               {{#removeWhitespaces}}
                 {{#each ../siteFocus as |wordsBlock|}}
                   {{#if wordsBlock.link}}
-                    <a class="subtitle__inner-link {{iifEquals ../../helloTitleVariant 1 'js-subtitle-link-accent' ''}}" href="{{ wordsBlock.link }}">
+                    <a class="subtitle__inner-link {{iifEquals ../../helloTitleVariant 1 'js-subtitle-link-accent' ''}}" href="{{../../linkPrefix}}{{ wordsBlock.link }}">
                   {{/if}}
                   {{ wordsBlock.text }}
                   {{#if wordsBlock.link}}
@@ -57,12 +57,12 @@
         <!-- /.hello-section__content -->
         <div class="page-menu bottom-screen-offset js-hello-section-page-menu">
           {{#if advantages.length}}
-          <a href="/#why-us" class="page-menu__item">
+          <a href="{{linkPrefix}}/#why-us" class="page-menu__item">
             {{ lang 'why_us' }}
           </a>
           <!-- /.page-menu__item -->
           {{/if}}
-          <a href="/#portfolio" class="page-menu__item" data-scroll-offset="60">
+          <a href="{{linkPrefix}}/#portfolio" class="page-menu__item" data-scroll-offset="60">
             {{ lang 'portfolio' }}
           </a>
           <!-- /.page-menu__item -->
@@ -119,12 +119,12 @@
         <div class="container-size">
           <div class="home-page__header">
             <div class="portfolio-header">
-              <a href="/{{ project.type_plural_raw_name }}" class="subtitle portfolio-header__subtitle">
+              <a href="{{../linkPrefix}}/{{ project.type_plural_raw_name }}" class="subtitle portfolio-header__subtitle">
                 {{ project.type_plural_name }}
                 <span class="accent-slash">/</span>
               </a>
               <!-- /.subtitle -->
-              <a href="/portfolio/{{ project.slug }}" class="page-title page-title_free-transform page-title_mini page-title_link portfolio-header__title portfolio-header__title_mini">
+              <a href="{{../linkPrefix}}/portfolio/{{ project.slug }}" class="page-title page-title_free-transform page-title_mini page-title_link portfolio-header__title portfolio-header__title_mini">
                 {{ project.title }}
               </a>
               <!-- /.page-title -->
@@ -141,7 +141,7 @@
         {{> portfolio_home_gallery project}}
         <div class="container-size">
           <div class="container-center">
-            <a href="/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
+            <a href="{{../linkPrefix}}/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
               <span class="accent-button__text">{{ ../lang 'view_in_portfolio' }}</span>
             </a>
             <!-- /.accent-button -->

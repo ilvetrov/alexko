@@ -1,0 +1,47 @@
+{{#if requestCookiesConsent}}
+  <div class="cloud-of-page-container action-cloud cookie-consent-wrap" data-action-cloud="cookie-consent" data-close-transition-time="320">
+    <div class="container-size">
+      <div class="cloud-of-page-container__content">
+        <div class="cookie-consent-wrap__consent">
+
+          <div class="cookie-consent">
+            <div class="cookie-consent__wrap">
+              <div class="cookie-consent__background"></div>
+              <div class="cookie-consent__content">
+                <div class="cookie-consent__title">
+                  <span class="cookie-consent__accent">Cookie.</span> Разрешаете?
+                </div>
+                <!-- /.cookie-consent__title -->
+                <div class="cookie-consent__text">
+                  Нужно, чтобы делать сайт удобнее. <a href="{{linkPrefix}}/cookie-policy" class="cookie-consent__link" target="_blank">Подробнее.</a>
+                </div>
+                <!-- /.cookie-consent__text -->
+                <div class="cookie-consent__buttons">
+                  <div class="cookie-consent__button">
+                    <button class="line-button line-button_accent click-extender" data-action-cloud-make-action="cookie-consent" data-action-cloud-close-button="cookie-consent">Я согласен на Cookie</button>
+                    <!-- /.line-button -->
+                  </div>
+                  <!-- /.cookie-consent__button -->
+                  <div class="cookie-consent__button">
+                    <button class="line-button click-extender" data-action-cloud-close-button="cookie-consent">Нет, не согласен</button>
+                    <!-- /.line-button -->
+                  </div>
+                  <!-- /.cookie-consent__button -->
+                </div>
+                <!-- /.cookie-consent__buttons -->
+              </div>
+              <!-- /.cookie-consent__content -->
+            </div>
+            <!-- /.cookie-consent__wrap -->
+          </div>
+          <!-- /.cookie-consent -->
+
+        </div>
+        <!-- /.cookie-consent-wrap__consent -->
+      </div>
+      <!-- /.cloud-of-page-container__content -->
+    </div>
+    <!-- /.container-size -->
+  </div>
+  <!-- /.cloud-of-page-container -->
+{{/if}}

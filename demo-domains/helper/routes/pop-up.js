@@ -1,5 +1,5 @@
 const isDevelopment = require("../../../libs/is-development");
-const { langConstructorByCodeName, validateLangName } = require("../../../libs/user-language");
+const { langConstructorByCodeName, validateLangName, defaultLang } = require("../../../libs/user-language");
 const getView = require("../libs/get-view");
 const { insertStyle, insertScript } = require("../libs/insert-file");
 const mainDomain = require("../libs/main-domain");
@@ -18,7 +18,7 @@ const popUpStyles = insertPopUpStyle();
 const popUpScripts = insertPopUpScript();
 
 module.exports = function(req, res) {
-  const langName = validateLangName(req.data.lang);
+  const langName = req.data.lang ? validateLangName(req.data.lang) : defaultLang;
   const lang = langConstructorByCodeName(langName);
 
   res.writeHead(200, {

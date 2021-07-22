@@ -4,12 +4,12 @@
   <div class="form__content">
     <div class="field field_big form__field js-field" data-field-require>
       <label class="field__label" for="login-name">Email</label>
-      <input type="email" name="email" placeholder="name@example.com" class="field__input" id="login-name">
+      <input type="email" name="email" placeholder="name@example.com" class="field__input ym-disable-keys" id="login-name">
     </div>
     <!-- /.field -->
     <div class="field field_big form__field js-field" data-field-require>
       <label class="field__label" for="about-task">{{ lang 'what_do_you_want' }}?</label>
-      <textarea name="about_task" id="about-task" class="field__input field__textarea" placeholder="{{ writeToUs.field_example }}"></textarea>
+      <textarea name="about_task" id="about-task" class="field__input field__textarea ym-disable-keys" placeholder="{{ writeToUs.field_example }}"></textarea>
     </div>
     <!-- /.field -->
     <div class="checkbox-field form__checkbox js-field" data-field-require>
@@ -21,7 +21,7 @@
         <!-- /.checkbox__view -->
       </div>
       <!-- /.checkbox -->
-      <label for="personal-data" class="checkbox-field__label">{{ lang 'personal_data_text' }} <a href="/personal-data" class="checkbox-field__link" target="_blank" rel="noopener noreferrer">{{ lang 'personal_data_link' }}</a></label>
+      <label for="personal-data" class="checkbox-field__label">{{ lang 'personal_data_text' }} <a href="{{linkPrefix}}/personal-data" class="checkbox-field__link" target="_blank" rel="noopener noreferrer">{{ lang 'personal_data_link' }}</a></label>
     </div>
     <!-- /.checkbox-field -->
     <input type="hidden" name="token" value="{{ nonAuthCsrf.newToken }}">

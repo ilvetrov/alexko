@@ -15,3 +15,11 @@ hbs.registerHelper('ifEquals', (value1, value2, options) => {
     return options.inverse(this);
   }
 });
+
+hbs.registerHelper('ifNotEquals', (value1, value2, options) => {
+  if (value1 !== value2) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});

@@ -4,7 +4,9 @@
   "code_name": "ru",
   "aliases": ["uk", "ua", "be", "kz", "kk", "ky", "mo", "ab", "uz", "tg", "ka", "az", "hy", "ba", "kv", "tt", "cv"],
   "dictionary" : {
+    "site_name": "AlexKo",
     "company_name": "ООО «АлексКо»",
+    "region_name": "ru_RU",
     "site": "Сайт",
     "sites": "Сайты",
     "app": "Приложение",
@@ -138,6 +140,7 @@
     ],
     "close": "Закрыть",
     "project_type": "Тип проекта",
+    "change_to_lang": "Сменить на русский",
 
     "advantages": [
       {

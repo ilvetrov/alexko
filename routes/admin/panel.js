@@ -3,10 +3,17 @@ const { langConstructor } = require('../../libs/user-language');
 const { asyncImg } = require('../../libs/async-img-loader');
 const db = require('../../db');
 const { PortfolioProject } = require('../../models/portfolio');
+const redirectFromNonLang = require('../../libs/redirect-from-non-lang');
+const { setLangForRouter } = require('../../libs/set-lang-for-router');
+const defaultResLocals = require('../../libs/default-res-locals');
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get(`/admin`, (req, res) => redirectFromNonLang(req, res, `/admin`));
+
+router.get('/:lang/admin', function(req, res, next) {
+  if (!setLangForRouter(req, res, next, `/admin`)) return;
+
   const lang = langConstructor(req);
 
   Promise.all([
@@ -45,6 +52,7 @@ router.get('/', function(req, res, next) {
     const numberOfAwaitingApproval = projects.filter(project => project.status === 'awaiting_approval').length;
     const numberOfDrafts = projects.filter(project => project.status === 'draft').length;
 
+    defaultResLocals(req, res);
     res.renderMin('admin/index', {
       title: lang('admin_panel'),
       layout: 'layouts/admin',

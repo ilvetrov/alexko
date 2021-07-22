@@ -14,3 +14,29 @@
 <meta name="msapplication-TileColor" content="#126dff">
 <meta name="theme-color" content="#ffffff">
 <style class="js-async-backgrounds"></style>
+{{#each alternateLinks as |alternateLink|}}
+  <link rel="alternate" href="{{ alternateLink.link }}" hreflang="{{ alternateLink.name }}">
+{{/each}}
+<meta property="og:site_name" content="{{ siteName }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="twitter:title" content="{{ title }}">
+<meta property="og:type" content="{{ pageType }}">
+<meta property="og:url" content="{{ fullUrl }}">
+<meta property="og:locale" content="{{ currentLang.code_name }}">
+{{#each alternateLinks as |alternateLink|}}
+  {{#ifNotEquals alternateLink.name ../currentLang.code_name}}
+    <meta property="og:locale:alternate" content="{{ alternateLink.withRegion }}">
+  {{/ifNotEquals}}
+{{/each}}
+{{#if mainImage}}
+  <meta property="og:image" content="{{ mainImage }}">
+  <meta property="twitter:image" content="{{ mainImage }}">
+{{/if}}
+{{#if mainImageSize}}
+  <meta property="og:image:width" content="{{ mainImageSize.width }}">
+  <meta property="og:image:height" content="{{ mainImageSize.height }}">
+{{/if}}
+{{#if description}}
+  <meta property="og:description" content="{{ description }}">
+  <meta property="twitter:description" content="{{ description }}">
+{{/if}}

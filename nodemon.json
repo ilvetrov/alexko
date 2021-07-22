@@ -1,4 +1,8 @@
 {
+  "events": {
+    "crash": ["kill-port 3000", "kill-port 3020"],
+    "restart": ["kill-port 3000", "kill-port 3020"]
+  },
   "ignore": [
     "source/**",
     "public/**",

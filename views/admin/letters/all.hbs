@@ -41,7 +41,7 @@
           {{#each letters as |letter|}}
             <tr class="table__row">
               <td class="table__cell">
-                <a href="/admin/letters/{{ letter.id }}" class="table__link">
+                <a href="{{../linkPrefix}}/admin/letters/{{ letter.id }}" class="table__link">
                   {{ letter.email }}
                 </a>
                 <!-- /.table__link -->

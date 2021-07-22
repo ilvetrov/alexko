@@ -6,7 +6,7 @@ const redirectTo = require('../../../libs/redirect-to');
 
 var router = express.Router();
 
-router.get('/portfolio/add', checkAdminCsrf, async function(req, res, next) {
+router.get('/admin/portfolio/add', checkAdminCsrf, async function(req, res, next) {
   const newProjectId = (await db.query('INSERT INTO portfolio (admin_id) VALUES ($(admin_id)) RETURNING id', {
     admin_id: res.locals.admin.id
   }))[0].id;

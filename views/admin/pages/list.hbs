@@ -29,7 +29,7 @@
           {{#each pages as |page|}}
             <tr class="table__row">
               <td class="table__cell table__cell_accent {{iif page.title '' 'table__cell_inactive'}}">
-                <a href="/admin/pages/edit/{{ page.id }}" class="table__link">
+                <a href="{{linkPrefix}}/admin/pages/edit/{{ page.id }}" class="table__link">
                   {{#if page.title}}
                     {{ page.title }}
                   {{else}}

@@ -4,11 +4,12 @@ const db = require('../../../db');
 const { frontMultilingualToBackend } = require('../../../libs/converters/multilingual');
 const { getEditorImagesFromMultilingual } = require('../../../libs/converters/get-editor-images');
 const registerImages = require('../../../libs/register-images');
-const fs = require('fs-extra');
+const { getRoot } = require('../../../libs/get-root');
+const moveDirectoryIfExists = require('../../../libs/move-directory-if-exists');
 
 var router = express.Router();
 
-router.post('/pages/edit', checkAdminCsrf, async function(req, res, next) {
+router.post('/admin/pages/edit', checkAdminCsrf, async function(req, res, next) {
   const data = req.body;
 
   if (!data.page_id) return res.send('missed page_id');
@@ -49,12 +50,12 @@ router.post('/pages/edit', checkAdminCsrf, async function(req, res, next) {
   `, newData)
   .then((result) => {
     if (newData.status === 'published' && oldData.status !== 'published') {
-      fs.move(`inner-resources/drafts/${idForFiles}`, `public/content/${idForFiles}`)
+      moveDirectoryIfExists(`${getRoot()}/inner-resources/drafts/${idForFiles}`, `${getRoot()}/public/content/${idForFiles}`)
       .then(function() {
         sendSuccess();
       });
     } else if (newData.status !== 'published' && oldData.status === 'published') {
-      fs.move(`public/content/${idForFiles}`, `inner-resources/drafts/${idForFiles}`)
+      moveDirectoryIfExists(`${getRoot()}/public/content/${idForFiles}`, `${getRoot()}/inner-resources/drafts/${idForFiles}`)
       .then(function() {
         sendSuccess();
       });

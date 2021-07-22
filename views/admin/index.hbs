@@ -5,7 +5,7 @@
 
         <div class="panel-item panel-page__item">
           <div class="panel-item__wrap">
-            <a href="/admin/portfolio" class="panel-item__link-title">
+            <a href="{{linkPrefix}}/admin/portfolio" class="panel-item__link-title">
               <h2 class="panel-item__title title-style">
                 {{ lang 'portfolio' }}
               </h2>
@@ -15,18 +15,18 @@
             <div class="panel-item__content">
               <div class="panel-item__items">
                 <div class="panel-item__item">
-                  <{{{iif projectsAmount.published 'a href="/admin/portfolio?status=published"' 'div' }}} class="status-item status-item_faded click-extender {{iif projectsAmount.published '' 'status-item_inactive'}}" title="{{ lang 'published' }}">
+                  <{{#if projectsAmount.published}}a href="{{linkPrefix}}/admin/portfolio?status=published"{{else}}div{{/if}} class="status-item status-item_faded click-extender {{iif projectsAmount.published '' 'status-item_inactive'}}" title="{{ lang 'published' }}">
                     <img {{{ images.status_items.done }}} alt="{{ lang 'published' }}" class="status-item__img">
                     <div class="status-item__amount">
                       {{ projectsAmount.published }}
                     </div>
                     <!-- /.status-item__amount -->
-                  </{{{iif projectsAmount.published 'a' 'div' }}}>
+                  </if{{{iif projectsAmount.published 'a' 'div' }}}>
                   <!-- /.status-item -->
                 </div>
                 <!-- /.panel-item__item -->
                 <div class="panel-item__item">
-                  <{{{iif projectsAmount.awaitingApproval 'a href="/admin/portfolio?status=awaiting_approval"' 'div' }}} class="status-item status-item_red click-extender {{iif projectsAmount.awaitingApproval '' 'status-item_inactive'}}" title="{{ lang 'awaiting_approval' }}">
+                  <{{#if projectsAmount.awaitingApproval}}a href="{{linkPrefix}}/admin/portfolio?status=awaiting_approval"{{else}}div{{/if}} class="status-item status-item_red click-extender {{iif projectsAmount.awaitingApproval '' 'status-item_inactive'}}" title="{{ lang 'awaiting_approval' }}">
                     <img {{{ images.status_items.clock }}} alt="{{ lang 'awaiting_approval' }}" class="status-item__img">
                     <div class="status-item__amount">
                       {{ projectsAmount.awaitingApproval }}
@@ -37,7 +37,7 @@
                 </div>
                 <!-- /.panel-item__item -->
                 <div class="panel-item__item">
-                  <{{{iif projectsAmount.draft 'a href="/admin/portfolio?status=draft"' 'div' }}} class="status-item status-item_accent click-extender {{iif projectsAmount.draft '' 'status-item_inactive'}}" title="{{ lang 'drafts' }}">
+                  <{{#if projectsAmount.draft}}a href="{{linkPrefix}}/admin/portfolio?status=draft"{{else}}div{{/if}} class="status-item status-item_accent click-extender {{iif projectsAmount.draft '' 'status-item_inactive'}}" title="{{ lang 'drafts' }}">
                     <img {{{ images.status_items.draft }}} alt="{{ lang 'drafts' }}" class="status-item__img">
                     <div class="status-item__amount">
                       {{ projectsAmount.draft }}
@@ -66,7 +66,7 @@
 
         <div class="panel-item panel-page__item">
           <div class="panel-item__wrap">
-            <a href="/admin/letters" class="panel-item__link-title">
+            <a href="{{linkPrefix}}/admin/letters" class="panel-item__link-title">
               <h2 class="panel-item__title title-style">
                 {{ lang 'letters' }}
               </h2>
@@ -76,13 +76,13 @@
             <div class="panel-item__content">
               <div class="panel-item__items">
                 <div class="panel-item__item">
-                  <{{{iif newLettersAmount 'a href="/admin/letters?status=new"' 'div' }}} class="status-item status-item_red click-extender {{iif newLettersAmount '' 'status-item_inactive'}}" title="{{ lang 'new_letters' }}">
+                  <{{#if newLettersAmount}}a href="{{linkPrefix}}/admin/letters?status=new"{{else}}div{{/if}} class="status-item status-item_red click-extender {{iif newLettersAmount '' 'status-item_inactive'}}" title="{{ lang 'new_letters' }}">
                     <img {{{ images.important }}} alt="{{ lang 'new_letters' }}" class="status-item__img">
                     <div class="status-item__amount">
                       {{ newLettersAmount }}
                     </div>
                     <!-- /.status-item__amount -->
-                  </{{{iif newLettersAmount 'a' 'div' }}}>
+                  </if{{{iif newLettersAmount 'a' 'div' }}}>
                   <!-- /.status-item -->
                 </div>
                 <!-- /.panel-item__item -->
@@ -97,7 +97,7 @@
 
         <div class="panel-item panel-page__item">
           <div class="panel-item__wrap">
-            <a href="/admin/pages" class="panel-item__link-title">
+            <a href="{{linkPrefix}}/admin/pages" class="panel-item__link-title">
               <h2 class="panel-item__title title-style">
                 {{ lang 'pages' }}
               </h2>
@@ -107,7 +107,7 @@
             <div class="panel-item__content">
               <div class="panel-item__items">
                 <div class="panel-item__item">
-                  <{{{iif pagesAmount.published 'a href="/admin/pages?status=published"' 'div' }}} class="status-item status-item_faded click-extender {{iif pagesAmount.published '' 'status-item_inactive'}}" title="{{ lang 'published' }}">
+                  <{{#if pagesAmount.published}}a href="{{linkPrefix}}/admin/pages?status=published"{{else}}div{{/if}} class="status-item status-item_faded click-extender {{iif pagesAmount.published '' 'status-item_inactive'}}" title="{{ lang 'published' }}">
                     <img {{{ images.status_items.done }}} alt="{{ lang 'published' }}" class="status-item__img">
                     <div class="status-item__amount">
                       {{ pagesAmount.published }}
@@ -118,7 +118,7 @@
                 </div>
                 <!-- /.panel-item__item -->
                 <div class="panel-item__item">
-                  <{{{iif pagesAmount.awaitingApproval 'a href="/admin/pages?status=awaiting_approval"' 'div' }}} class="status-item status-item_red click-extender {{iif pagesAmount.awaitingApproval '' 'status-item_inactive'}}" title="{{ lang 'awaiting_approval' }}">
+                  <{{#if pagesAmount.awaitingApproval}}a href="{{linkPrefix}}/admin/pages?status=awaiting_approval"{{else}}div{{/if}} class="status-item status-item_red click-extender {{iif pagesAmount.awaitingApproval '' 'status-item_inactive'}}" title="{{ lang 'awaiting_approval' }}">
                     <img {{{ images.status_items.clock }}} alt="{{ lang 'awaiting_approval' }}" class="status-item__img">
                     <div class="status-item__amount">
                       {{ pagesAmount.awaitingApproval }}
@@ -129,7 +129,7 @@
                 </div>
                 <!-- /.panel-item__item -->
                 <div class="panel-item__item">
-                  <{{{iif pagesAmount.draft 'a href="/admin/pages?status=draft"' 'div' }}} class="status-item status-item_accent click-extender {{iif pagesAmount.draft '' 'status-item_inactive'}}" title="{{ lang 'drafts' }}">
+                  <{{#if pagesAmount.draft}}a href="{{linkPrefix}}/admin/pages?status=draft"{{else}}div{{/if}} class="status-item status-item_accent click-extender {{iif pagesAmount.draft '' 'status-item_inactive'}}" title="{{ lang 'drafts' }}">
                     <img {{{ images.status_items.draft }}} alt="{{ lang 'drafts' }}" class="status-item__img">
                     <div class="status-item__amount">
                       {{ pagesAmount.draft }}

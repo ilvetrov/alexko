@@ -3,7 +3,8 @@ const checkAdmin = require('../middlewares/check-admin');
 
 var router = express.Router();
 
-router.use(checkAdmin);
+router.use('/admin', checkAdmin);
+router.use('/:lang/admin', checkAdmin);
 router.use(require('./admin/panel'));
 router.use(require('./admin/portfolio'));
 router.use(require('./admin/letters'));

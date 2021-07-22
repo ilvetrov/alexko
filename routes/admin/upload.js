@@ -6,7 +6,7 @@ const uploadFile = require('../../libs/upload-file');
 
 var router = express.Router();
 
-router.post('/upload', checkAdminCsrf, async function(req, res, next) {
+router.post('/admin/upload', checkAdminCsrf, async function(req, res, next) {
   const files = req.files['files[]'];
   const projectId = Number(req.body.project_id);
 

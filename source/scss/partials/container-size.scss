@@ -1,24 +1,26 @@
-.container-size {
-  margin-left: 70px;
-  margin-right: 70px;
-  width: auto;
+@mixin containerSize($offset) {
+  .container-size {
+    margin-left: $offset;
+    margin-right: $offset;
+    width: auto;
+  }
+  .bottom-absolute-like-container-size {
+    bottom: $offset;
+  }
 }
+
 .container-center {
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
+@include containerSize(70px);
+
 @media (max-width: 1024px) {
-  .container-size {
-    margin-left: 6.8vw;
-    margin-right: 6.8vw;
-  }
+  @include containerSize(6.8vw);
 }
 
 @media (max-width: 330px) {
-  .container-size {
-    margin-left: 22px;
-    margin-right: 22px;
-  }
+  @include containerSize(22px);
 }

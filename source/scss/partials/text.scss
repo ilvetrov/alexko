@@ -138,6 +138,9 @@
     > li {
       margin-top: .7rem;
     }
+    ul, ol {
+      margin-top: 0px;
+    }
   }
 
   ul {
@@ -163,6 +166,21 @@
           content: mainItem counters(innerItem, '.') ". ";
           counter-increment: innerItem;
         }
+      }
+    }
+  }
+
+  .text-list-wrap:first-child {
+    > .text-container {
+      > ol, > ul {
+        margin-top: 0;
+      }
+    }
+  }
+  .text-list-wrap:only-child {
+    > .text-container {
+      > ol, > ul {
+        padding-left: 0;
       }
     }
   }

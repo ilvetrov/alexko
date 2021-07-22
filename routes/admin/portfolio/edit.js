@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const checkAdminCsrf = require('../../../middlewares/check-admin-csrf');
 const db = require('../../../db');
@@ -6,12 +5,13 @@ const { frontMultilingualToBackend } = require('../../../libs/converters/multili
 const getIntroImagesAsWebArray = require('../../../libs/converters/intro-images-as-web-array');
 const { getEditorImagesFromMultilingual } = require('../../../libs/converters/get-editor-images');
 const registerImages = require('../../../libs/register-images');
-const fs = require('fs-extra');
 const normalizeIntroImages = require('../../../libs/normalize-intro-images');
+const moveDirectoryIfExists = require('../../../libs/move-directory-if-exists');
+const { getRoot } = require('../../../libs/get-root');
 
 var router = express.Router();
 
-router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
+router.post('/admin/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
   const data = req.body;
 
   if (!data.project_id) return res.send('missed project_id');
@@ -65,12 +65,12 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
   `, newData)
   .then((result) => {
     if (newData.status === 'published' && oldData.status !== 'published') {
-      fs.move(`inner-resources/drafts/${newData.id}`, `public/content/${newData.id}`)
+      moveDirectoryIfExists(`${getRoot()}/inner-resources/drafts/${newData.id}`, `${getRoot()}/public/content/${newData.id}`)
       .then(function() {
         sendSuccess();
       });
     } else if (newData.status !== 'published' && oldData.status === 'published') {
-      fs.move(`public/content/${newData.id}`, `inner-resources/drafts/${newData.id}`)
+      moveDirectoryIfExists(`${getRoot()}/public/content/${newData.id}`, `${getRoot()}/inner-resources/drafts/${newData.id}`)
       .then(function() {
         sendSuccess();
       });
@@ -79,6 +79,7 @@ router.post('/portfolio/edit', checkAdminCsrf, async function(req, res, next) {
     }
   })
   .catch((reason) => {
+    console.error(reason);
     sendUnsuccess();
   });
 

@@ -5,11 +5,17 @@
     <link rel="stylesheet" href="/css/front.css{{ fileVersion }}">
     <link rel="stylesheet" href="/css/mini.css{{ fileVersion }}">
   </head>
-  <body class="lang-{{ currentLang.code_name }}">
+  <body class="mini-layout lang-{{ currentLang.code_name }}">
     <script>{{{ bodyViewClassSetter }}}</script>
     <div class="page">
       <div class="page__content">
         {{> logic}}
+        
+        <div class="proposal-to-change-language-block proposal-to-change-language-block_independent">
+          {{> proposal_to_change_language}}
+        </div>
+        <!-- /.proposal-to-change-language-block -->
+
         {{{body}}}
       </div>
       <!-- /.page__content -->

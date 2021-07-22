@@ -6,7 +6,7 @@ const multilingualDefault = require('../../../libs/multilingual-default');
 
 var router = express.Router();
 
-router.get('/pages/add', checkAdminCsrf, async function(req, res, next) {
+router.get('/admin/pages/add', checkAdminCsrf, async function(req, res, next) {
   const newProjectId = (await db.query('INSERT INTO pages (title, text, excerpt) VALUES ($<multilingualDefault>, $<multilingualDefault>, $<multilingualDefault>) RETURNING id', {
     multilingualDefault: multilingualDefault
   }))[0].id;

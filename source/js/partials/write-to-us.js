@@ -1,6 +1,7 @@
 const { initRequestForm, clearFormData, hideProcessFromForm } = require("./form");
 const { lookAtMeAnimation } = require("./look-at-me");
 const { showPopUp, addCallbackToHideOfPopUp } = require("./pop-up");
+const { sendToMetrics } = require("./send-to-metrics");
 
 const forms = document.getElementsByClassName('js-write-to-us-form');
 
@@ -12,6 +13,7 @@ for (let i = 0; i < forms.length; i++) {
       setTimeout(() => {
         clearFormData(form);
       }, 500);
+      sendToMetrics('write_to_us_sent');
     } else {
       hideProcessFromForm(form);
       lookAtMeAnimation(form);

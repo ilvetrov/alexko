@@ -6,7 +6,7 @@ const redirectTo = require('../../../libs/redirect-to');
 
 var router = express.Router();
 
-router.get('/letters/:id/toggle-mark', checkAdminCsrf, async function(req, res, next) {
+router.get('/admin/letters/:id/toggle-mark', checkAdminCsrf, async function(req, res, next) {
   const id = Number(req.params.id);
   if (!id) return redirectTo(res, '/admin/letters/' + id);
   

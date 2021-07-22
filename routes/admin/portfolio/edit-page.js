@@ -9,12 +9,19 @@ const redirectTo = require('../../../libs/redirect-to');
 const { PortfolioProject } = require('../../../models/portfolio');
 const getImgSrc = require('../../../libs/get-img-src');
 const isDevelopment = require('../../../libs/is-development');
+const redirectFromNonLang = require('../../../libs/redirect-from-non-lang');
+const { setLangForRouter } = require('../../../libs/set-lang-for-router');
+const defaultResLocals = require('../../../libs/default-res-locals');
 
 var router = express.Router();
 
-router.get('/portfolio/edit/:id', function(req, res, next) {
+router.get(`/admin/portfolio/edit/:id`, (req, res) => redirectFromNonLang(req, res, `/admin/portfolio/edit/${req.params.id}`));
+
+router.get('/:lang/admin/portfolio/edit/:id', function(req, res, next) {
   const id = Number(req.params.id);
-  if (!id) return redirectTo(res, '/admin/portfolio');
+  if (!id) return redirectTo(res, `/${req.params.lang}/admin/portfolio`);
+
+  if (!setLangForRouter(req, res, next, `/admin/portfolio/edit/${req.params.id}`)) return;
 
   db.oneOrNone('SELECT * FROM portfolio WHERE id=$(id)', {
     id: id
@@ -133,6 +140,8 @@ router.get('/portfolio/edit/:id', function(req, res, next) {
   
       const draft = Number(project.status !== 'published');
   
+      defaultResLocals(req, res);
+
       if (!res.locals.frontVariables.dictionary) res.locals.frontVariables.dictionary = {};
       res.locals.frontVariables.dictionary.other_languages = lang('other_languages');
 

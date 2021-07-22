@@ -1,21 +1,29 @@
 var express = require('express');
 const { admin } = require('../../libs/auth');
 const auth = require('../../libs/auth');
+const defaultResLocals = require('../../libs/default-res-locals');
+const redirectFromNonLang = require('../../libs/redirect-from-non-lang');
 const redirectTo = require('../../libs/redirect-to');
+const { setLangForRouter } = require('../../libs/set-lang-for-router');
 const checkAdminCsrf = require('../../middlewares/check-admin-csrf');
 var router = express.Router();
 
-router.get('/admin-login-page', function(req, res, next) {
+router.get('/admin-login-page', (req, res) => redirectFromNonLang(req, res, `/admin-login-page`));
+
+router.get('/:lang/admin-login-page', function(req, res, next) {
+  if (!setLangForRouter(req, res, next, `/:lang/admin-login-page`)) return;
+
   auth.admin.getLoggedUser(req)
   .then(() => {
-    redirectTo(res, req.query.to, '/admin');
+    redirectTo(res, req.query.to, `${req.params.lang}/admin`);
   })
   .catch(() => {
     if (req.cookies && req.cookies.ahsh) {
       admin.removeSessionCookie(res);
     }
+    defaultResLocals(req, res);
     res.renderMin('pages/admin-login', {
-      title: 'Войти в Админ-панель',
+      title: res.locals.lang('admin_panel'),
       layout: 'layouts/mini'
     });
   });

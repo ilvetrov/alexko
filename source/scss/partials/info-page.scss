@@ -3,7 +3,8 @@
   margin-right: auto;
   
   &__content {
-    max-width: 38rem;
+    width: 38rem;
+    max-width: 100%;
   }
   &__header {
     display: flex;

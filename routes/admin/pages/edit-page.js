@@ -8,10 +8,17 @@ const redirectTo = require('../../../libs/redirect-to');
 const isDevelopment = require('../../../libs/is-development');
 const { Page } = require('../../../models/page');
 const { promisify } = require('util');
+const redirectFromNonLang = require('../../../libs/redirect-from-non-lang');
+const { setLangForRouter } = require('../../../libs/set-lang-for-router');
+const defaultResLocals = require('../../../libs/default-res-locals');
 
 var router = express.Router();
 
-router.get('/pages/edit/:id', function(req, res, next) {
+router.get(`/admin/pages/edit/:id`, (req, res) => redirectFromNonLang(req, res, `/admin/pages/edit/${req.params.id}`));
+
+router.get('/:lang/admin/pages/edit/:id', function(req, res, next) {
+  if (!setLangForRouter(req, res, next, `/admin/pages/edit/${req.params.id}`)) return;
+
   const id = Number(req.params.id);
   if (!id) return redirectTo(res, '/admin/pages');
 
@@ -50,6 +57,8 @@ router.get('/pages/edit/:id', function(req, res, next) {
       gearSvg,
     ]) => {
       const draft = Number(page.status !== 'published');
+
+      defaultResLocals(req, res);
 
       res.locals.frontVariables.pageId = page.id;
       

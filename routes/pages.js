@@ -4,10 +4,17 @@ const db = require('../db');
 const { Page } = require('../models/page');
 const { getUserLanguage } = require('../libs/user-language');
 const isDevelopment = require('../libs/is-development');
+const redirectFromNonLang = require('../libs/redirect-from-non-lang');
+const { setLangForRouter } = require('../libs/set-lang-for-router');
+const defaultResLocals = require('../libs/default-res-locals');
 
 var router = express.Router();
 
-router.get('/:slug', function(req, res, next) {
+router.get(`/:slug`, (req, res) => redirectFromNonLang(req, res, `/${req.params.slug}`));
+
+router.get('/:lang/:slug', function(req, res, next) {
+  if (!setLangForRouter(req, res, next, `/${req.params.slug}`)) return;
+
   const slug = req.params.slug;
   if (!slug) return next(createError(404));
 
@@ -20,6 +27,7 @@ router.get('/:slug', function(req, res, next) {
 
     const page = new Page(pageFromDb, getUserLanguage(req).code_name);
 
+    defaultResLocals(req, res);
     res.renderMin('pages/info', {
       title: page.title + ' – AlexKo',
       page: page

@@ -6,12 +6,12 @@
           <div class="container-size">
             <div class="home-page__header">
               <div class="portfolio-header">
-                <a href="/{{{project.type_plural_raw_name}}}" class="subtitle portfolio-header__subtitle">
+                <a href="{{linkPrefix}}/{{{project.type_plural_raw_name}}}" class="subtitle portfolio-header__subtitle">
                   {{ project.type_plural_name }}
                   <span class="accent-slash">/</span>
                 </a>
                 <!-- /.subtitle -->
-                <a href="/portfolio/{{ project.slug }}" class="page-title page-title_free-transform page-title_mini page-title_link portfolio-header__title portfolio-header__title_mini">
+                <a href="{{linkPrefix}}/portfolio/{{ project.slug }}" class="page-title page-title_free-transform page-title_mini page-title_link portfolio-header__title portfolio-header__title_mini">
                   {{ project.title }}
                 </a>
                 <!-- /.page-title -->
@@ -28,7 +28,7 @@
           {{> portfolio_home_gallery}}
           <div class="container-size">
             <div class="container-center">
-              <a href="/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
+              <a href="{{linkPrefix}}/portfolio/{{ project.slug }}" class="accent-button accent-button_big">
                 <span class="accent-button__text">{{ ../lang 'view_in_portfolio' }}</span>
               </a>
               <!-- /.accent-button -->
@@ -48,7 +48,7 @@
           <div class="portfolio-navigation__content">
             {{#if thereAreLastProjects}}
               <div class="portfolio-navigation__link">
-                <a href="/{{{iif onlyOneType currentOneRawType 'portfolio' }}}/page/{{ lastOffset }}" class="accent-button accent-button_secondary">
+                <a href="{{linkPrefix}}/{{{iif onlyOneType currentOneRawType 'portfolio' }}}/page/{{ lastOffset }}" class="accent-button accent-button_secondary">
                   <span class="accent-button__text">{{ lang 'show_last' }}</span>
                 </a>
                 <!-- /.accent-button -->
@@ -59,7 +59,7 @@
             {{/if}}
             {{#if thereAreMoreProjects}}
               <div class="portfolio-navigation__link">
-                <a href="/{{{iif onlyOneType currentOneRawType 'portfolio' }}}/page/{{ nextOffset }}" class="accent-button accent-button_secondary">
+                <a href="{{linkPrefix}}/{{{iif onlyOneType currentOneRawType 'portfolio' }}}/page/{{ nextOffset }}" class="accent-button accent-button_secondary">
                   <span class="accent-button__text">{{ lang 'show_next' }}</span>
                 </a>
                 <!-- /.accent-button -->

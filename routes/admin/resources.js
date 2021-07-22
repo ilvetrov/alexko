@@ -5,7 +5,7 @@ const { glob } = require('glob');
 
 var router = express.Router();
 
-router.get('/resources/*', async function(req, res, next) {
+router.get('/admin/resources/*', async function(req, res, next) {
   const fileRelativePath = req.params[0];
   if (glob.sync(getRoot() + `/inner-resources/${fileRelativePath}`).length > 0) {
     res.sendFile(`inner-resources/${fileRelativePath}`, {

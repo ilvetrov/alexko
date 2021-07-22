@@ -4,7 +4,9 @@
   "code_name": "en",
   "aliases": [],
   "dictionary" : {
+    "site_name": "AlexKo",
     "company_name": "AlexKo, ltd",
+    "region_name": "en_US",
     "site": "Site",
     "sites": "Sites",
     "app": "App",
@@ -138,6 +140,7 @@
     ],
     "close": "Close",
     "project_type": "Project type",
+    "change_to_lang": "Change to English",
 
     "advantages": [
       {
@@ -171,7 +174,7 @@
       },
       {
         "title": [
-          "We explain"
+          "We explain everything"
         ],
         "subtitle": [
           "How we work, admin panel, etc."

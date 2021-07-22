@@ -7,7 +7,7 @@ const getImgSrc = require('../../../libs/get-img-src');
 
 var router = express.Router();
 
-router.get('/portfolio/image-preview/*', async function(req, res, next) {
+router.get('/admin/portfolio/image-preview/*', async function(req, res, next) {
   const imageName = req.params[0];
   const isDraft = await detectImgIsDraft(imageName);
   const path = getImgSrc(imageName, isDraft);

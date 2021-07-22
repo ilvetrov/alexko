@@ -21,6 +21,12 @@
     user-select: none;
     transition: color .2s;
 
+    &[href] {
+      text-decoration: none;
+      outline: none !important;
+      color: inherit;
+    }
+
     &.active {
       color: $accent-color;
     }

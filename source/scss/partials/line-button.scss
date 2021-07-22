@@ -1,0 +1,39 @@
+.line-button {
+  font-size: .88rem;
+  line-height: 1.17;
+  color: rgba(0, 0, 0, 0.7);
+  transition: color .2s;
+  border: none;
+  background: none;
+  padding: 0;
+  
+  &:hover, &:focus {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  &_accent {
+    color: $accent-color;
+    font-weight: 700;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: calc(-8px + .63rem);
+      left: .63rem;
+      right: .63rem;
+      height: 2px;
+      background-color: $accent-color;
+      transform: translateY(0);
+      transition: transform .2s;
+    }
+    
+    &:hover, &:focus {
+      color: darken($color: $accent-color, $amount: 10);
+
+      &::after {
+        transform: translateY(50%);
+      }
+    }
+  }
+}

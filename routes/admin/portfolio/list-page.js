@@ -3,10 +3,17 @@ const express = require('express');
 const db = require('../../../db');
 const { PortfolioProject } = require('../../../models/portfolio');
 const { getUserLanguage, langConstructor } = require('../../../libs/user-language');
+const redirectFromNonLang = require('../../../libs/redirect-from-non-lang');
+const { setLangForRouter } = require('../../../libs/set-lang-for-router');
+const defaultResLocals = require('../../../libs/default-res-locals');
 
 var router = express.Router();
 
-router.get('/portfolio', async function(req, res, next) {
+router.get(`/admin/portfolio`, (req, res) => redirectFromNonLang(req, res, `/admin/portfolio`));
+
+router.get('/:lang/admin/portfolio', async function(req, res, next) {
+  if (!setLangForRouter(req, res, next, `/admin/portfolio`)) return;
+
   const status = req.query.status;
   const currentAdmin = res.locals.admin;
   const query = `
@@ -31,6 +38,7 @@ router.get('/portfolio', async function(req, res, next) {
     const projects = projectsFromDB.map(projectFromDB => new PortfolioProject(projectFromDB, getUserLanguage(req).code_name));
     const lang = langConstructor(req);
 
+    defaultResLocals(req, res);
     if (projects.length > 0) {
       res.renderMin('admin/portfolio/list', {
         title: lang('portfolio') + ' – ' + lang('admin_panel'),
