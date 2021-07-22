@@ -72,7 +72,9 @@ class PortfolioProject {
     this.demo_url_is_external = !!projectFromDB.demo_url?.match(/^http/);
     this.slug = projectFromDB.slug;
     this.imagesView = projectFromDB.images_view || (this.type_id === 1 ? 'horizontal' : 'vertical');
-    this.mainImage = this.intro_images[this.imagesView === 'horizontal' ? 'desktop' : 'mobile'][this.imagesView === 'horizontal' ? 1 : 3];
+    if (this.intro_images && this.intro_images[this.imagesView === 'horizontal' ? 'desktop' : 'mobile']) {
+      this.mainImage = this.intro_images[this.imagesView === 'horizontal' ? 'desktop' : 'mobile'][this.imagesView === 'horizontal' ? 1 : 3];
+    }
     if (projectFromDB.type_name) {
       this.type_name = lang(projectFromDB.type_name);
     }
