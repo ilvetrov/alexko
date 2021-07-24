@@ -45,7 +45,7 @@
           {{#each projects as |project|}}
             <tr class="table__row">
               <td class="table__cell table__cell_accent {{iif project.title '' 'table__cell_inactive'}}">
-                <a href="{{linkPrefix}}/admin/portfolio/edit/{{ project.id }}" class="table__link">
+                <a href="{{../linkPrefix}}/admin/portfolio/edit/{{ project.id }}" class="table__link">
                   {{#if project.title}}
                     {{ project.title }}
                   {{else}}
