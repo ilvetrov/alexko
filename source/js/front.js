@@ -22,6 +22,7 @@ require('./partials/pop-up');
 require('./partials/action-cloud');
 require('./partials/mobile-observer');
 require('./partials/image-expansion-shadow');
+require('./partials/cookie-consent');
 
 if (checkPage('home')) {
   require('./partials/animations/subtitle-links');
