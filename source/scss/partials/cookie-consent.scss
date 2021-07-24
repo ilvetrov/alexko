@@ -72,3 +72,45 @@
     transform: translateX(.5rem) translateY(.2rem);
   }
 }
+
+@media (max-width: 480px) {
+  .cookie-consent {
+    &__background {
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .cookie-consent {
+    &__wrap {
+      padding-bottom: 2.25rem;
+    }
+    &__background {
+      top: -1.5rem;
+      border-radius: 0;
+      box-shadow: 0px -12px 64px rgba(0, 0, 0, 0.07);
+    }
+    &__button {
+      margin-right: 1.06rem;
+    }
+  }
+  .cookie-consent-wrap {
+    &__consent {
+      width: 100%;
+      right: auto;
+    }
+  }
+}
+
+@media (max-width: 428px) {
+  .cookie-consent {
+    &__wrap {
+      padding-bottom: 2.25rem;
+    }
+    &__background {
+      top: -1.5rem;
+      border-radius: 0;
+    }
+  }
+}

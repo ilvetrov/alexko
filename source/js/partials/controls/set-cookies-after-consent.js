@@ -3,7 +3,7 @@ const { addCallbackToHideOfActionCloud, addCallbackToActionOfActionCloud } = req
 const cookies = require("../cookies");
 
 addCallbackToHideOfActionCloud('cookie-consent', function(actionCloud, closeButton) {
-  const isAgree = closeButton.hasAttribute('data-action-cloud-make-action');
+  const isAgree = closeButton && closeButton.hasAttribute('data-action-cloud-make-action');
   cookies.set(cookiesNames.cookiesConsentPopUpWasShown, true, isAgree ? 8760 : 24);
 });
 

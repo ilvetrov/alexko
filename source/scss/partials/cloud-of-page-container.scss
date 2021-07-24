@@ -8,3 +8,11 @@
     position: relative;
   }
 }
+
+@media (max-width: 450px) {
+  .cloud-of-page-container {
+    &__content {
+      width: 100%;
+    }
+  }
+}

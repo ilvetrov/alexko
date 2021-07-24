@@ -34,7 +34,22 @@ for (let i = 0; i < actionClouds.length; i++) {
   }
 }
 
-function closeActionCloud(actionCloud, closeButton) {
+function showActionCloud(actionCloud) {
+  actionCloud = detectActionCloudInVariable(actionCloud);
+  if (!actionCloud) return false;
+
+  requestAnimationFrame(function() {
+    actionCloud.classList.remove('disabled');
+    
+    setTimeout(() => {
+      requestAnimationFrame(function() {
+        actionCloud.classList.remove('hidden');
+      });
+    }, 20);
+  });
+}
+
+function closeActionCloud(actionCloud, closeButton = undefined) {
   actionCloud = detectActionCloudInVariable(actionCloud);
   if (!actionCloud) return false;
 
@@ -86,6 +101,7 @@ function addCallbackToActionOfActionCloud(actionCloud, callback) {
 }
 
 module.exports = {
+  showActionCloud,
   addCallbackToHideOfActionCloud,
   addCallbackToActionOfActionCloud
 }
