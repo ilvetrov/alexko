@@ -1,3 +1,5 @@
+require('./partials/clear-cookies');
+
 function checkTimeSync(action, amount = 1) {
   const startTime = Date.now();
   for (let i = 0; i < amount; i++) {
