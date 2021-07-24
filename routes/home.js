@@ -50,10 +50,10 @@ function processHomePage(req, res, next) {
     res.renderMin('pages/index', {
       title: 'AlexKo – ' + lang('site_focus'),
       description: lang('advantages').map(advantage => advantage.title.join(' ')).join(' • '),
-      mainImage: `${currentDomain}/img/alexko-square.jpg`,
+      mainImage: `${currentDomain}/img/alexko-social.jpg`,
       mainImageSize: {
-        width: 1024,
-        height: 1024
+        width: 1200,
+        height: 630
       },
       siteFocus: lang('site_focus_complex'),
       helloTitle: {

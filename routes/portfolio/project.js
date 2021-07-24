@@ -35,6 +35,10 @@ router.get('/:lang/portfolio/:slug', function(req, res, next) {
       title: project.title + ' – AlexKo',
       description: project.descr,
       mainImage: `${currentDomain}/content/${project.mainImage}`,
+      mainImageSize: project.imagesView === 'vertical' ? {
+        width: 968,
+        height: 504
+      } : undefined,
       project: project,
       pageType: 'article',
       demoPopUp: project.demo_url && {
