@@ -44,10 +44,10 @@ for (let i = 0; i < imageExpansionShadowBlocks.length; i++) {
     }
     content.addEventListener('touchmove', desktopImageGuideCompletedCookieHandler);
     
-    if (i === 0 && !desktopImageGuideCompletedCookieExists) {
+    if (i < 2 && !desktopImageGuideCompletedCookieExists) {
       function firstGuideHandler() {
-        if (checkThatElementIsNear(content, -100)) {
-          window.removeEventListener('scroll', firstGuideHandler);
+        if (checkThatElementIsNear(content, -(content.clientHeight))) {
+          window.removeEventListener('scroll-optimized', firstGuideHandler);
           content.style.scrollBehavior = 'smooth';
           const guideScroll = difference / 2 >= 50 ? difference / 2 : difference;
           content.scrollLeft = guideScroll;
@@ -75,7 +75,7 @@ for (let i = 0; i < imageExpansionShadowBlocks.length; i++) {
           }, 700);
         }
       }
-      window.addEventListener('scroll', firstGuideHandler);
+      window.addEventListener('scroll-optimized', firstGuideHandler);
     }
   }
 

@@ -74,31 +74,13 @@ function setSrcForImg(images, isScroll = true, imageElement) {
     if (checkThatElementIsNear(imageElement, 800)) {
       setAfterLoad();
     } else {
-      let didScroll = false;
-      const scrollHandler = function() {
-        didScroll = true;
-      };
-      window.addEventListener('scroll', scrollHandler, {
-        passive: true
-      });
-
       let finished = false;
-      const interval = setInterval(() => {
-        if (didScroll && !finished) {
-          didScroll = false;
-          if (checkThatElementIsNear(imageElement, 800)) {
-            finished = true;
-            setAfterLoad();
-
-            setTimeout(() => {
-              window.removeEventListener('scroll', scrollHandler, {
-                passive: true
-              });
-              clearInterval(interval);
-            }, 200);
-          }
+      window.addEventListener('scroll-optimized', function() {
+        if (!finished && checkThatElementIsNear(imageElement, 800)) {
+          finished = true;
+          setAfterLoad();
         }
-      }, 300);
+      });
     }
   }
   

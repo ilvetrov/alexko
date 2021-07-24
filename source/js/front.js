@@ -3,6 +3,7 @@
 require('./partials/width-resize-event');
 require('./partials/dynamic-styles');
 require('./partials/true-vh');
+require('./partials/optimized-scroll-event');
 require('./partials/controls/change-language');
 const { gsap } = require('gsap/dist/gsap');
 const { ScrollTrigger } = require('gsap/dist/ScrollTrigger');
