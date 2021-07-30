@@ -141,6 +141,11 @@
     "close": "Закрыть",
     "project_type": "Тип проекта",
     "change_to_lang": "Сменить на русский",
+    "do_you_agree": "Разрешаете",
+    "cookies_descr": "Нужно, чтобы делать сайт удобнее",
+    "read_more": "Подробнее",
+    "i_agree_to_cookie": "Я согласен на Cookie",
+    "i_disagree_to_cookie": "Нет, я не согласен",
 
     "advantages": [
       {

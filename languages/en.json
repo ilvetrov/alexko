@@ -141,6 +141,11 @@
     "close": "Close",
     "project_type": "Project type",
     "change_to_lang": "Change to English",
+    "do_you_agree": "Do you agree",
+    "cookies_descr": "To make the site more convenient",
+    "read_more": "Read more",
+    "i_agree_to_cookie": "I agree to Cookie",
+    "i_disagree_to_cookie": "I disagree",
 
     "advantages": [
       {

@@ -9,21 +9,21 @@
               <div class="cookie-consent__background"></div>
               <div class="cookie-consent__content">
                 <div class="cookie-consent__title">
-                  <span class="cookie-consent__accent">Cookie.</span> Разрешаете?
+                  <span class="cookie-consent__accent">Cookie.</span> {{ lang 'do_you_agree' }}?
                 </div>
                 <!-- /.cookie-consent__title -->
                 <div class="cookie-consent__text">
-                  Нужно, чтобы делать сайт удобнее. <a href="{{linkPrefix}}/cookie-policy" class="cookie-consent__link" target="_blank">Подробнее.</a>
+                  {{ lang 'cookies_descr' }}. <a href="{{linkPrefix}}/cookie-policy" class="cookie-consent__link" target="_blank">{{ lang 'read_more' }}.</a>
                 </div>
                 <!-- /.cookie-consent__text -->
                 <div class="cookie-consent__buttons">
                   <div class="cookie-consent__button">
-                    <button class="line-button line-button_accent click-extender" data-action-cloud-make-action="cookie-consent" data-action-cloud-close-button="cookie-consent">Я согласен на Cookie</button>
+                    <button class="line-button line-button_accent click-extender" data-action-cloud-make-action="cookie-consent" data-action-cloud-close-button="cookie-consent">{{ lang 'i_agree_to_cookie' }}</button>
                     <!-- /.line-button -->
                   </div>
                   <!-- /.cookie-consent__button -->
                   <div class="cookie-consent__button">
-                    <button class="line-button click-extender" data-action-cloud-close-button="cookie-consent">Нет, не согласен</button>
+                    <button class="line-button click-extender" data-action-cloud-close-button="cookie-consent">{{ lang 'i_disagree_to_cookie' }}</button>
                     <!-- /.line-button -->
                   </div>
                   <!-- /.cookie-consent__button -->
