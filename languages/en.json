@@ -118,6 +118,18 @@
         "link": "the link"
       }
     ],
+    "demo_text_of_deleted": [
+      {
+        "text": "The site has stopped working."
+      },
+      {
+        "text": "But here you can look at its working version."
+      },
+      {
+        "text": "Previously, the site was under ",
+        "link": "the link"
+      }
+    ],
     "demo_error_text": [
       {
         "text": "You cannot submit a form here. This is a demo site."

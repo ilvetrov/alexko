@@ -29,7 +29,11 @@ module.exports = function(req, res) {
       test: true
     }));
   }
-  const demoText = lang('demo_text');
+  const demoText = (function() {
+    if (!!req.data.site_deleted) return lang('demo_text_of_deleted');
+
+    return lang('demo_text');
+  }());
   const demoErrorText = lang('demo_error_text');
 	res.write(!isDevelopment ? popUpStyles : insertPopUpStyle());
 	res.write(getView('demo-pop-up', {
