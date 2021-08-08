@@ -57,7 +57,7 @@ module.exports = function(req, res) {
     lang: lang,
     langName: langName,
     hidden: true,
-    dataPopUpDoNotShowScrollBarOnHide: true
+    dataPopUpDoNotShowScrollBarOnHide: !!(req.data.dataPopUpDoNotShowScrollBarOnHideForError !== '0' ?? true)
   }));
 	res.write(!isDevelopment ? popUpScripts : insertPopUpScript());
 }
