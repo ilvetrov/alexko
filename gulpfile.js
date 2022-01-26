@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const log = require('gulplog');
 const browserify = require('browserify');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const cleanCSS = require('gulp-clean-css');
 const uglify = require('gulp-uglify-es').default;
 const autoprefixer = require('gulp-autoprefixer');
@@ -19,8 +19,6 @@ const watchify = require('watchify');
 const color = require('./libs/terminal-color');
 const { getFileName } = require('./libs/get-file-name');
 const babelify = require('babelify');
-
-sass.compiler = require('node-sass');
 
 //Tasks
 

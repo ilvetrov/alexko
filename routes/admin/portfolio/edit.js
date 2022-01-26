@@ -68,12 +68,14 @@ router.post('/admin/portfolio/edit', checkAdminCsrf, async function(req, res, ne
       moveDirectoryIfExists(`${getRoot()}/inner-resources/drafts/${newData.id}`, `${getRoot()}/public/content/${newData.id}`)
       .then(function() {
         sendSuccess();
-      });
+      })
+      .catch(console.error);
     } else if (newData.status !== 'published' && oldData.status === 'published') {
       moveDirectoryIfExists(`${getRoot()}/public/content/${newData.id}`, `${getRoot()}/inner-resources/drafts/${newData.id}`)
       .then(function() {
         sendSuccess();
-      });
+      })
+      .catch(console.error);
     } else {
       sendSuccess();
     }

@@ -65,7 +65,7 @@ function defaultResLocals(req, res) {
               if (langExistsInLink) return req.path.replace(regExp, `/${language.code_name}/`)
               return (function() {
                 if (language.code_name === defaultLang) return '/';
-                return `/${language.code_name}`;
+                return `/${language.code_name}/`;
               }());
             }())
           });

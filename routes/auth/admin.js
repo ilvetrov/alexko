@@ -6,11 +6,12 @@ const redirectFromNonLang = require('../../libs/redirect-from-non-lang');
 const redirectTo = require('../../libs/redirect-to');
 const { setLangForRouter } = require('../../libs/set-lang-for-router');
 const checkAdminCsrf = require('../../middlewares/check-admin-csrf');
+const addTrailingSlash = require('../../middlewares/trailing-slash.js');
 var router = express.Router();
 
 router.get('/admin-login-page', (req, res) => redirectFromNonLang(req, res, `/admin-login-page`));
 
-router.get('/:lang/admin-login-page', function(req, res, next) {
+router.get('/:lang/admin-login-page/', addTrailingSlash, function(req, res, next) {
   if (!setLangForRouter(req, res, next, `/:lang/admin-login-page`)) return;
 
   auth.admin.getLoggedUser(req)

@@ -8,12 +8,13 @@ const redirectFromNonLang = require('../../libs/redirect-from-non-lang');
 const { setLangForRouter } = require('../../libs/set-lang-for-router');
 const defaultResLocals = require('../../libs/default-res-locals');
 const { currentDomain } = require('../../libs/current-domain');
+const addTrailingSlash = require('../../middlewares/trailing-slash.js');
 
 var router = express.Router();
 
 router.get('/portfolio/:slug', (req, res) => redirectFromNonLang(req, res, `/portfolio/${req.params.slug}`));
 
-router.get('/:lang/portfolio/:slug', function(req, res, next) {
+router.get('/:lang/portfolio/:slug/', addTrailingSlash, function(req, res, next) {
   const slug = req.params.slug;
   if (!slug) return next(createError(404));
 

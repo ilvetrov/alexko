@@ -7,12 +7,13 @@ const isDevelopment = require('../libs/is-development');
 const redirectFromNonLang = require('../libs/redirect-from-non-lang');
 const { setLangForRouter } = require('../libs/set-lang-for-router');
 const defaultResLocals = require('../libs/default-res-locals');
+const addTrailingSlash = require('../middlewares/trailing-slash.js');
 
 var router = express.Router();
 
 router.get(`/:slug`, (req, res) => redirectFromNonLang(req, res, `/${req.params.slug}`));
 
-router.get('/:lang/:slug', function(req, res, next) {
+router.get('/:lang/:slug/', addTrailingSlash, function(req, res, next) {
   if (!setLangForRouter(req, res, next, `/${req.params.slug}`)) return;
 
   const slug = req.params.slug;

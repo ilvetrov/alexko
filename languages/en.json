@@ -19,22 +19,14 @@
         "text": "We create "
       },
       {
-        "text": "apps",
-        "link": "/apps"
-      },
-      {
-        "text": ", "
-      },
-      {
-        "text": "sites",
-        "link": "/sites"
+        "text": "apps"
       },
       {
         "text": ", "
       },
       {
         "text": "games",
-        "link": "/games"
+        "link": "/games/"
       }
     ],
     "site_tagline_first_line": "Idea from you",
@@ -194,7 +186,7 @@
           "We explain everything"
         ],
         "subtitle": [
-          "How we work, admin panel, etc."
+          "How we work, etc."
         ]
       }
     ],
@@ -205,18 +197,18 @@
       },
       {
         "text": "Portfolio",
-        "url": "/portfolio"
+        "url": "/portfolio/"
       }
     ],
 
     "form_text": [
       {
-        "title": "Site, app or game?",
-        "field_example": "Game, online store, app, landing, something special..."
+        "title": "App or game?",
+        "field_example": "Game, roguelike, app, shooter, something special..."
       },
       {
-        "title": "App, site or game?",
-        "field_example": "Game, online store, app, landing, something special..."
+        "title": "App or game?",
+        "field_example": "Game, roguelike, app, shooter, something special..."
       }
     ]
   }

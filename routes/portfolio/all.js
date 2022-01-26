@@ -8,13 +8,14 @@ const isDevelopment = require('../../libs/is-development');
 const redirectFromNonLang = require('../../libs/redirect-from-non-lang');
 const { setLangForRouter } = require('../../libs/set-lang-for-router');
 const defaultResLocals = require('../../libs/default-res-locals');
+const addTrailingSlash = require('../../middlewares/trailing-slash.js');
 const amountOfProjectsOnPage = 7;
 
 var router = express.Router();
 
-router.get(`/portfolio`, (req, res) => redirectFromNonLang(req, res, `/portfolio`));
+router.get(`/portfolio/`, (req, res) => redirectFromNonLang(req, res, `/portfolio`));
 
-router.get('/:lang/portfolio', async function(req, res, next) {
+router.get('/:lang/portfolio/', addTrailingSlash, async function(req, res, next) {
   if (!setLangForRouter(req, res, next, `/portfolio`)) return;
 
   processPortfolioListRoute(req, res, next, 0);
@@ -23,14 +24,14 @@ router.get('/:lang/portfolio', async function(req, res, next) {
 
 router.get('/portfolio/page/1', (req, res) => redirectFromNonLang(req, res, '/portfolio'));
 
-router.get('/:lang/portfolio/page/1', function(req, res, next) {
+router.get('/:lang/portfolio/page/1/', addTrailingSlash, function(req, res, next) {
   return redirectTo(res, `/${req.params.lang}/portfolio`, '/', true);
 });
 
 
 router.get('/portfolio/page/:offset', (req, res) => redirectFromNonLang(req, res, `/portfolio/page/${req.params.offset}`));
 
-router.get('/:lang/portfolio/page/:offset', function(req, res, next) {
+router.get('/:lang/portfolio/page/:offset/', addTrailingSlash, function(req, res, next) {
   const offset = req.params.offset;
   if (!offset) return redirectTo(res, `/${req.params.lang}/portfolio`, '/', true);
 
@@ -39,14 +40,12 @@ router.get('/:lang/portfolio/page/:offset', function(req, res, next) {
   processPortfolioListRoute(req, res, next, Number(offset - 1));
 });
 
-initPortfolioListRoute('sites', 1);
-initPortfolioListRoute('apps', 2);
 initPortfolioListRoute('games', 3);
 
 function initPortfolioListRoute(name, portfolioTypeId) {
   router.get(`/${name}`, (req, res) => redirectFromNonLang(req, res, `/${name}`));
   
-  router.get(`/:lang/${name}`, function(req, res, next) {
+  router.get(`/:lang/${name}/`, addTrailingSlash, function(req, res, next) {
     if (!setLangForRouter(req, res, next, `/${name}`)) return;
     
     processPortfolioListRoute(req, res, next, 0, portfolioTypeId);
@@ -55,14 +54,14 @@ function initPortfolioListRoute(name, portfolioTypeId) {
   
   router.get(`/${name}/page/1`, (req, res) => redirectFromNonLang(req, res, `/${name}`));
   
-  router.get(`/:lang/${name}/page/1`, function(req, res, next) {
+  router.get(`/:lang/${name}/page/1/`, addTrailingSlash, function(req, res, next) {
     return redirectTo(res, `/${req.params.lang}/${name}`);
   });
   
   
   router.get(`/${name}/page/:offset`, (req, res) => redirectFromNonLang(req, res, `/${name}/page/${req.params.offset}`));
   
-  router.get(`/:lang/${name}/page/:offset`, function(req, res, next) {
+  router.get(`/:lang/${name}/page/:offset/`, addTrailingSlash, function(req, res, next) {
     const offset = req.params.offset;
     if (!offset) return redirectTo(res, `/${name}`);
   

@@ -5,7 +5,7 @@ function linkPrefix(req) {
 }
 
 function linkPrefixOfHome(req) {
-  if (getUserLanguage(req).code_name === defaultLang) return '/';
+  if (getUserLanguage(req).code_name === defaultLang) return '';
   return linkPrefix(req);
 }
 

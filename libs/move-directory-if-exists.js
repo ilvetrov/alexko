@@ -7,10 +7,7 @@ function moveDirectoryIfExists(oldPath, newPath) {
       
       fs.move(oldPath, newPath)
       .then(resolve)
-      .catch(function(reason) {
-        console.error(reason);
-        reject();
-      });
+      .catch(reject);
     });
   });
 }

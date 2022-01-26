@@ -1,5 +1,6 @@
 const express = require('express');
 const checkAdmin = require('../middlewares/check-admin');
+const addTrailingSlash = require('../middlewares/trailing-slash.js');
 
 var router = express.Router();
 
