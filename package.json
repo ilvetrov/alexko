@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "log_start": "NODE_ENV=production node ./bin/www",
-    "start": "NODE_ENV=production pm2 start ./bin/www -l logs.txt -i max",
-    "restart": "NODE_ENV=production pm2 reload ./bin/www",
-    "stop": "pm2 stop ./bin/www",
+    "start": "NODE_ENV=production pm2 start ./bin/www -l logs.txt -i 1 --name alexko",
+    "restart": "NODE_ENV=production pm2 reload alexko",
+    "stop": "pm2 stop alexko",
+    "delete": "pm2 delete alexko",
     "dev": "NODE_ENV=development nodemon --trace-warnings ./bin/www 3001",
     "build": "gulp prod"
   },
