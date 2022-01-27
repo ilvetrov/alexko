@@ -3,6 +3,7 @@
   <head>
     {{> head}}
     <link rel="stylesheet" href="/css/front.css{{ fileVersion }}">
+    {{{demoSignHead}}}
   </head>
   <body class="lang-{{ currentLang.code_name }}">
     <script>{{{ bodyViewClassSetter }}}</script>
@@ -10,9 +11,11 @@
       <div class="page__content">
         {{> header}}
         {{> logic}}
+        {{{demoSign}}}
         {{{body}}}
       </div>
       <!-- /.page__content -->
+      {{{demoSignFooter}}}
       {{> footer}}
     </div>
     <!-- /.page -->

@@ -1,5 +1,6 @@
 const cookiesNames = require("./cookies-names");
 const { currentDomain } = require("./current-domain");
+const { getDemoSign, getDemoSignHead, getDemoSignFooter } = require("./demo-sign");
 const { metricsCode } = require("./get-metrics-for-manual-installation");
 const { linkPrefix, linkPrefixOfHome } = require("./link-prefix");
 const { langConstructor, langPropConstructor, getUserLanguage, getLanguagesList, getLanguagesNames, defaultLang, getBrowserLanguage, langConstructorByCodeName } = require("./user-language");
@@ -9,6 +10,10 @@ function defaultResLocals(req, res) {
   res.locals.langProp = langPropConstructor(req);
   res.locals.currentLang = getUserLanguage(req);
   res.locals.langsList = getLanguagesList(req);
+
+  res.locals.demoSign = getDemoSign(req);
+  res.locals.demoSignHead = getDemoSignHead();
+  res.locals.demoSignFooter = getDemoSignFooter();
 
   res.locals.siteName = res.locals.lang('site_name');
 
@@ -32,7 +37,9 @@ function defaultResLocals(req, res) {
   res.locals.linkPrefix = linkPrefix(req);
   res.locals.linkPrefixOfHome = linkPrefixOfHome(req);
 
-  res.locals.requestCookiesConsent = !req.cookies[cookiesNames.cookiesConsentPopUpWasShown];
+  // Why? This is demo mode
+  res.locals.requestCookiesConsent = false;
+  // res.locals.requestCookiesConsent = !req.cookies[cookiesNames.cookiesConsentPopUpWasShown];
   res.locals.consentToTheUseOfCookiesReceived = !!req.cookies[cookiesNames.consentToTheUseOfCookiesReceived];
 
   if (typeof res.locals.frontVariables !== 'object') (res.locals.frontVariables = {});
